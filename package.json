@@ -8,7 +8,7 @@
   },
   "scripts": {
     "render": "node scripts/render.js",
-    "split": "python3 scripts/split-the-views/scripts/split_the_views.py --input output/lx-floor-package.png --outdir output/split --png --expected 3",
+    "split": "python3 scripts/split-the-views/scripts/split_the_views.py --input output/lx-floor-package.png --outdir output/split --png --expected 3 --extract-title-blocks --strip-header-footer --extract-legend --svg --svg-layers --debug-overlays",
     "extract": "npm run render && npm run split",
     "extract:hd": "node scripts/render.js --dpi 300 && npm run split"
   },

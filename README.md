@@ -2,7 +2,7 @@
 
 Production LX floor package for **Tourist @ Mod Club, 26 Jun 2026**.
 
-Master SVG drawing (3 stacked views) + tooling to render it and extract each view as a separate PDF/PNG.
+Master SVG drawing (3 stacked views) + tooling to render it and extract each view as a full artifact set: per-view PDFs/PNGs, drawing fields, title blocks, clean drawings (no header/footer/legend), legend crops, and raster-traced layer-separated SVGs.
 
 ---
 
@@ -18,7 +18,7 @@ backliner-lx/
 │       └── scripts/split_the_views.py
 ├── output/                         ← generated files (gitignored)
 │   ├── lx-floor-package.png        ← rendered master
-│   └── split/                      ← per-view PDFs, PNGs, and ZIP
+│   └── split/                      ← per-view PDFs, PNGs, SVGs, and ZIPs
 ├── package.json
 └── .gitignore
 ```
@@ -79,7 +79,9 @@ Three views stacked vertically with 60 px white separator gaps between them:
 - **Node.js** ≥ 18
 - **Python** 3.8+
 - `npm install` (installs `sharp`)
-- `pip install pillow reportlab numpy pymupdf --break-system-packages`
+- `pip install pillow reportlab numpy pymupdf vtracer --break-system-packages`
+
+`vtracer` is required for `--svg` vectorization. Without it the SVG step is skipped with an install hint; all other outputs are unaffected.
 
 ---
 
@@ -87,11 +89,11 @@ Three views stacked vertically with 60 px white separator gaps between them:
 
 ```bash
 npm install
-pip install pillow reportlab numpy pymupdf --break-system-packages -q
+pip install pillow reportlab numpy pymupdf vtracer --break-system-packages -q
 npm run extract
 ```
 
-Outputs 3 view PDFs + PNGs + a ZIP to `output/split/`.
+Outputs the full artifact set to `output/split/` — see [Output Files](#output-files) below.
 
 ---
 
@@ -100,9 +102,22 @@ Outputs 3 view PDFs + PNGs + a ZIP to `output/split/`.
 | Script | What it does |
 |---|---|
 | `npm run render` | Render SVG → `output/lx-floor-package.png` at 96 DPI |
-| `npm run split` | Split master PNG into 3 per-view PDFs + PNGs → `output/split/` |
+| `npm run split` | Full extraction pass on the master PNG → `output/split/` (see below) |
 | `npm run extract` | Full pipeline: render then split |
 | `npm run extract:hd` | Same pipeline at 300 DPI |
+
+`npm run split` runs the full split-the-views v1.5.1 feature set in one pass:
+
+| Flag | Output produced |
+|---|---|
+| *(base)* | `*-view-0N.pdf/png` — full view crops |
+| `--extract-title-blocks` | `*-view-0N-drawing.pdf/png` + `*-view-0N-title-block.pdf/png` |
+| `--strip-header-footer` | `*-view-0N-clean.pdf/png` — no sheet-title band / view-label band / legend |
+| `--extract-legend` | `*-view-0N-legend.pdf/png` — symbol legend box (views that have one) |
+| `--svg --svg-layers` | `*-view-0N-clean.svg` + layer SVGs (`linework`, `dimensions`, `accents`) |
+| `--debug-overlays` | `*-view-0N-debug.png` — title-block boundary audit image |
+
+> **SVG note:** `--svg` raster-traces the split PNGs into resolution-independent SVGs grouped by color layer (`layer-linework`, `layer-dimensions`, `layer-accents`). Because the source is already a native SVG, these traced outputs are a secondary format for layer-separated downstream use — they are not a lossless round-trip. For editable geometry, work directly from `src/lx-floor-package.svg`.
 
 ---
 
@@ -124,19 +139,38 @@ DPI guide: `96` → 4800×3760 px (review), `150` → 7500×5875 px (large forma
 
 ## Output Files
 
-After `npm run extract`:
+After `npm run extract` (per-view block repeats for `view-02` and `view-03`):
 
 ```
 output/
-├── lx-floor-package.png               ← master render (4800×3760 px @ 96 dpi)
+├── lx-floor-package.png                             ← master render (4800×3760 px @ 96 dpi)
 └── split/
-    ├── lx-floor-package-view-01.pdf   ← Floor Plan
+    ├── lx-floor-package-view-01.pdf                 ← Floor Plan (full view)
     ├── lx-floor-package-view-01.png
-    ├── lx-floor-package-view-02.pdf   ← Front Elevation
-    ├── lx-floor-package-view-02.png
-    ├── lx-floor-package-view-03.pdf   ← Equipment Schedule
-    ├── lx-floor-package-view-03.png
-    └── lx-floor-package-views.zip     ← all 6 files bundled
+    ├── lx-floor-package-view-01-drawing.pdf         ← drawing field (title block removed)
+    ├── lx-floor-package-view-01-drawing.png
+    ├── lx-floor-package-view-01-title-block.pdf     ← right-side title block column only
+    ├── lx-floor-package-view-01-title-block.png
+    ├── lx-floor-package-view-01-clean.pdf           ← no header / footer / legend
+    ├── lx-floor-package-view-01-clean.png
+    ├── lx-floor-package-view-01-clean.svg           ← raster-traced scalable SVG (master)
+    ├── lx-floor-package-view-01-linework.svg        ← black geometry layer
+    ├── lx-floor-package-view-01-dimensions.svg      ← blue annotation layer
+    ├── lx-floor-package-view-01-accents.svg         ← red marker layer
+    ├── lx-floor-package-view-01-legend.pdf          ← symbol legend box (view 1 only)
+    ├── lx-floor-package-view-01-legend.png
+    ├── lx-floor-package-view-01-debug.png           ← title-block boundary audit
+    ├── lx-floor-package-view-02.pdf                 ← Front Elevation (same structure)
+    ├── …
+    ├── lx-floor-package-view-03.pdf                 ← Equipment Schedule (same structure)
+    ├── …
+    ├── lx-floor-package-views.zip                   ← all full-view PDFs + PNGs
+    ├── lx-floor-package-drawings.zip                ← all drawing-field crops
+    ├── lx-floor-package-title-blocks.zip            ← all title-block crops
+    ├── lx-floor-package-clean-drawings.zip          ← all clean drawings
+    ├── lx-floor-package-legends.zip                 ← detected legend crops
+    ├── lx-floor-package-clean-svg.zip               ← all SVG files
+    └── lx-floor-package-debug-overlays.zip          ← all debug images
 ```
 
 All files under `output/` are gitignored — regenerate with `npm run extract`.
@@ -146,7 +180,7 @@ All files under `output/` are gitignored — regenerate with `npm run extract`.
 ## Editing the Drawing
 
 1. Open `src/lx-floor-package.svg` in Inkscape or any SVG editor.
-2. Fixture symbols are defined in the `<defs>` block at the top: `sym-mh`, `sym-mh-elev`, `sym-strobe`, `sym-strobe-elev`, `sym-par`, `sym-split`.
+2. Fixture geometry is inlined directly at each use site as `<g transform="translate(x,y)">` blocks — search for e.g. `<!-- MH-1` to find a specific fixture.
 3. Each view is in its own `<g>` group: `view-1-floor-plan`, `view-2-elevation`, `view-3-schedule`.
 4. **Do not place any artwork in the white gap zones** (`y = 900–960` and `y = 1860–1920`) — those rows must stay pure white for the split tool's separator detection.
 5. After editing: `npm run extract` to regenerate all view images.
@@ -155,11 +189,11 @@ All files under `output/` are gitignored — regenerate with `npm run extract`.
 
 ## How the Split Works
 
-`scripts/split-the-views/` is the [split-the-views v1.5.1](scripts/split-the-views/SKILL.md) Python plugin. It:
+`scripts/split-the-views/` is the [split-the-views v1.5.1](scripts/split-the-views/SKILL.md) Python plugin. Pipeline stages:
 
-1. Scans the rendered PNG row by row for horizontal bands where all pixels are ≥ 210/255 (white / near-white).
-2. Identifies those bands as separator rows between views.
-3. Crops each view into its own PDF + PNG.
-4. Bundles everything into a ZIP.
-
-The 60 px white gaps in the SVG (`y = 900–960`, `y = 1860–1920`) become the detected separator bands at render time.
+1. **Detect** — scans the rendered PNG row by row for horizontal bands where all pixels are ≥ 210/255 (white / near-white). The 60 px white gaps in the SVG (`y = 900–960`, `y = 1860–1920`) become the detected separator bands at render time.
+2. **Split** — crops each of the 3 views as-is into full-view PDFs + PNGs.
+3. **Extract** — splits each view into a drawing field (left of the vertical title-block divider) and a title-block column (right), stripping full-span edge rule artifacts before trimming.
+4. **Clean** — strips the top sheet-title band and bottom view-label/scale band from each drawing field. The symbol legend box is masked out before stripping (and optionally exported as its own crop).
+5. **Vectorize** — raster-traces each clean drawing into a scalable SVG (`viewBox` + 100% sizing), separating elements into `layer-linework` (black), `layer-dimensions` (blue), and `layer-accents` (red); every contour is an individually addressable `<path id=…>`.
+6. **Output** — emits safe-named PDFs, PNGs, SVGs, and 7 ZIP bundles.
