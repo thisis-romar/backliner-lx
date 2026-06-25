@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+<svg xmlns="http://www.w3.org/2000/svg"
      viewBox="0 0 3600 2820" width="3600" height="2820">
 
 <!-- ============================================================
@@ -22,71 +21,6 @@
   <marker id="arr-up" markerWidth="5" markerHeight="8" refX="2.5" refY="7" orient="auto">
     <path d="M0,7 L5,7 L2.5,0 z" fill="#0055aa"/>
   </marker>
-
-  <!-- ── sym-mh : Moving Head top-down 24×24 ── -->
-  <symbol id="sym-mh" viewBox="0 0 24 24">
-    <rect x="2" y="2" width="20" height="20" rx="1.5"
-          fill="white" stroke="black" stroke-width="1"/>
-    <rect x="7" y="6" width="10" height="10"
-          fill="none" stroke="black" stroke-width="0.75"/>
-    <line x1="12" y1="16" x2="12" y2="22"
-          stroke="black" stroke-width="0.75"/>
-  </symbol>
-
-  <!-- ── sym-mh-elev : Moving Head front elevation 30×30 ── -->
-  <symbol id="sym-mh-elev" viewBox="0 0 30 30">
-    <!-- clamp at top (y=2), yoke arms down to head -->
-    <rect x="11" y="0" width="8" height="4" rx="1"
-          fill="white" stroke="black" stroke-width="0.75"/>
-    <line x1="15" y1="4"  x2="5"  y2="20" stroke="black" stroke-width="1"/>
-    <line x1="15" y1="4"  x2="25" y2="20" stroke="black" stroke-width="1"/>
-    <circle cx="15" cy="24" r="6"
-            fill="white" stroke="black" stroke-width="1"/>
-    <circle cx="15" cy="24" r="2.5"
-            fill="none" stroke="black" stroke-width="0.75"/>
-  </symbol>
-
-  <!-- ── sym-strobe : Strobe top-down 36×18 ── -->
-  <symbol id="sym-strobe" viewBox="0 0 36 18">
-    <rect x="1" y="1" width="34" height="16"
-          fill="white" stroke="black" stroke-width="1"/>
-    <line x1="9.5"  y1="1" x2="9.5"  y2="17" stroke="black" stroke-width="0.5"/>
-    <line x1="18"   y1="1" x2="18"   y2="17" stroke="black" stroke-width="0.5"/>
-    <line x1="26.5" y1="1" x2="26.5" y2="17" stroke="black" stroke-width="0.5"/>
-  </symbol>
-
-  <!-- ── sym-strobe-elev : Strobe front elevation 40×18 ── -->
-  <symbol id="sym-strobe-elev" viewBox="0 0 40 18">
-    <!-- clamp/tab at top -->
-    <rect x="14" y="0" width="12" height="4" rx="1"
-          fill="white" stroke="black" stroke-width="0.75"/>
-    <rect x="2" y="4" width="36" height="12"
-          fill="white" stroke="black" stroke-width="1"/>
-    <line x1="11" y1="4" x2="11" y2="16" stroke="black" stroke-width="0.5"/>
-    <line x1="21" y1="4" x2="21" y2="16" stroke="black" stroke-width="0.5"/>
-    <line x1="29" y1="4" x2="29" y2="16" stroke="black" stroke-width="0.5"/>
-  </symbol>
-
-  <!-- ── sym-par : PAR64 top-down and elevation 18×18 ── -->
-  <symbol id="sym-par" viewBox="0 0 18 18">
-    <circle cx="9" cy="9" r="8"
-            fill="white" stroke="black" stroke-width="1"/>
-    <circle cx="9" cy="9" r="4"
-            fill="none" stroke="black" stroke-width="0.75"/>
-    <circle cx="9" cy="9" r="1.5" fill="black"/>
-  </symbol>
-
-  <!-- ── sym-split : Opto Splitter 24×14 ── -->
-  <symbol id="sym-split" viewBox="0 0 24 14">
-    <rect x="2" y="1" width="20" height="12"
-          fill="white" stroke="black" stroke-width="1"/>
-    <line x1="0"  y1="4"  x2="2"  y2="4"  stroke="black" stroke-width="0.75"/>
-    <line x1="0"  y1="7"  x2="2"  y2="7"  stroke="black" stroke-width="0.75"/>
-    <line x1="0"  y1="10" x2="2"  y2="10" stroke="black" stroke-width="0.75"/>
-    <line x1="22" y1="4"  x2="24" y2="4"  stroke="black" stroke-width="0.75"/>
-    <line x1="22" y1="7"  x2="24" y2="7"  stroke="black" stroke-width="0.75"/>
-    <line x1="22" y1="10" x2="24" y2="10" stroke="black" stroke-width="0.75"/>
-  </symbol>
 
 </defs>
 
@@ -175,66 +109,137 @@
 
   <!-- ── MH fixtures (24×24, center at symbol x+12, y+12) ── -->
   <!-- MH-1 center (792, 162) -->
-  <use href="#sym-mh" xlink:href="#sym-mh" x="780" y="150" width="24" height="24"/>
+  <g transform="translate(780,150)">
+  <rect x="2" y="2" width="20" height="20" rx="1.5" fill="white" stroke="black" stroke-width="1"/>
+  <rect x="7" y="6" width="10" height="10" fill="none" stroke="black" stroke-width="0.75"/>
+  <line x1="12" y1="16" x2="12" y2="22" stroke="black" stroke-width="0.75"/>
+</g>
   <text x="792" y="147"
         font-family="Arial,Helvetica,sans-serif" font-size="7"
         text-anchor="middle" fill="black">MH-1</text>
   <!-- MH-2 center (952, 162) -->
-  <use href="#sym-mh" xlink:href="#sym-mh" x="940" y="150" width="24" height="24"/>
+  <g transform="translate(940,150)">
+  <rect x="2" y="2" width="20" height="20" rx="1.5" fill="white" stroke="black" stroke-width="1"/>
+  <rect x="7" y="6" width="10" height="10" fill="none" stroke="black" stroke-width="0.75"/>
+  <line x1="12" y1="16" x2="12" y2="22" stroke="black" stroke-width="0.75"/>
+</g>
   <text x="952" y="147"
         font-family="Arial,Helvetica,sans-serif" font-size="7"
         text-anchor="middle" fill="black">MH-2</text>
   <!-- MH-3 center (1048, 162) -->
-  <use href="#sym-mh" xlink:href="#sym-mh" x="1036" y="150" width="24" height="24"/>
+  <g transform="translate(1036,150)">
+  <rect x="2" y="2" width="20" height="20" rx="1.5" fill="white" stroke="black" stroke-width="1"/>
+  <rect x="7" y="6" width="10" height="10" fill="none" stroke="black" stroke-width="0.75"/>
+  <line x1="12" y1="16" x2="12" y2="22" stroke="black" stroke-width="0.75"/>
+</g>
   <text x="1048" y="147"
         font-family="Arial,Helvetica,sans-serif" font-size="7"
         text-anchor="middle" fill="black">MH-3</text>
   <!-- MH-4 center (1208, 162) -->
-  <use href="#sym-mh" xlink:href="#sym-mh" x="1196" y="150" width="24" height="24"/>
+  <g transform="translate(1196,150)">
+  <rect x="2" y="2" width="20" height="20" rx="1.5" fill="white" stroke="black" stroke-width="1"/>
+  <rect x="7" y="6" width="10" height="10" fill="none" stroke="black" stroke-width="0.75"/>
+  <line x1="12" y1="16" x2="12" y2="22" stroke="black" stroke-width="0.75"/>
+</g>
   <text x="1208" y="147"
         font-family="Arial,Helvetica,sans-serif" font-size="7"
         text-anchor="middle" fill="black">MH-4</text>
 
   <!-- ── Strobe fixtures (36×18, center at x+18, y+9) ── -->
   <!-- ST-1 center (840, 312) -->
-  <use href="#sym-strobe" xlink:href="#sym-strobe" x="822" y="303" width="36" height="18"/>
+  <g transform="translate(822,303)">
+  <rect x="1" y="1" width="34" height="16" fill="white" stroke="black" stroke-width="1"/>
+  <line x1="9.5" y1="1" x2="9.5" y2="17" stroke="black" stroke-width="0.5"/>
+  <line x1="18" y1="1" x2="18" y2="17" stroke="black" stroke-width="0.5"/>
+  <line x1="26.5" y1="1" x2="26.5" y2="17" stroke="black" stroke-width="0.5"/>
+</g>
   <text x="840" y="299"
         font-family="Arial,Helvetica,sans-serif" font-size="7"
         text-anchor="middle" fill="black">ST-1</text>
   <!-- ST-2 center (1000, 312) -->
-  <use href="#sym-strobe" xlink:href="#sym-strobe" x="982" y="303" width="36" height="18"/>
+  <g transform="translate(982,303)">
+  <rect x="1" y="1" width="34" height="16" fill="white" stroke="black" stroke-width="1"/>
+  <line x1="9.5" y1="1" x2="9.5" y2="17" stroke="black" stroke-width="0.5"/>
+  <line x1="18" y1="1" x2="18" y2="17" stroke="black" stroke-width="0.5"/>
+  <line x1="26.5" y1="1" x2="26.5" y2="17" stroke="black" stroke-width="0.5"/>
+</g>
   <text x="1000" y="299"
         font-family="Arial,Helvetica,sans-serif" font-size="7"
         text-anchor="middle" fill="black">ST-2</text>
   <!-- ST-3 center (1160, 312) -->
-  <use href="#sym-strobe" xlink:href="#sym-strobe" x="1142" y="303" width="36" height="18"/>
+  <g transform="translate(1142,303)">
+  <rect x="1" y="1" width="34" height="16" fill="white" stroke="black" stroke-width="1"/>
+  <line x1="9.5" y1="1" x2="9.5" y2="17" stroke="black" stroke-width="0.5"/>
+  <line x1="18" y1="1" x2="18" y2="17" stroke="black" stroke-width="0.5"/>
+  <line x1="26.5" y1="1" x2="26.5" y2="17" stroke="black" stroke-width="0.5"/>
+</g>
   <text x="1160" y="299"
         font-family="Arial,Helvetica,sans-serif" font-size="7"
         text-anchor="middle" fill="black">ST-3</text>
 
   <!-- ── PAR64 on SR deck (18×18, center at x+9, y+9) ── -->
-  <use href="#sym-par" xlink:href="#sym-par" x="696"  y="446" width="18" height="18"/>
-  <use href="#sym-par" xlink:href="#sym-par" x="728"  y="446" width="18" height="18"/>
+  <g transform="translate(696,446)">
+  <circle cx="9" cy="9" r="8" fill="white" stroke="black" stroke-width="1"/>
+  <circle cx="9" cy="9" r="4" fill="none" stroke="black" stroke-width="0.75"/>
+  <circle cx="9" cy="9" r="1.5" fill="black"/>
+</g>
+  <g transform="translate(728,446)">
+  <circle cx="9" cy="9" r="8" fill="white" stroke="black" stroke-width="1"/>
+  <circle cx="9" cy="9" r="4" fill="none" stroke="black" stroke-width="0.75"/>
+  <circle cx="9" cy="9" r="1.5" fill="black"/>
+</g>
   <!-- PAR64 on SL deck -->
-  <use href="#sym-par" xlink:href="#sym-par" x="1254" y="446" width="18" height="18"/>
-  <use href="#sym-par" xlink:href="#sym-par" x="1286" y="446" width="18" height="18"/>
+  <g transform="translate(1254,446)">
+  <circle cx="9" cy="9" r="8" fill="white" stroke="black" stroke-width="1"/>
+  <circle cx="9" cy="9" r="4" fill="none" stroke="black" stroke-width="0.75"/>
+  <circle cx="9" cy="9" r="1.5" fill="black"/>
+</g>
+  <g transform="translate(1286,446)">
+  <circle cx="9" cy="9" r="8" fill="white" stroke="black" stroke-width="1"/>
+  <circle cx="9" cy="9" r="4" fill="none" stroke="black" stroke-width="0.75"/>
+  <circle cx="9" cy="9" r="1.5" fill="black"/>
+</g>
 
   <!-- ── PAR64 DS-SR floor flanks (2 units, offstage SR) ── -->
-  <use href="#sym-par" xlink:href="#sym-par" x="618"  y="527" width="18" height="18"/>
-  <use href="#sym-par" xlink:href="#sym-par" x="618"  y="551" width="18" height="18"/>
+  <g transform="translate(618,527)">
+  <circle cx="9" cy="9" r="8" fill="white" stroke="black" stroke-width="1"/>
+  <circle cx="9" cy="9" r="4" fill="none" stroke="black" stroke-width="0.75"/>
+  <circle cx="9" cy="9" r="1.5" fill="black"/>
+</g>
+  <g transform="translate(618,551)">
+  <circle cx="9" cy="9" r="8" fill="white" stroke="black" stroke-width="1"/>
+  <circle cx="9" cy="9" r="4" fill="none" stroke="black" stroke-width="0.75"/>
+  <circle cx="9" cy="9" r="1.5" fill="black"/>
+</g>
   <text x="627" y="578"
         font-family="Arial,Helvetica,sans-serif" font-size="7"
         text-anchor="middle" fill="#555555">PAR</text>
 
   <!-- PAR64 DS-SL floor flanks -->
-  <use href="#sym-par" xlink:href="#sym-par" x="1364" y="527" width="18" height="18"/>
-  <use href="#sym-par" xlink:href="#sym-par" x="1364" y="551" width="18" height="18"/>
+  <g transform="translate(1364,527)">
+  <circle cx="9" cy="9" r="8" fill="white" stroke="black" stroke-width="1"/>
+  <circle cx="9" cy="9" r="4" fill="none" stroke="black" stroke-width="0.75"/>
+  <circle cx="9" cy="9" r="1.5" fill="black"/>
+</g>
+  <g transform="translate(1364,551)">
+  <circle cx="9" cy="9" r="8" fill="white" stroke="black" stroke-width="1"/>
+  <circle cx="9" cy="9" r="4" fill="none" stroke="black" stroke-width="0.75"/>
+  <circle cx="9" cy="9" r="1.5" fill="black"/>
+</g>
   <text x="1373" y="578"
         font-family="Arial,Helvetica,sans-serif" font-size="7"
         text-anchor="middle" fill="#555555">PAR</text>
 
   <!-- ── Opto Splitter offstage SR (24×14) ── -->
-  <use href="#sym-split" xlink:href="#sym-split" x="558" y="286" width="24" height="14"/>
+  <g transform="translate(558,286)">
+  <rect x="2" y="1" width="20" height="12" fill="white" stroke="black" stroke-width="1"/>
+  <line x1="0" y1="4" x2="2" y2="4" stroke="black" stroke-width="0.75"/>
+  <line x1="0" y1="7" x2="2" y2="7" stroke="black" stroke-width="0.75"/>
+  <line x1="0" y1="10" x2="2" y2="10" stroke="black" stroke-width="0.75"/>
+  <line x1="22" y1="4" x2="24" y2="4" stroke="black" stroke-width="0.75"/>
+  <line x1="22" y1="7" x2="24" y2="7" stroke="black" stroke-width="0.75"/>
+  <line x1="22" y1="10" x2="24" y2="10" stroke="black" stroke-width="0.75"/>
+</g>
   <text x="570" y="280"
         font-family="Arial,Helvetica,sans-serif" font-size="7"
         text-anchor="middle" fill="black">OPTO</text>
@@ -279,22 +284,43 @@
         stroke="black" stroke-width="0.5"/>
 
   <!-- legend col 1 -->
-  <use href="#sym-mh"     xlink:href="#sym-mh"     x="1536" y="654" width="24" height="24"/>
+  <g transform="translate(1536,654)">
+  <rect x="2" y="2" width="20" height="20" rx="1.5" fill="white" stroke="black" stroke-width="1"/>
+  <rect x="7" y="6" width="10" height="10" fill="none" stroke="black" stroke-width="0.75"/>
+  <line x1="12" y1="16" x2="12" y2="22" stroke="black" stroke-width="0.75"/>
+</g>
   <text x="1568" y="669"
         font-family="Arial,Helvetica,sans-serif" font-size="8.5" fill="black"
         >Moving Head — Robe Pointe 330W</text>
 
-  <use href="#sym-strobe" xlink:href="#sym-strobe" x="1536" y="688" width="36" height="18"/>
+  <g transform="translate(1536,688)">
+  <rect x="1" y="1" width="34" height="16" fill="white" stroke="black" stroke-width="1"/>
+  <line x1="9.5" y1="1" x2="9.5" y2="17" stroke="black" stroke-width="0.5"/>
+  <line x1="18" y1="1" x2="18" y2="17" stroke="black" stroke-width="0.5"/>
+  <line x1="26.5" y1="1" x2="26.5" y2="17" stroke="black" stroke-width="0.5"/>
+</g>
   <text x="1580" y="700"
         font-family="Arial,Helvetica,sans-serif" font-size="8.5" fill="black"
         >Tilt Strobe — 8×8 RGBW (JDC1)</text>
 
-  <use href="#sym-par"    xlink:href="#sym-par"    x="1536" y="718" width="18" height="18"/>
+  <g transform="translate(1536,718)">
+  <circle cx="9" cy="9" r="8" fill="white" stroke="black" stroke-width="1"/>
+  <circle cx="9" cy="9" r="4" fill="none" stroke="black" stroke-width="0.75"/>
+  <circle cx="9" cy="9" r="1.5" fill="black"/>
+</g>
   <text x="1562" y="730"
         font-family="Arial,Helvetica,sans-serif" font-size="8.5" fill="black"
         >PAR64 — 18×10W RGBW</text>
 
-  <use href="#sym-split"  xlink:href="#sym-split"  x="1536" y="748" width="24" height="14"/>
+  <g transform="translate(1536,748)">
+  <rect x="2" y="1" width="20" height="12" fill="white" stroke="black" stroke-width="1"/>
+  <line x1="0" y1="4" x2="2" y2="4" stroke="black" stroke-width="0.75"/>
+  <line x1="0" y1="7" x2="2" y2="7" stroke="black" stroke-width="0.75"/>
+  <line x1="0" y1="10" x2="2" y2="10" stroke="black" stroke-width="0.75"/>
+  <line x1="22" y1="4" x2="24" y2="4" stroke="black" stroke-width="0.75"/>
+  <line x1="22" y1="7" x2="24" y2="7" stroke="black" stroke-width="0.75"/>
+  <line x1="22" y1="10" x2="24" y2="10" stroke="black" stroke-width="0.75"/>
+</g>
   <text x="1568" y="758"
         font-family="Arial,Helvetica,sans-serif" font-size="8.5" fill="black"
         >Opto Splitter — Elation 5-pin DMX</text>
@@ -513,72 +539,139 @@
         fill="#dddddd" stroke="black" stroke-width="0.75"/>
   <line x1="744" y1="1618" x2="744" y2="1714"
         stroke="black" stroke-width="2.5"/>
-  <use href="#sym-mh-elev" xlink:href="#sym-mh-elev"
-       x="729" y="1588" width="30" height="30"/>
+  <g transform="translate(729,1588)">
+  <rect x="11" y="0" width="8" height="4" rx="1" fill="white" stroke="black" stroke-width="0.75"/>
+  <line x1="15" y1="4" x2="5" y2="20" stroke="black" stroke-width="1"/>
+  <line x1="15" y1="4" x2="25" y2="20" stroke="black" stroke-width="1"/>
+  <circle cx="15" cy="24" r="6" fill="white" stroke="black" stroke-width="1"/>
+  <circle cx="15" cy="24" r="2.5" fill="none" stroke="black" stroke-width="0.75"/>
+</g>
 
   <!-- stand 2 MH (x=829) -->
   <rect x="813" y="1714" width="32" height="6"
         fill="#dddddd" stroke="black" stroke-width="0.75"/>
   <line x1="829" y1="1618" x2="829" y2="1714"
         stroke="black" stroke-width="2.5"/>
-  <use href="#sym-mh-elev" xlink:href="#sym-mh-elev"
-       x="814" y="1588" width="30" height="30"/>
+  <g transform="translate(814,1588)">
+  <rect x="11" y="0" width="8" height="4" rx="1" fill="white" stroke="black" stroke-width="0.75"/>
+  <line x1="15" y1="4" x2="5" y2="20" stroke="black" stroke-width="1"/>
+  <line x1="15" y1="4" x2="25" y2="20" stroke="black" stroke-width="1"/>
+  <circle cx="15" cy="24" r="6" fill="white" stroke="black" stroke-width="1"/>
+  <circle cx="15" cy="24" r="2.5" fill="none" stroke="black" stroke-width="0.75"/>
+</g>
 
   <!-- stand 3 Strobe (x=914) -->
   <rect x="898" y="1714" width="32" height="6"
         fill="#dddddd" stroke="black" stroke-width="0.75"/>
   <line x1="914" y1="1618" x2="914" y2="1714"
         stroke="black" stroke-width="2.5"/>
-  <use href="#sym-strobe-elev" xlink:href="#sym-strobe-elev"
-       x="894" y="1618" width="40" height="18"/>
+  <g transform="translate(894,1618)">
+  <rect x="14" y="0" width="12" height="4" rx="1" fill="white" stroke="black" stroke-width="0.75"/>
+  <rect x="2" y="4" width="36" height="12" fill="white" stroke="black" stroke-width="1"/>
+  <line x1="11" y1="4" x2="11" y2="16" stroke="black" stroke-width="0.5"/>
+  <line x1="21" y1="4" x2="21" y2="16" stroke="black" stroke-width="0.5"/>
+  <line x1="29" y1="4" x2="29" y2="16" stroke="black" stroke-width="0.5"/>
+</g>
 
   <!-- stand 4 Strobe (x=999) -->
   <rect x="983" y="1714" width="32" height="6"
         fill="#dddddd" stroke="black" stroke-width="0.75"/>
   <line x1="999" y1="1618" x2="999" y2="1714"
         stroke="black" stroke-width="2.5"/>
-  <use href="#sym-strobe-elev" xlink:href="#sym-strobe-elev"
-       x="979" y="1618" width="40" height="18"/>
+  <g transform="translate(979,1618)">
+  <rect x="14" y="0" width="12" height="4" rx="1" fill="white" stroke="black" stroke-width="0.75"/>
+  <rect x="2" y="4" width="36" height="12" fill="white" stroke="black" stroke-width="1"/>
+  <line x1="11" y1="4" x2="11" y2="16" stroke="black" stroke-width="0.5"/>
+  <line x1="21" y1="4" x2="21" y2="16" stroke="black" stroke-width="0.5"/>
+  <line x1="29" y1="4" x2="29" y2="16" stroke="black" stroke-width="0.5"/>
+</g>
 
   <!-- stand 5 Strobe (x=1084) -->
   <rect x="1068" y="1714" width="32" height="6"
         fill="#dddddd" stroke="black" stroke-width="0.75"/>
   <line x1="1084" y1="1618" x2="1084" y2="1714"
         stroke="black" stroke-width="2.5"/>
-  <use href="#sym-strobe-elev" xlink:href="#sym-strobe-elev"
-       x="1064" y="1618" width="40" height="18"/>
+  <g transform="translate(1064,1618)">
+  <rect x="14" y="0" width="12" height="4" rx="1" fill="white" stroke="black" stroke-width="0.75"/>
+  <rect x="2" y="4" width="36" height="12" fill="white" stroke="black" stroke-width="1"/>
+  <line x1="11" y1="4" x2="11" y2="16" stroke="black" stroke-width="0.5"/>
+  <line x1="21" y1="4" x2="21" y2="16" stroke="black" stroke-width="0.5"/>
+  <line x1="29" y1="4" x2="29" y2="16" stroke="black" stroke-width="0.5"/>
+</g>
 
   <!-- stand 6 MH (x=1169) -->
   <rect x="1153" y="1714" width="32" height="6"
         fill="#dddddd" stroke="black" stroke-width="0.75"/>
   <line x1="1169" y1="1618" x2="1169" y2="1714"
         stroke="black" stroke-width="2.5"/>
-  <use href="#sym-mh-elev" xlink:href="#sym-mh-elev"
-       x="1154" y="1588" width="30" height="30"/>
+  <g transform="translate(1154,1588)">
+  <rect x="11" y="0" width="8" height="4" rx="1" fill="white" stroke="black" stroke-width="0.75"/>
+  <line x1="15" y1="4" x2="5" y2="20" stroke="black" stroke-width="1"/>
+  <line x1="15" y1="4" x2="25" y2="20" stroke="black" stroke-width="1"/>
+  <circle cx="15" cy="24" r="6" fill="white" stroke="black" stroke-width="1"/>
+  <circle cx="15" cy="24" r="2.5" fill="none" stroke="black" stroke-width="0.75"/>
+</g>
 
   <!-- stand 7 MH (x=1254) -->
   <rect x="1238" y="1714" width="32" height="6"
         fill="#dddddd" stroke="black" stroke-width="0.75"/>
   <line x1="1254" y1="1618" x2="1254" y2="1714"
         stroke="black" stroke-width="2.5"/>
-  <use href="#sym-mh-elev" xlink:href="#sym-mh-elev"
-       x="1239" y="1588" width="30" height="30"/>
+  <g transform="translate(1239,1588)">
+  <rect x="11" y="0" width="8" height="4" rx="1" fill="white" stroke="black" stroke-width="0.75"/>
+  <line x1="15" y1="4" x2="5" y2="20" stroke="black" stroke-width="1"/>
+  <line x1="15" y1="4" x2="25" y2="20" stroke="black" stroke-width="1"/>
+  <circle cx="15" cy="24" r="6" fill="white" stroke="black" stroke-width="1"/>
+  <circle cx="15" cy="24" r="2.5" fill="none" stroke="black" stroke-width="0.75"/>
+</g>
 
   <!-- ── PAR64 on deck tops (18×18) ── -->
   <!-- SR deck top y=1672 → symbol top y=1654 -->
-  <use href="#sym-par" xlink:href="#sym-par" x="696"  y="1654" width="18" height="18"/>
-  <use href="#sym-par" xlink:href="#sym-par" x="728"  y="1654" width="18" height="18"/>
+  <g transform="translate(696,1654)">
+  <circle cx="9" cy="9" r="8" fill="white" stroke="black" stroke-width="1"/>
+  <circle cx="9" cy="9" r="4" fill="none" stroke="black" stroke-width="0.75"/>
+  <circle cx="9" cy="9" r="1.5" fill="black"/>
+</g>
+  <g transform="translate(728,1654)">
+  <circle cx="9" cy="9" r="8" fill="white" stroke="black" stroke-width="1"/>
+  <circle cx="9" cy="9" r="4" fill="none" stroke="black" stroke-width="0.75"/>
+  <circle cx="9" cy="9" r="1.5" fill="black"/>
+</g>
   <!-- SL deck top -->
-  <use href="#sym-par" xlink:href="#sym-par" x="1254" y="1654" width="18" height="18"/>
-  <use href="#sym-par" xlink:href="#sym-par" x="1286" y="1654" width="18" height="18"/>
+  <g transform="translate(1254,1654)">
+  <circle cx="9" cy="9" r="8" fill="white" stroke="black" stroke-width="1"/>
+  <circle cx="9" cy="9" r="4" fill="none" stroke="black" stroke-width="0.75"/>
+  <circle cx="9" cy="9" r="1.5" fill="black"/>
+</g>
+  <g transform="translate(1286,1654)">
+  <circle cx="9" cy="9" r="8" fill="white" stroke="black" stroke-width="1"/>
+  <circle cx="9" cy="9" r="4" fill="none" stroke="black" stroke-width="0.75"/>
+  <circle cx="9" cy="9" r="1.5" fill="black"/>
+</g>
 
   <!-- ── PAR64 DS floor flanks ── -->
   <!-- SR flanks (x<680, floor y=1760, sym top y=1742) -->
-  <use href="#sym-par" xlink:href="#sym-par" x="618"  y="1742" width="18" height="18"/>
-  <use href="#sym-par" xlink:href="#sym-par" x="644"  y="1742" width="18" height="18"/>
+  <g transform="translate(618,1742)">
+  <circle cx="9" cy="9" r="8" fill="white" stroke="black" stroke-width="1"/>
+  <circle cx="9" cy="9" r="4" fill="none" stroke="black" stroke-width="0.75"/>
+  <circle cx="9" cy="9" r="1.5" fill="black"/>
+</g>
+  <g transform="translate(644,1742)">
+  <circle cx="9" cy="9" r="8" fill="white" stroke="black" stroke-width="1"/>
+  <circle cx="9" cy="9" r="4" fill="none" stroke="black" stroke-width="0.75"/>
+  <circle cx="9" cy="9" r="1.5" fill="black"/>
+</g>
   <!-- SL flanks -->
-  <use href="#sym-par" xlink:href="#sym-par" x="1338" y="1742" width="18" height="18"/>
-  <use href="#sym-par" xlink:href="#sym-par" x="1364" y="1742" width="18" height="18"/>
+  <g transform="translate(1338,1742)">
+  <circle cx="9" cy="9" r="8" fill="white" stroke="black" stroke-width="1"/>
+  <circle cx="9" cy="9" r="4" fill="none" stroke="black" stroke-width="0.75"/>
+  <circle cx="9" cy="9" r="1.5" fill="black"/>
+</g>
+  <g transform="translate(1364,1742)">
+  <circle cx="9" cy="9" r="8" fill="white" stroke="black" stroke-width="1"/>
+  <circle cx="9" cy="9" r="4" fill="none" stroke="black" stroke-width="0.75"/>
+  <circle cx="9" cy="9" r="1.5" fill="black"/>
+</g>
 
   <!-- ── Dimension: 6 ft pipe height ── -->
   <!-- vertical blue arrow x=1310, from y=1618 to y=1714 -->
