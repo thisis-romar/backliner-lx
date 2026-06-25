@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="3600" height="2820" viewBox="0 0 3600 2820">
+  <defs>
+    <!-- Moving Head: 44x44, visual center at (22,22) -->
+    <symbol id="sym-mh" viewBox="0 0 44 44">
+      <circle cx="22" cy="22" r="20" fill="none" stroke="#222" stroke-width="2.5"/>
+      <line x1="2" y1="22" x2="42" y2="22" stroke="#222" stroke-width="1.5"/>
+      <line x1="22" y1="2" x2="22" y2="42" stroke="#222" stroke-width="1.5"/>
+      <circle cx="22" cy="22" r="5" fill="#222"/>
+    </symbol>
+
+    <!-- Strobe: 44x24, visual center at (22,12) -->
+    <symbol id="sym-strobe" viewBox="0 0 44 24">
+      <rect x="1" y="1" width="42" height="22" fill="none" stroke="#222" stroke-width="2.5"/>
+      <line x1="1" y1="1" x2="43" y2="23" stroke="#222" stroke-width="1.5"/>
+      <line x1="43" y1="1" x2="1" y2="23" stroke="#222" stroke-width="1.5"/>
+    </symbol>
+
+    <!-- PAR64: 28x28, visual center at (14,14) -->
+    <symbol id="sym-par" viewBox="0 0 28 28">
+      <circle cx="14" cy="14" r="12" fill="#333" stroke="#111" stroke-width="2"/>
+      <circle cx="14" cy="14" r="6" fill="none" stroke="#888" stroke-width="1"/>
+    </symbol>
+
+    <!-- Opto Splitter: 28x28, visual center at (14,14) -->
+    <symbol id="sym-split" viewBox="0 0 28 28">
+      <rect x="1" y="1" width="26" height="26" fill="#1a1a1a" stroke="#555" stroke-width="1.5"/>
+      <text x="14" y="12" font-family="Arial,sans-serif" font-size="7" fill="white" text-anchor="middle" dominant-baseline="middle">DMX</text>
+      <text x="14" y="22" font-family="Arial,sans-serif" font-size="6" fill="#aaa" text-anchor="middle" dominant-baseline="middle">OPTO</text>
+    </symbol>
+  </defs>
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- MASTER BACKGROUND — white fills entire canvas including gap rows  -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <rect x="0" y="0" width="3600" height="2820" fill="white"/>
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- VIEW 1: FLOOR PLAN  y=0 to y=900                                  -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <g id="view-1-floor-plan">
+
+    <!-- Drawing area background -->
+    <rect x="0" y="0" width="3160" height="900" fill="#f5f4f0"/>
+
+    <!-- ── Stage ─────────────────────────────────────────────────────── -->
+    <!-- 40ft wide x 25ft deep = 1280px x 800px, scale: 32px = 1ft      -->
+    <!-- Stage SR edge x=940, SL edge x=2220, US y=50, DS y=850         -->
+    <rect x="940" y="50" width="1280" height="800" fill="#e8e4d8" stroke="#333" stroke-width="2"/>
+
+    <!-- Stage SR/SL edge markers -->
+    <line x1="940" y1="50" x2="940" y2="850" stroke="#333" stroke-width="2"/>
+    <line x1="2220" y1="50" x2="2220" y2="850" stroke="#333" stroke-width="2"/>
+
+    <!-- Upstage wall hatch (US edge) -->
+    <line x1="940" y1="50" x2="2220" y2="50" stroke="#333" stroke-width="3"/>
+    <line x1="960" y1="50" x2="940" y2="70" stroke="#444" stroke-width="1"/>
+    <line x1="1010" y1="50" x2="970" y2="90" stroke="#444" stroke-width="1"/>
+    <line x1="1060" y1="50" x2="1020" y2="90" stroke="#444" stroke-width="1"/>
+    <line x1="1110" y1="50" x2="1070" y2="90" stroke="#444" stroke-width="1"/>
+    <line x1="1160" y1="50" x2="1120" y2="90" stroke="#444" stroke-width="1"/>
+    <line x1="1210" y1="50" x2="1170" y2="90" stroke="#444" stroke-width="1"/>
+    <line x1="1260" y1="50" x2="1220" y2="90" stroke="#444" stroke-width="1"/>
+    <line x1="1310" y1="50" x2="1270" y2="90" stroke="#444" stroke-width="1"/>
+    <line x1="1360" y1="50" x2="1320" y2="90" stroke="#444" stroke-width="1"/>
+    <line x1="1410" y1="50" x2="1370" y2="90" stroke="#444" stroke-width="1"/>
+    <line x1="1460" y1="50" x2="1420" y2="90" stroke="#444" stroke-width="1"/>
+    <line x1="1510" y1="50" x2="1470" y2="90" stroke="#444" stroke-width="1"/>
+    <line x1="1560" y1="50" x2="1520" y2="90" stroke="#444" stroke-width="1"/>
+    <line x1="1610" y1="50" x2="1570" y2="90" stroke="#444" stroke-width="1"/>
+    <line x1="1660" y1="50" x2="1620" y2="90" stroke="#444" stroke-width="1"/>
+    <line x1="1710" y1="50" x2="1670" y2="90" stroke="#444" stroke-width="1"/>
+    <line x1="1760" y1="50" x2="1720" y2="90" stroke="#444" stroke-width="1"/>
+    <line x1="1810" y1="50" x2="1770" y2="90" stroke="#444" stroke-width="1"/>
+    <line x1="1860" y1="50" x2="1820" y2="90" stroke="#444" stroke-width="1"/>
+    <line x1="1910" y1="50" x2="1870" y2="90" stroke="#444" stroke-width="1"/>
+    <line x1="1960" y1="50" x2="1920" y2="90" stroke="#444" stroke-width="1"/>
+    <line x1="2010" y1="50" x2="1970" y2="90" stroke="#444" stroke-width="1"/>
+    <line x1="2060" y1="50" x2="2020" y2="90" stroke="#444" stroke-width="1"/>
+    <line x1="2110" y1="50" x2="2070" y2="90" stroke="#444" stroke-width="1"/>
+    <line x1="2160" y1="50" x2="2120" y2="90" stroke="#444" stroke-width="1"/>
+    <line x1="2210" y1="50" x2="2170" y2="90" stroke="#444" stroke-width="1"/>
+    <line x1="2220" y1="50" x2="2180" y2="90" stroke="#444" stroke-width="1"/>
+
+    <!-- Deck platforms (upstage corners) — 4ft x 4ft = 128x128px each -->
+    <rect x="940" y="50" width="128" height="128" fill="#cdc9b5" stroke="#555" stroke-width="1.5"/>
+    <text x="1004" y="122" font-family="Arial,sans-serif" font-size="13" fill="#444" text-anchor="middle">DECK B</text>
+    <rect x="2092" y="50" width="128" height="128" fill="#cdc9b5" stroke="#555" stroke-width="1.5"/>
+    <text x="2156" y="122" font-family="Arial,sans-serif" font-size="13" fill="#444" text-anchor="middle">DECK A</text>
+
+    <!-- PAR64 on Deck B (SR) — 2 fixtures -->
+    <use href="#sym-par" xlink:href="#sym-par" x="966" y="66" width="28" height="28"/>
+    <use href="#sym-par" xlink:href="#sym-par" x="1022" y="66" width="28" height="28"/>
+    <text x="980" y="110" font-family="Arial,sans-serif" font-size="10" fill="#333" text-anchor="middle">P3</text>
+    <text x="1036" y="110" font-family="Arial,sans-serif" font-size="10" fill="#333" text-anchor="middle">P4</text>
+
+    <!-- PAR64 on Deck A (SL) — 2 fixtures -->
+    <use href="#sym-par" xlink:href="#sym-par" x="2108" y="66" width="28" height="28"/>
+    <use href="#sym-par" xlink:href="#sym-par" x="2164" y="66" width="28" height="28"/>
+    <text x="2122" y="110" font-family="Arial,sans-serif" font-size="10" fill="#333" text-anchor="middle">P1</text>
+    <text x="2178" y="110" font-family="Arial,sans-serif" font-size="10" fill="#333" text-anchor="middle">P2</text>
+
+    <!-- Stand bases (dashed circles) at MH positions -->
+    <circle cx="1068" cy="180" r="28" fill="none" stroke="#888" stroke-width="1.5" stroke-dasharray="5,4"/>
+    <circle cx="1228" cy="180" r="28" fill="none" stroke="#888" stroke-width="1.5" stroke-dasharray="5,4"/>
+    <circle cx="1972" cy="180" r="28" fill="none" stroke="#888" stroke-width="1.5" stroke-dasharray="5,4"/>
+    <circle cx="2132" cy="180" r="28" fill="none" stroke="#888" stroke-width="1.5" stroke-dasharray="5,4"/>
+
+    <!-- Moving heads — upstage row, 4 fixtures -->
+    <use href="#sym-mh" xlink:href="#sym-mh" x="1046" y="158" width="44" height="44"/>
+    <use href="#sym-mh" xlink:href="#sym-mh" x="1206" y="158" width="44" height="44"/>
+    <use href="#sym-mh" xlink:href="#sym-mh" x="1950" y="158" width="44" height="44"/>
+    <use href="#sym-mh" xlink:href="#sym-mh" x="2110" y="158" width="44" height="44"/>
+    <text x="1068" y="150" font-family="Arial,sans-serif" font-size="11" fill="#111" text-anchor="middle" font-weight="bold">MH-1</text>
+    <text x="1228" y="150" font-family="Arial,sans-serif" font-size="11" fill="#111" text-anchor="middle" font-weight="bold">MH-2</text>
+    <text x="1972" y="150" font-family="Arial,sans-serif" font-size="11" fill="#111" text-anchor="middle" font-weight="bold">MH-3</text>
+    <text x="2132" y="150" font-family="Arial,sans-serif" font-size="11" fill="#111" text-anchor="middle" font-weight="bold">MH-4</text>
+
+    <!-- Stand bases at strobe positions -->
+    <circle cx="1260" cy="510" r="28" fill="none" stroke="#888" stroke-width="1.5" stroke-dasharray="5,4"/>
+    <circle cx="1580" cy="510" r="28" fill="none" stroke="#888" stroke-width="1.5" stroke-dasharray="5,4"/>
+    <circle cx="1900" cy="510" r="28" fill="none" stroke="#888" stroke-width="1.5" stroke-dasharray="5,4"/>
+
+    <!-- Strobes — mid-stage row, 3 fixtures -->
+    <use href="#sym-strobe" xlink:href="#sym-strobe" x="1238" y="498" width="44" height="24"/>
+    <use href="#sym-strobe" xlink:href="#sym-strobe" x="1558" y="498" width="44" height="24"/>
+    <use href="#sym-strobe" xlink:href="#sym-strobe" x="1878" y="498" width="44" height="24"/>
+    <text x="1260" y="490" font-family="Arial,sans-serif" font-size="11" fill="#111" text-anchor="middle" font-weight="bold">ST-1</text>
+    <text x="1580" y="490" font-family="Arial,sans-serif" font-size="11" fill="#111" text-anchor="middle" font-weight="bold">ST-2</text>
+    <text x="1900" y="490" font-family="Arial,sans-serif" font-size="11" fill="#111" text-anchor="middle" font-weight="bold">ST-3</text>
+
+    <!-- Opto Splitter — offstage SR -->
+    <use href="#sym-split" xlink:href="#sym-split" x="736" y="496" width="28" height="28"/>
+    <text x="750" y="490" font-family="Arial,sans-serif" font-size="10" fill="#333" text-anchor="middle">SPL-1</text>
+
+    <!-- DMX data cable (dashed) from splitter to stage SR -->
+    <line x1="764" y1="510" x2="940" y2="510" stroke="#444" stroke-width="1.5" stroke-dasharray="8,5"/>
+    <text x="852" y="505" font-family="Arial,sans-serif" font-size="9" fill="#666" text-anchor="middle">DMX</text>
+
+    <!-- PAR64 — downstage flanks, 4 fixtures near DS edge -->
+    <use href="#sym-par" xlink:href="#sym-par" x="946" y="806" width="28" height="28"/>
+    <use href="#sym-par" xlink:href="#sym-par" x="998" y="806" width="28" height="28"/>
+    <use href="#sym-par" xlink:href="#sym-par" x="2134" y="806" width="28" height="28"/>
+    <use href="#sym-par" xlink:href="#sym-par" x="2186" y="806" width="28" height="28"/>
+    <text x="960" y="800" font-family="Arial,sans-serif" font-size="10" fill="#333" text-anchor="middle">P5</text>
+    <text x="1012" y="800" font-family="Arial,sans-serif" font-size="10" fill="#333" text-anchor="middle">P6</text>
+    <text x="2148" y="800" font-family="Arial,sans-serif" font-size="10" fill="#333" text-anchor="middle">P7</text>
+    <text x="2200" y="800" font-family="Arial,sans-serif" font-size="10" fill="#333" text-anchor="middle">P8</text>
+
+    <!-- DS edge (audience side) marker -->
+    <line x1="940" y1="850" x2="2220" y2="850" stroke="#333" stroke-width="2" stroke-dasharray="10,6"/>
+
+    <!-- Orientation labels -->
+    <text x="1580" y="36" font-family="Arial,sans-serif" font-size="16" fill="#555" text-anchor="middle" font-weight="bold">↑ US (UPSTAGE)</text>
+    <text x="1580" y="884" font-family="Arial,sans-serif" font-size="16" fill="#555" text-anchor="middle" font-weight="bold">↓ DS (AUDIENCE)</text>
+    <text x="918" y="460" font-family="Arial,sans-serif" font-size="15" fill="#555" text-anchor="end" font-weight="bold">SR →</text>
+    <text x="2242" y="460" font-family="Arial,sans-serif" font-size="15" fill="#555" text-anchor="start" font-weight="bold">← SL</text>
+
+    <!-- Scale bar -->
+    <line x1="960" y1="876" x2="1280" y2="876" stroke="#444" stroke-width="2"/>
+    <line x1="960" y1="870" x2="960" y2="882" stroke="#444" stroke-width="2"/>
+    <line x1="1120" y1="872" x2="1120" y2="880" stroke="#444" stroke-width="1.5"/>
+    <line x1="1280" y1="870" x2="1280" y2="882" stroke="#444" stroke-width="2"/>
+    <text x="960" y="868" font-family="Arial,sans-serif" font-size="11" fill="#444" text-anchor="middle">0</text>
+    <text x="1120" y="868" font-family="Arial,sans-serif" font-size="11" fill="#444" text-anchor="middle">5'</text>
+    <text x="1280" y="868" font-family="Arial,sans-serif" font-size="11" fill="#444" text-anchor="middle">10'</text>
+    <text x="1120" y="898" font-family="Arial,sans-serif" font-size="11" fill="#666" text-anchor="middle">SCALE: 1" = 2'-8" (32px = 1ft)</text>
+
+    <!-- View legend (bottom left of drawing area) -->
+    <rect x="20" y="820" width="200" height="70" fill="white" stroke="#ccc" stroke-width="1"/>
+    <text x="30" y="840" font-family="Arial,sans-serif" font-size="11" fill="#333" font-weight="bold">SYMBOL KEY</text>
+    <use href="#sym-mh" xlink:href="#sym-mh" x="30" y="845" width="22" height="22"/>
+    <text x="58" y="860" font-family="Arial,sans-serif" font-size="10" fill="#444">Moving Head</text>
+    <use href="#sym-strobe" xlink:href="#sym-strobe" x="30" y="865" width="22" height="12"/>
+    <text x="58" y="876" font-family="Arial,sans-serif" font-size="10" fill="#444">Strobe</text>
+    <use href="#sym-par" xlink:href="#sym-par" x="120" y="845" width="14" height="14"/>
+    <text x="140" y="860" font-family="Arial,sans-serif" font-size="10" fill="#444">PAR64</text>
+    <use href="#sym-split" xlink:href="#sym-split" x="120" y="864" width="14" height="14"/>
+    <text x="140" y="876" font-family="Arial,sans-serif" font-size="10" fill="#444">Splitter</text>
+
+    <!-- Title block — View 1 -->
+    <rect x="3160" y="0" width="440" height="900" fill="#1a1a1a"/>
+    <line x1="3160" y1="0" x2="3160" y2="900" stroke="#444" stroke-width="2"/>
+
+    <!-- Artist / Show info -->
+    <text x="3380" y="65" font-family="Arial,sans-serif" font-size="34" fill="white" text-anchor="middle" font-weight="bold" letter-spacing="4">TOURIST</text>
+    <line x1="3185" y1="82" x2="3575" y2="82" stroke="#333" stroke-width="1"/>
+    <text x="3380" y="108" font-family="Arial,sans-serif" font-size="17" fill="#aaaaaa" text-anchor="middle">MOD CLUB</text>
+    <text x="3380" y="132" font-family="Arial,sans-serif" font-size="13" fill="#777777" text-anchor="middle">JUNE 26, 2026</text>
+    <line x1="3185" y1="150" x2="3575" y2="150" stroke="#333" stroke-width="1"/>
+
+    <!-- View title -->
+    <text x="3380" y="185" font-family="Arial,sans-serif" font-size="15" fill="#eeeeee" text-anchor="middle" font-weight="bold">FLOOR PLAN</text>
+    <text x="3380" y="207" font-family="Arial,sans-serif" font-size="11" fill="#777777" text-anchor="middle">TOP VIEW — SHEET 1 OF 3</text>
+    <line x1="3185" y1="222" x2="3575" y2="222" stroke="#333" stroke-width="1"/>
+
+    <!-- Info fields -->
+    <text x="3195" y="248" font-family="Arial,sans-serif" font-size="10" fill="#666666">ARTIST</text>
+    <text x="3195" y="264" font-family="Arial,sans-serif" font-size="12" fill="#dddddd">Tourist</text>
+    <line x1="3185" y1="274" x2="3575" y2="274" stroke="#2a2a2a" stroke-width="1"/>
+    <text x="3195" y="292" font-family="Arial,sans-serif" font-size="10" fill="#666666">VENUE</text>
+    <text x="3195" y="308" font-family="Arial,sans-serif" font-size="12" fill="#dddddd">Mod Club</text>
+    <line x1="3185" y1="318" x2="3575" y2="318" stroke="#2a2a2a" stroke-width="1"/>
+    <text x="3195" y="336" font-family="Arial,sans-serif" font-size="10" fill="#666666">DATE</text>
+    <text x="3195" y="352" font-family="Arial,sans-serif" font-size="12" fill="#dddddd">June 26, 2026</text>
+    <line x1="3185" y1="362" x2="3575" y2="362" stroke="#2a2a2a" stroke-width="1"/>
+    <text x="3195" y="380" font-family="Arial,sans-serif" font-size="10" fill="#666666">SCALE</text>
+    <text x="3195" y="396" font-family="Arial,sans-serif" font-size="12" fill="#dddddd">32px = 1'-0"</text>
+    <line x1="3185" y1="406" x2="3575" y2="406" stroke="#2a2a2a" stroke-width="1"/>
+
+    <!-- Equipment summary in title block -->
+    <text x="3195" y="430" font-family="Arial,sans-serif" font-size="10" fill="#666666">LIGHTING RIG</text>
+    <text x="3195" y="450" font-family="Arial,sans-serif" font-size="11" fill="#cccccc">4× Moving Head</text>
+    <text x="3195" y="467" font-family="Arial,sans-serif" font-size="11" fill="#cccccc">3× Strobe</text>
+    <text x="3195" y="484" font-family="Arial,sans-serif" font-size="11" fill="#cccccc">8× PAR64</text>
+    <text x="3195" y="501" font-family="Arial,sans-serif" font-size="11" fill="#cccccc">1× Opto Splitter</text>
+    <line x1="3185" y1="516" x2="3575" y2="516" stroke="#2a2a2a" stroke-width="1"/>
+
+    <text x="3195" y="536" font-family="Arial,sans-serif" font-size="10" fill="#666666">STRUCTURAL</text>
+    <text x="3195" y="556" font-family="Arial,sans-serif" font-size="11" fill="#cccccc">8× 6' Threaded Pipe</text>
+    <text x="3195" y="573" font-family="Arial,sans-serif" font-size="11" fill="#cccccc">8× 24" Base Plate</text>
+    <text x="3195" y="590" font-family="Arial,sans-serif" font-size="11" fill="#cccccc">2× 36" Deck Leg Set</text>
+    <line x1="3185" y1="605" x2="3575" y2="605" stroke="#2a2a2a" stroke-width="1"/>
+
+    <!-- Footer -->
+    <rect x="3160" y="860" width="440" height="40" fill="#111111"/>
+    <text x="3380" y="884" font-family="Arial,sans-serif" font-size="11" fill="#555555" text-anchor="middle">BACKLINER LX</text>
+
+  </g>
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- WHITE GAP — y=900 to y=960 (60px pure white, split detection row) -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- VIEW 2: FRONT ELEVATION  y=960 to y=1860                          -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <g id="view-2-elevation">
+
+    <!-- Drawing area background -->
+    <rect x="0" y="960" width="3160" height="900" fill="#f5f4f0"/>
+
+    <!-- View label -->
+    <text x="80" y="996" font-family="Arial,sans-serif" font-size="14" fill="#555" font-weight="bold">FRONT ELEVATION — LOOKING US FROM AUDIENCE</text>
+
+    <!-- Stage floor baseline -->
+    <rect x="940" y="1720" width="1280" height="24" fill="#8b7355" stroke="#555" stroke-width="1.5"/>
+    <text x="1580" y="1818" font-family="Arial,sans-serif" font-size="12" fill="#555" text-anchor="middle">STAGE FLOOR</text>
+
+    <!-- Stage SR/SL edge markers (vertical lines) -->
+    <line x1="940" y1="975" x2="940" y2="1744" stroke="#555" stroke-width="1" stroke-dasharray="6,4"/>
+    <line x1="2220" y1="975" x2="2220" y2="1744" stroke="#555" stroke-width="1" stroke-dasharray="6,4"/>
+    <text x="932" y="992" font-family="Arial,sans-serif" font-size="11" fill="#666" text-anchor="end">SR</text>
+    <text x="2228" y="992" font-family="Arial,sans-serif" font-size="11" fill="#666" text-anchor="start">SL</text>
+
+    <!-- Height reference lines -->
+    <!-- +0'-0" (floor level) -->
+    <line x1="850" y1="1720" x2="2320" y2="1720" stroke="#aaa" stroke-width="1" stroke-dasharray="4,4"/>
+    <text x="845" y="1724" font-family="Arial,sans-serif" font-size="10" fill="#777" text-anchor="end">+0'-0"</text>
+
+    <!-- +3'-0" (deck height = 96px) -->
+    <line x1="850" y1="1624" x2="2320" y2="1624" stroke="#4488cc" stroke-width="1" stroke-dasharray="4,4"/>
+    <text x="845" y="1628" font-family="Arial,sans-serif" font-size="10" fill="#4488cc" text-anchor="end">+3'-0"</text>
+
+    <!-- +6'-0" (pipe top = 192px above floor) -->
+    <line x1="850" y1="1528" x2="2320" y2="1528" stroke="#aaa" stroke-width="1" stroke-dasharray="4,4"/>
+    <text x="845" y="1532" font-family="Arial,sans-serif" font-size="10" fill="#777" text-anchor="end">+6'-0"</text>
+
+    <!-- ── Deck platforms (elevation view) ──────────────────────────── -->
+    <!-- Deck B (SR upstage) — 4ft wide x 3ft tall = 128 x 96px -->
+    <rect x="940" y="1624" width="128" height="96" fill="#cdc9b5" stroke="#555" stroke-width="1.5"/>
+    <line x1="940" y1="1624" x2="1068" y2="1720" stroke="#999" stroke-width="1"/>
+    <text x="1004" y="1676" font-family="Arial,sans-serif" font-size="11" fill="#555" text-anchor="middle">DECK B</text>
+
+    <!-- Deck A (SL upstage) -->
+    <rect x="2092" y="1624" width="128" height="96" fill="#cdc9b5" stroke="#555" stroke-width="1.5"/>
+    <line x1="2092" y1="1624" x2="2220" y2="1720" stroke="#999" stroke-width="1"/>
+    <text x="2156" y="1676" font-family="Arial,sans-serif" font-size="11" fill="#555" text-anchor="middle">DECK A</text>
+
+    <!-- PAR64 on top of Deck B -->
+    <use href="#sym-par" xlink:href="#sym-par" x="966" y="1610" width="28" height="28"/>
+    <use href="#sym-par" xlink:href="#sym-par" x="1022" y="1610" width="28" height="28"/>
+    <text x="980" y="1607" font-family="Arial,sans-serif" font-size="9" fill="#333" text-anchor="middle">P3</text>
+    <text x="1036" y="1607" font-family="Arial,sans-serif" font-size="9" fill="#333" text-anchor="middle">P4</text>
+
+    <!-- PAR64 on top of Deck A -->
+    <use href="#sym-par" xlink:href="#sym-par" x="2108" y="1610" width="28" height="28"/>
+    <use href="#sym-par" xlink:href="#sym-par" x="2164" y="1610" width="28" height="28"/>
+    <text x="2122" y="1607" font-family="Arial,sans-serif" font-size="9" fill="#333" text-anchor="middle">P1</text>
+    <text x="2178" y="1607" font-family="Arial,sans-serif" font-size="9" fill="#333" text-anchor="middle">P2</text>
+
+    <!-- ── Moving Head Stands ── 4 stands, x=1068,1228,1972,2132 ────── -->
+    <!-- Base plates -->
+    <rect x="1044" y="1713" width="48" height="7" fill="#555" stroke="#333" stroke-width="1"/>
+    <rect x="1204" y="1713" width="48" height="7" fill="#555" stroke="#333" stroke-width="1"/>
+    <rect x="1948" y="1713" width="48" height="7" fill="#555" stroke="#333" stroke-width="1"/>
+    <rect x="2108" y="1713" width="48" height="7" fill="#555" stroke="#333" stroke-width="1"/>
+
+    <!-- Pipes: 6ft = 192px, bottom at y=1713, top at y=1521 -->
+    <rect x="1067" y="1521" width="2" height="192" fill="#666" stroke="#555" stroke-width="0.5"/>
+    <rect x="1227" y="1521" width="2" height="192" fill="#666" stroke="#555" stroke-width="0.5"/>
+    <rect x="1971" y="1521" width="2" height="192" fill="#666" stroke="#555" stroke-width="0.5"/>
+    <rect x="2131" y="1521" width="2" height="192" fill="#666" stroke="#555" stroke-width="0.5"/>
+
+    <!-- Moving head symbols on top of pipes: center at (cx, 1499), bottom of symbol at y=1521 -->
+    <use href="#sym-mh" xlink:href="#sym-mh" x="1046" y="1477" width="44" height="44"/>
+    <use href="#sym-mh" xlink:href="#sym-mh" x="1206" y="1477" width="44" height="44"/>
+    <use href="#sym-mh" xlink:href="#sym-mh" x="1950" y="1477" width="44" height="44"/>
+    <use href="#sym-mh" xlink:href="#sym-mh" x="2110" y="1477" width="44" height="44"/>
+    <text x="1068" y="1470" font-family="Arial,sans-serif" font-size="10" fill="#111" text-anchor="middle" font-weight="bold">MH-1</text>
+    <text x="1228" y="1470" font-family="Arial,sans-serif" font-size="10" fill="#111" text-anchor="middle" font-weight="bold">MH-2</text>
+    <text x="1972" y="1470" font-family="Arial,sans-serif" font-size="10" fill="#111" text-anchor="middle" font-weight="bold">MH-3</text>
+    <text x="2132" y="1470" font-family="Arial,sans-serif" font-size="10" fill="#111" text-anchor="middle" font-weight="bold">MH-4</text>
+
+    <!-- ── Strobe Stands ── 3 stands, x=1260,1580,1900 ──────────────── -->
+    <!-- Base plates -->
+    <rect x="1236" y="1713" width="48" height="7" fill="#555" stroke="#333" stroke-width="1"/>
+    <rect x="1556" y="1713" width="48" height="7" fill="#555" stroke="#333" stroke-width="1"/>
+    <rect x="1876" y="1713" width="48" height="7" fill="#555" stroke="#333" stroke-width="1"/>
+
+    <!-- Pipes: same height as MH stands -->
+    <rect x="1259" y="1521" width="2" height="192" fill="#666" stroke="#555" stroke-width="0.5"/>
+    <rect x="1579" y="1521" width="2" height="192" fill="#666" stroke="#555" stroke-width="0.5"/>
+    <rect x="1899" y="1521" width="2" height="192" fill="#666" stroke="#555" stroke-width="0.5"/>
+
+    <!-- Strobe symbols: center at (cx, 1509), bottom at y=1521 -->
+    <use href="#sym-strobe" xlink:href="#sym-strobe" x="1238" y="1497" width="44" height="24"/>
+    <use href="#sym-strobe" xlink:href="#sym-strobe" x="1558" y="1497" width="44" height="24"/>
+    <use href="#sym-strobe" xlink:href="#sym-strobe" x="1878" y="1497" width="44" height="24"/>
+    <text x="1260" y="1490" font-family="Arial,sans-serif" font-size="10" fill="#111" text-anchor="middle" font-weight="bold">ST-1</text>
+    <text x="1580" y="1490" font-family="Arial,sans-serif" font-size="10" fill="#111" text-anchor="middle" font-weight="bold">ST-2</text>
+    <text x="1900" y="1490" font-family="Arial,sans-serif" font-size="10" fill="#111" text-anchor="middle" font-weight="bold">ST-3</text>
+
+    <!-- DS flank PARs on stage floor (4 fixtures) -->
+    <use href="#sym-par" xlink:href="#sym-par" x="946" y="1706" width="28" height="28"/>
+    <use href="#sym-par" xlink:href="#sym-par" x="996" y="1706" width="28" height="28"/>
+    <use href="#sym-par" xlink:href="#sym-par" x="2134" y="1706" width="28" height="28"/>
+    <use href="#sym-par" xlink:href="#sym-par" x="2184" y="1706" width="28" height="28"/>
+    <text x="960" y="1704" font-family="Arial,sans-serif" font-size="9" fill="#333" text-anchor="middle">P5</text>
+    <text x="1010" y="1704" font-family="Arial,sans-serif" font-size="9" fill="#333" text-anchor="middle">P6</text>
+    <text x="2148" y="1704" font-family="Arial,sans-serif" font-size="9" fill="#333" text-anchor="middle">P7</text>
+    <text x="2198" y="1704" font-family="Arial,sans-serif" font-size="9" fill="#333" text-anchor="middle">P8</text>
+
+    <!-- ── Dimension callouts ──────────────────────────────────────────  -->
+    <!-- 6ft pipe height (red) — right side of stage -->
+    <line x1="2280" y1="1521" x2="2280" y2="1713" stroke="#cc2222" stroke-width="1.5"/>
+    <line x1="2270" y1="1521" x2="2290" y2="1521" stroke="#cc2222" stroke-width="1.5"/>
+    <line x1="2270" y1="1713" x2="2290" y2="1713" stroke="#cc2222" stroke-width="1.5"/>
+    <text x="2295" y="1621" font-family="Arial,sans-serif" font-size="11" fill="#cc2222" dominant-baseline="middle">6'-0"</text>
+    <text x="2295" y="1638" font-family="Arial,sans-serif" font-size="9" fill="#cc4444" dominant-baseline="middle">PIPE HT.</text>
+
+    <!-- 3ft deck height (blue) — right side of deck A -->
+    <line x1="2240" y1="1624" x2="2240" y2="1720" stroke="#2255aa" stroke-width="1.5"/>
+    <line x1="2230" y1="1624" x2="2250" y2="1624" stroke="#2255aa" stroke-width="1.5"/>
+    <line x1="2230" y1="1720" x2="2250" y2="1720" stroke="#2255aa" stroke-width="1.5"/>
+    <text x="2255" y="1672" font-family="Arial,sans-serif" font-size="10" fill="#2255aa" dominant-baseline="middle">3'-0"</text>
+
+    <!-- Height labels on left margin -->
+    <text x="830" y="1724" font-family="Arial,sans-serif" font-size="10" fill="#888" text-anchor="end">FLOOR</text>
+    <text x="830" y="1532" font-family="Arial,sans-serif" font-size="10" fill="#888" text-anchor="end">TOP OF PIPE</text>
+
+    <!-- Title block — View 2 -->
+    <rect x="3160" y="960" width="440" height="900" fill="#1a1a1a"/>
+    <line x1="3160" y1="960" x2="3160" y2="1860" stroke="#444" stroke-width="2"/>
+
+    <text x="3380" y="1025" font-family="Arial,sans-serif" font-size="34" fill="white" text-anchor="middle" font-weight="bold" letter-spacing="4">TOURIST</text>
+    <line x1="3185" y1="1042" x2="3575" y2="1042" stroke="#333" stroke-width="1"/>
+    <text x="3380" y="1068" font-family="Arial,sans-serif" font-size="17" fill="#aaaaaa" text-anchor="middle">MOD CLUB</text>
+    <text x="3380" y="1092" font-family="Arial,sans-serif" font-size="13" fill="#777777" text-anchor="middle">JUNE 26, 2026</text>
+    <line x1="3185" y1="1110" x2="3575" y2="1110" stroke="#333" stroke-width="1"/>
+
+    <text x="3380" y="1145" font-family="Arial,sans-serif" font-size="15" fill="#eeeeee" text-anchor="middle" font-weight="bold">FRONT ELEVATION</text>
+    <text x="3380" y="1167" font-family="Arial,sans-serif" font-size="11" fill="#777777" text-anchor="middle">LOOKING US — SHEET 2 OF 3</text>
+    <line x1="3185" y1="1182" x2="3575" y2="1182" stroke="#333" stroke-width="1"/>
+
+    <text x="3195" y="1208" font-family="Arial,sans-serif" font-size="10" fill="#666666">RIG HEIGHTS</text>
+    <text x="3195" y="1228" font-family="Arial,sans-serif" font-size="11" fill="#cc4444">6'-0"  Pipe + Head</text>
+    <text x="3195" y="1248" font-family="Arial,sans-serif" font-size="11" fill="#4488cc">3'-0"  Deck Height</text>
+    <line x1="3185" y1="1264" x2="3575" y2="1264" stroke="#2a2a2a" stroke-width="1"/>
+
+    <text x="3195" y="1284" font-family="Arial,sans-serif" font-size="10" fill="#666666">STRUCTURAL</text>
+    <text x="3195" y="1304" font-family="Arial,sans-serif" font-size="11" fill="#cccccc">6' Black Threaded Pipe ×8</text>
+    <text x="3195" y="1322" font-family="Arial,sans-serif" font-size="11" fill="#cccccc">24" Base Plate ×8</text>
+    <text x="3195" y="1340" font-family="Arial,sans-serif" font-size="11" fill="#cccccc">36" Deck Leg Set ×2</text>
+    <line x1="3185" y1="1356" x2="3575" y2="1356" stroke="#2a2a2a" stroke-width="1"/>
+
+    <text x="3195" y="1376" font-family="Arial,sans-serif" font-size="10" fill="#666666">NOTES</text>
+    <text x="3195" y="1396" font-family="Arial,sans-serif" font-size="10" fill="#888888">All stands: 24" base plate</text>
+    <text x="3195" y="1412" font-family="Arial,sans-serif" font-size="10" fill="#888888">+ 6' black pipe. PAR64s</text>
+    <text x="3195" y="1428" font-family="Arial,sans-serif" font-size="10" fill="#888888">on deck tops and DS floor.</text>
+
+    <rect x="3160" y="1820" width="440" height="40" fill="#111111"/>
+    <text x="3380" y="1844" font-family="Arial,sans-serif" font-size="11" fill="#555555" text-anchor="middle">BACKLINER LX</text>
+
+  </g>
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- WHITE GAP — y=1860 to y=1920 (60px pure white)                   -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!-- VIEW 3: EQUIPMENT SCHEDULE  y=1920 to y=2820                      -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <g id="view-3-schedule">
+
+    <!-- Drawing area background -->
+    <rect x="0" y="1920" width="3160" height="900" fill="#f5f4f0"/>
+
+    <!-- Header -->
+    <rect x="0" y="1920" width="3160" height="152" fill="#1a1a1a"/>
+    <text x="1580" y="1978" font-family="Arial,sans-serif" font-size="30" fill="white" text-anchor="middle" font-weight="bold">LIGHTING FLOOR PACKAGE</text>
+    <text x="1580" y="2018" font-family="Arial,sans-serif" font-size="17" fill="#aaaaaa" text-anchor="middle">ARTIST: TOURIST</text>
+    <text x="1580" y="2046" font-family="Arial,sans-serif" font-size="14" fill="#777777" text-anchor="middle">VENUE: MOD CLUB  ·  DATE: JUNE 26, 2026</text>
+
+    <!-- Table column headers -->
+    <rect x="0" y="2072" width="3160" height="36" fill="#2a2a2a"/>
+    <text x="60" y="2096" font-family="Arial,sans-serif" font-size="12" fill="#aaaaaa">ITEM DESCRIPTION</text>
+    <text x="2830" y="2096" font-family="Arial,sans-serif" font-size="12" fill="#aaaaaa" text-anchor="middle">QTY</text>
+    <text x="3050" y="2096" font-family="Arial,sans-serif" font-size="12" fill="#aaaaaa" text-anchor="middle">UNIT</text>
+    <line x1="2750" y1="2072" x2="2750" y2="2820" stroke="#333" stroke-width="1"/>
+    <line x1="2970" y1="2072" x2="2970" y2="2820" stroke="#333" stroke-width="1"/>
+
+    <!-- ── LIGHTING SECTION ──────────────────────────────────────────── -->
+    <rect x="0" y="2108" width="3160" height="40" fill="#333333"/>
+    <text x="60" y="2133" font-family="Arial,sans-serif" font-size="13" fill="white" font-weight="bold">LIGHTING</text>
+
+    <!-- Row 1 — Moving Head -->
+    <rect x="0" y="2148" width="3160" height="46" fill="white"/>
+    <line x1="0" y1="2194" x2="3160" y2="2194" stroke="#dddddd" stroke-width="1"/>
+    <text x="60" y="2175" font-family="Arial,sans-serif" font-size="13" fill="#222222">Robe Pointe LED 330W Hybrid Moving Head (clone)</text>
+    <text x="2830" y="2175" font-family="Arial,sans-serif" font-size="15" fill="#111" text-anchor="middle" font-weight="bold">4</text>
+    <text x="3050" y="2175" font-family="Arial,sans-serif" font-size="12" fill="#555" text-anchor="middle">EA</text>
+
+    <!-- Row 2 — Strobe -->
+    <rect x="0" y="2194" width="3160" height="46" fill="#f0f0ee"/>
+    <line x1="0" y1="2240" x2="3160" y2="2240" stroke="#dddddd" stroke-width="1"/>
+    <text x="60" y="2221" font-family="Arial,sans-serif" font-size="13" fill="#222222">8x8 RGBW Tilt Strobe (JDC1 Clone)</text>
+    <text x="2830" y="2221" font-family="Arial,sans-serif" font-size="15" fill="#111" text-anchor="middle" font-weight="bold">3</text>
+    <text x="3050" y="2221" font-family="Arial,sans-serif" font-size="12" fill="#555" text-anchor="middle">EA</text>
+
+    <!-- Row 3 — PAR64 -->
+    <rect x="0" y="2240" width="3160" height="46" fill="white"/>
+    <line x1="0" y1="2286" x2="3160" y2="2286" stroke="#dddddd" stroke-width="1"/>
+    <text x="60" y="2267" font-family="Arial,sans-serif" font-size="13" fill="#222222">18x10W RGBW PAR64</text>
+    <text x="2830" y="2267" font-family="Arial,sans-serif" font-size="15" fill="#111" text-anchor="middle" font-weight="bold">8</text>
+    <text x="3050" y="2267" font-family="Arial,sans-serif" font-size="12" fill="#555" text-anchor="middle">EA</text>
+
+    <!-- Row 4 — Opto Splitter -->
+    <rect x="0" y="2286" width="3160" height="46" fill="#f0f0ee"/>
+    <line x1="0" y1="2332" x2="3160" y2="2332" stroke="#dddddd" stroke-width="1"/>
+    <text x="60" y="2313" font-family="Arial,sans-serif" font-size="13" fill="#222222">Elation Opto Splitter</text>
+    <text x="2830" y="2313" font-family="Arial,sans-serif" font-size="15" fill="#111" text-anchor="middle" font-weight="bold">1</text>
+    <text x="3050" y="2313" font-family="Arial,sans-serif" font-size="12" fill="#555" text-anchor="middle">EA</text>
+
+    <!-- ── STRUCTURAL SECTION ─────────────────────────────────────────── -->
+    <rect x="0" y="2356" width="3160" height="40" fill="#333333"/>
+    <text x="60" y="2381" font-family="Arial,sans-serif" font-size="13" fill="white" font-weight="bold">STRUCTURAL</text>
+
+    <!-- Row 5 — 6' Pipe -->
+    <rect x="0" y="2396" width="3160" height="46" fill="white"/>
+    <line x1="0" y1="2442" x2="3160" y2="2442" stroke="#dddddd" stroke-width="1"/>
+    <text x="60" y="2423" font-family="Arial,sans-serif" font-size="13" fill="#222222">6' Black Threaded Pipe</text>
+    <text x="2830" y="2423" font-family="Arial,sans-serif" font-size="15" fill="#111" text-anchor="middle" font-weight="bold">8</text>
+    <text x="3050" y="2423" font-family="Arial,sans-serif" font-size="12" fill="#555" text-anchor="middle">EA</text>
+
+    <!-- Row 6 — Base Plate -->
+    <rect x="0" y="2442" width="3160" height="46" fill="#f0f0ee"/>
+    <line x1="0" y1="2488" x2="3160" y2="2488" stroke="#dddddd" stroke-width="1"/>
+    <text x="60" y="2469" font-family="Arial,sans-serif" font-size="13" fill="#222222">24" Threaded Base Plate</text>
+    <text x="2830" y="2469" font-family="Arial,sans-serif" font-size="15" fill="#111" text-anchor="middle" font-weight="bold">8</text>
+    <text x="3050" y="2469" font-family="Arial,sans-serif" font-size="12" fill="#555" text-anchor="middle">EA</text>
+
+    <!-- Row 7 — Deck Leg Set -->
+    <rect x="0" y="2488" width="3160" height="46" fill="white"/>
+    <line x1="0" y1="2534" x2="3160" y2="2534" stroke="#dddddd" stroke-width="1"/>
+    <text x="60" y="2515" font-family="Arial,sans-serif" font-size="13" fill="#222222">36" Deck Leg Set (4)</text>
+    <text x="2830" y="2515" font-family="Arial,sans-serif" font-size="15" fill="#111" text-anchor="middle" font-weight="bold">2</text>
+    <text x="3050" y="2515" font-family="Arial,sans-serif" font-size="12" fill="#555" text-anchor="middle">SET</text>
+
+    <!-- ── SERVICE SECTION ────────────────────────────────────────────── -->
+    <rect x="0" y="2558" width="3160" height="40" fill="#333333"/>
+    <text x="60" y="2583" font-family="Arial,sans-serif" font-size="13" fill="white" font-weight="bold">SERVICE</text>
+
+    <!-- Row 8 — Transport + Build -->
+    <rect x="0" y="2598" width="3160" height="46" fill="white"/>
+    <line x1="0" y1="2644" x2="3160" y2="2644" stroke="#dddddd" stroke-width="1"/>
+    <text x="60" y="2625" font-family="Arial,sans-serif" font-size="13" fill="#222222">Transport + Build [City/Truck/1-Way]</text>
+    <text x="2830" y="2625" font-family="Arial,sans-serif" font-size="15" fill="#111" text-anchor="middle" font-weight="bold">2</text>
+    <text x="3050" y="2625" font-family="Arial,sans-serif" font-size="12" fill="#555" text-anchor="middle">EA</text>
+
+    <!-- Table bottom border -->
+    <line x1="0" y1="2644" x2="3160" y2="2644" stroke="#aaa" stroke-width="1.5"/>
+
+    <!-- Notes area -->
+    <text x="60" y="2680" font-family="Arial,sans-serif" font-size="11" fill="#777">NOTES: All quantities subject to final advance confirmation. Deck leg sets include 4 legs each. PAR64 fixtures are floor-mounted unless noted.</text>
+    <text x="60" y="2700" font-family="Arial,sans-serif" font-size="11" fill="#777">Transport quoted as 1-way; confirm return logistics with venue. DMX via Elation Opto Splitter. All structural hardware: black finish.</text>
+
+    <!-- Footer -->
+    <rect x="0" y="2780" width="3160" height="40" fill="#1a1a1a"/>
+    <text x="60" y="2804" font-family="Arial,sans-serif" font-size="11" fill="#555555">PREPARED BY BACKLINER-LX</text>
+    <text x="3100" y="2804" font-family="Arial,sans-serif" font-size="11" fill="#555555" text-anchor="end">LX-FP-2026-0626-v1</text>
+
+    <!-- Title block — View 3 -->
+    <rect x="3160" y="1920" width="440" height="900" fill="#1a1a1a"/>
+    <line x1="3160" y1="1920" x2="3160" y2="2820" stroke="#444" stroke-width="2"/>
+
+    <text x="3380" y="1985" font-family="Arial,sans-serif" font-size="34" fill="white" text-anchor="middle" font-weight="bold" letter-spacing="4">TOURIST</text>
+    <line x1="3185" y1="2002" x2="3575" y2="2002" stroke="#333" stroke-width="1"/>
+    <text x="3380" y="2028" font-family="Arial,sans-serif" font-size="17" fill="#aaaaaa" text-anchor="middle">MOD CLUB</text>
+    <text x="3380" y="2052" font-family="Arial,sans-serif" font-size="13" fill="#777777" text-anchor="middle">JUNE 26, 2026</text>
+    <line x1="3185" y1="2070" x2="3575" y2="2070" stroke="#333" stroke-width="1"/>
+
+    <text x="3380" y="2105" font-family="Arial,sans-serif" font-size="15" fill="#eeeeee" text-anchor="middle" font-weight="bold">EQUIPMENT SCHEDULE</text>
+    <text x="3380" y="2127" font-family="Arial,sans-serif" font-size="11" fill="#777777" text-anchor="middle">GEAR LIST — SHEET 3 OF 3</text>
+    <line x1="3185" y1="2142" x2="3575" y2="2142" stroke="#333" stroke-width="1"/>
+
+    <text x="3195" y="2168" font-family="Arial,sans-serif" font-size="10" fill="#666666">TOTALS</text>
+    <text x="3195" y="2188" font-family="Arial,sans-serif" font-size="11" fill="#cccccc">4 Moving Heads</text>
+    <text x="3195" y="2206" font-family="Arial,sans-serif" font-size="11" fill="#cccccc">3 Strobes</text>
+    <text x="3195" y="2224" font-family="Arial,sans-serif" font-size="11" fill="#cccccc">8 PAR64s</text>
+    <text x="3195" y="2242" font-family="Arial,sans-serif" font-size="11" fill="#cccccc">1 Opto Splitter</text>
+    <line x1="3185" y1="2258" x2="3575" y2="2258" stroke="#2a2a2a" stroke-width="1"/>
+
+    <text x="3195" y="2278" font-family="Arial,sans-serif" font-size="10" fill="#666666">STRUCTURAL</text>
+    <text x="3195" y="2298" font-family="Arial,sans-serif" font-size="11" fill="#cccccc">8× 6' Pipe + Base Plate</text>
+    <text x="3195" y="2316" font-family="Arial,sans-serif" font-size="11" fill="#cccccc">2× Deck Leg Set</text>
+    <line x1="3185" y1="2332" x2="3575" y2="2332" stroke="#2a2a2a" stroke-width="1"/>
+
+    <text x="3195" y="2352" font-family="Arial,sans-serif" font-size="10" fill="#666666">DOCUMENT</text>
+    <text x="3195" y="2372" font-family="Arial,sans-serif" font-size="10" fill="#888888">LX-FP-2026-0626-v1</text>
+    <text x="3195" y="2390" font-family="Arial,sans-serif" font-size="10" fill="#888888">June 25, 2026</text>
+
+    <rect x="3160" y="2780" width="440" height="40" fill="#111111"/>
+    <text x="3380" y="2804" font-family="Arial,sans-serif" font-size="11" fill="#555555" text-anchor="middle">BACKLINER LX</text>
+
+  </g>
+
+</svg>
