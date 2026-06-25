@@ -2,6 +2,16 @@
 
 All notable changes to `split-the-views` are documented here.
 
+## [1.5.1] - 2026-06-25
+
+Behavior fix: `--strip-header-footer` now always produces a legend-free clean drawing.
+
+- Decoupled legend *detection* from legend *export*. Previously the legend was masked out of the clean drawing only when `--extract-legend` was also passed, so `--strip-header-footer` alone left the legend embedded in the "clean" output — surprising, since the legend is sheet chrome, not drawing geometry.
+- Now legend detection runs whenever `--strip-header-footer` is set, and the detected box is masked out of the clean drawing regardless of `--extract-legend`.
+- `--extract-legend` now controls only whether the legend is saved as its own `<prefix>-view-XX-legend.pdf/png` artifact (and `<prefix>-legends.zip`). When `--strip-header-footer` runs without it, a detected legend is reported as `(masked from clean drawing, not exported)` and no legend file is written.
+- Clarified the `--strip-header-footer` and `--extract-legend` help text to document the interaction.
+- Behavior change is limited to the clean-drawing output of `--strip-header-footer` used without `--extract-legend`; that clean drawing is now smaller (legend removed). All other outputs — full views, drawings, title blocks, exported legends, and SVGs — are unchanged. `--svg` already implied both flags, so SVG output is byte-for-byte identical.
+
 ## [1.5.0] - 2026-06-25
 
 Feature release: scalable, layer-grouped SVG vectorization of clean drawings.

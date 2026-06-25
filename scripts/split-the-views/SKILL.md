@@ -2,7 +2,7 @@
 name: split-the-views
 description: >-
   Convert one image of a multi-view drawing sheet into per-view artifacts.
-  Version 1.5.0 can extract drawing fields and right-side title blocks, emit
+  Version 1.5.1 can extract drawing fields and right-side title blocks, emit
   clean drawings with the sheet-title band and view-label band stripped,
   auto-extract the gray legend/key box, and vectorize clean drawings into
   scalable, layer-grouped SVGs. Use for drawing views,
@@ -26,7 +26,7 @@ description: >-
 
 # split-the-views - Drawing Sheet Artifact Skill
 
-**Version 1.5.0** | 2026-06-25 | package: `split-the-views-1.5.0.zip`
+**Version 1.5.1** | 2026-06-25 | package: `split-the-views-1.5.1.zip`
 
 ---
 
@@ -41,7 +41,7 @@ split-the-views-x.x.x.zip
 Current release:
 
 ```text
-split-the-views-1.5.0.zip
+split-the-views-1.5.1.zip
 ```
 
 The plugin manifest name is:
@@ -244,7 +244,7 @@ Clean/legend ZIPs:
 <input-stem>-legends.zip
 ```
 
-`--strip-header-footer` removes the top sheet-title band and the bottom view-label/scale band while preserving connected drawing geometry. `--extract-legend` crops the gray key box and reports `no legend detected` for views without one. The two can be combined with `--extract-title-blocks` in a single run.
+`--strip-header-footer` removes the top sheet-title band and the bottom view-label/scale band while preserving connected drawing geometry, and automatically masks any detected legend so the clean drawing is legend-free. `--extract-legend` additionally saves that legend as its own cropped artifact and reports `no legend detected` for views without one; without it, a detected legend is masked from the clean drawing and reported as `(masked from clean drawing, not exported)`. The two can be combined with `--extract-title-blocks` in a single run.
 
 ---
 

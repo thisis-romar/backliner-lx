@@ -11,7 +11,7 @@ split-the-views-x.x.x.zip
 Current release:
 
 ```text
-split-the-views-1.5.0.zip
+split-the-views-1.5.1.zip
 ```
 
 ## What it does
@@ -49,6 +49,14 @@ Version `1.5.0` adds scalable, layer-grouped SVG vectorization:
 - master `<prefix>-clean-svg.zip` bundle.
 
 SVGs carry a `viewBox` plus `width="100%"` sizing so they scale to any container, and every traced contour is an individually addressable `<path>`. Requires the optional `vtracer` package.
+
+
+Version `1.5.1` makes `--strip-header-footer` always produce a legend-free clean drawing:
+
+- legend *detection* is now decoupled from legend *export*. The legend is masked out of the clean drawing whenever `--strip-header-footer` is set, regardless of `--extract-legend`;
+- `--extract-legend` now controls only whether the legend is saved as its own file. Without it, a detected legend is masked from the clean drawing and reported as `(masked from clean drawing, not exported)`.
+
+Previously `--strip-header-footer` alone left the legend embedded in the "clean" output. This is the only behavior change; all other outputs are unchanged.
 
 
 ## Terms
@@ -181,7 +189,7 @@ python scripts/split_the_views.py \
   --strip-header-footer
 ```
 
-This emits one `<input-stem>-view-XX-clean.pdf/png` per view plus `<input-stem>-clean-drawings.zip`. The top sheet-title band and the bottom view-label/scale band are removed; connected drawing geometry (such as a stage deck touching the bottom edge) is preserved.
+This emits one `<input-stem>-view-XX-clean.pdf/png` per view plus `<input-stem>-clean-drawings.zip`. The top sheet-title band and the bottom view-label/scale band are removed; connected drawing geometry (such as a stage deck touching the bottom edge) is preserved. Any detected legend/key box is automatically masked out so the clean drawing is legend-free — add `--extract-legend` to also save that legend as its own file.
 
 ## Extract the legend / key box
 

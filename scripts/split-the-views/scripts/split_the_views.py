@@ -53,7 +53,7 @@ try:
 except Exception:  # pragma: no cover - package remains useful without SVG export.
     vtracer = None
 
-__version__ = "1.5.0"
+__version__ = "1.5.1"
 __built__ = "2026-06-25"
 
 UPLOADS_DIR = "/mnt/user-data/uploads"
@@ -997,12 +997,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--strip-header-footer",
         action="store_true",
-        help="Also emit clean drawings with the top sheet-title band and bottom view-label band removed."
+        help="Also emit clean drawings with the top sheet-title band and bottom view-label band removed. Any detected legend/key box is automatically masked out so the clean drawing is legend-free; pass --extract-legend to also save that legend as its own file."
     )
     parser.add_argument(
         "--extract-legend",
         action="store_true",
-        help="Also detect and extract the gray legend/key box from each drawing as a separate artifact."
+        help="Also save the gray legend/key box from each drawing as a separate artifact. Note: the legend is masked from clean drawings whenever --strip-header-footer is set, regardless of this flag; this flag controls only whether the legend is exported."
     )
     parser.add_argument(
         "--svg",
@@ -1223,25 +1223,35 @@ def main() -> None:
                     per_view_zip_paths.append(per_zip)
                     print(f"    [zip] {per_zip}  ({len(per_members)} files, integrity {status})")
 
-            # Legend extraction runs on the drawing region; its bbox also masks the footer pass.
+            # Legend detection runs on the drawing region whenever it is needed: to
+            # export the legend as its own artifact (--extract-legend) and/or to mask it
+            # out of the clean drawing so "clean" is actually clean (--strip-header-footer).
+            # Detection (which yields the mask box) is decoupled from export so that
+            # --strip-header-footer alone produces a legend-free clean drawing.
             legend_box: Optional[Box] = None
-            if args.extract_legend:
+            if args.extract_legend or args.strip_header_footer:
                 legend_img, legend_box, legend_info = extract_legend_from_drawing(drawing)
-                if legend_img is not None:
-                    legend_base = f"{args.prefix}-{slug}-legend"
-                    legend_pdf, legend_png = write_artifact_set(legend_img, args.outdir, legend_base, args.png)
-                    legend_paths.append(legend_pdf)
-                    if legend_png:
-                        legend_paths.append(legend_png)
-                    legend_manifest_items.append({
-                        "view": slug,
-                        "view_index": index,
-                        "legend_detection": legend_info,
-                        "legend_files": [os.path.basename(legend_pdf)] + ([os.path.basename(legend_png)] if legend_png else []),
-                    })
-                    print(f"    [legend] {slug}: detected box={legend_info.get('box_px')} size={legend_info.get('legend_size_px')}")
-                else:
-                    print(f"    [legend] {slug}: no legend detected")
+
+                if args.extract_legend:
+                    # Export the detected legend as its own PDF/PNG artifact.
+                    if legend_img is not None:
+                        legend_base = f"{args.prefix}-{slug}-legend"
+                        legend_pdf, legend_png = write_artifact_set(legend_img, args.outdir, legend_base, args.png)
+                        legend_paths.append(legend_pdf)
+                        if legend_png:
+                            legend_paths.append(legend_png)
+                        legend_manifest_items.append({
+                            "view": slug,
+                            "view_index": index,
+                            "legend_detection": legend_info,
+                            "legend_files": [os.path.basename(legend_pdf)] + ([os.path.basename(legend_png)] if legend_png else []),
+                        })
+                        print(f"    [legend] {slug}: detected box={legend_info.get('box_px')} size={legend_info.get('legend_size_px')}")
+                    else:
+                        print(f"    [legend] {slug}: no legend detected")
+                elif legend_img is not None:
+                    # Detected only to mask the clean drawing; not exported as a file.
+                    print(f"    [legend] {slug}: detected box={legend_info.get('box_px')} (masked from clean drawing, not exported)")
 
             # Clean drawing: strip sheet-title band + view-label band, masking any legend first.
             if args.strip_header_footer:
