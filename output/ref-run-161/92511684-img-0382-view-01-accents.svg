@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2775 1629" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
+  <g id="layer-accents" fill="#e22020">
+    <path id="accents-0001" d="M0,0 L25,0 L28,2 L28,18 L25,20 L-1,20 L-3,18 L-3,3 Z M2,5 L1,7 L1,14 L5,16 L23,15 L24,14 L24,6 L23,5 Z " transform="translate(1928,217)"/>
+    <path id="accents-0002" d="M0,0 L5,1 L26,0 L29,2 L29,18 L27,20 L0,20 L-2,18 L-2,3 Z M3,5 L2,7 L2,13 L4,16 L24,15 L25,14 L25,6 L24,5 Z " transform="translate(820,217)"/>
+    <path id="accents-0003" d="M0,0 L28,0 L30,3 L30,19 L29,20 L2,21 L-2,17 L-2,4 Z M4,1 L4,2 L23,2 L23,1 Z M24,1 Z M4,6 L3,7 L3,15 L4,16 L25,16 L26,15 L26,7 L25,6 Z " transform="translate(543,222)"/>
+    <path id="accents-0004" d="M0,0 L27,0 L30,4 L30,17 L29,20 L1,21 L-2,18 L-2,4 Z M3,1 L3,2 L24,2 L24,1 Z M3,6 L2,7 L2,14 L5,17 L24,16 L26,13 L25,6 Z " transform="translate(1096,222)"/>
+    <path id="accents-0005" d="M0,0 L27,0 L30,4 L30,18 L29,20 L22,21 L1,21 L-2,19 L-3,5 Z M4,1 L4,2 L22,2 L22,1 Z M3,6 L2,7 L2,14 L4,16 L24,16 L26,14 L26,7 L25,6 Z " transform="translate(1650,222)"/>
+    <path id="accents-0006" d="M0,0 L27,0 L29,3 L29,19 L28,20 L1,21 L-2,18 L-2,4 Z M3,1 L3,2 L22,2 L22,1 Z M3,6 L2,7 L2,14 L5,17 L24,16 L25,15 L25,7 L24,6 Z " transform="translate(2203,222)"/>
+  </g>
+</svg>

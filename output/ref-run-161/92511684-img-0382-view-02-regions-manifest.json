@@ -1,0 +1,60 @@
+{
+  "items": [
+    {
+      "debug_overlay": "92511684-img-0382-view-02-debug.png",
+      "drawing_files": [
+        "92511684-img-0382-view-02-drawing.pdf",
+        "92511684-img-0382-view-02-drawing.png"
+      ],
+      "title_block_detection": {
+        "band_hits": 24,
+        "confidence": "high",
+        "dark_fraction": 0.9988,
+        "drawing_edge_rules_stripped_px": {
+          "bottom": 2,
+          "left": 2,
+          "right": 0,
+          "top": 1
+        },
+        "drawing_size_px": [
+          998,
+          786
+        ],
+        "method": "vertical-line-detect",
+        "raw_drawing_size_px": [
+          1039,
+          809
+        ],
+        "score": 243.877,
+        "search_range": [
+          748,
+          1087
+        ],
+        "title_block_size_px": [
+          108,
+          809
+        ],
+        "view_size_px": [
+          1151,
+          810
+        ],
+        "x": 1041
+      },
+      "title_block_files": [
+        "92511684-img-0382-view-02-title-block.pdf",
+        "92511684-img-0382-view-02-title-block.png"
+      ],
+      "title_block_ocr": {
+        "engine": null,
+        "skipped": "pytesseract/tesseract not available; install tesseract and `pip install pytesseract` to populate title-block fields"
+      },
+      "view": "view-02",
+      "view_index": 2
+    }
+  ],
+  "package": "split-the-views-1.6.1.zip",
+  "prefix": "92511684-img-0382",
+  "tool": "split-the-views",
+  "version": "1.6.1",
+  "view": "view-02"
+}

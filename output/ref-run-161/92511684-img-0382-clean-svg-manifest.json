@@ -1,0 +1,112 @@
+{
+  "artifact_type": "clean-svg",
+  "items": [
+    {
+      "svg_layer_files": [
+        "92511684-img-0382-view-01-linework.svg",
+        "92511684-img-0382-view-01-dimensions.svg",
+        "92511684-img-0382-view-01-accents.svg"
+      ],
+      "svg_master": "92511684-img-0382-view-01-clean.svg",
+      "svg_vectorization": {
+        "intrinsic_size_px": [
+          925,
+          543
+        ],
+        "layer_colors": {
+          "accents": "#e22020",
+          "dimensions": "#3a4fd6",
+          "linework": "#1a1a1a"
+        },
+        "layer_element_counts": {
+          "accents": 6,
+          "dimensions": 8,
+          "linework": 91
+        },
+        "total_elements": 105,
+        "upscale": 3,
+        "view_box": [
+          0,
+          0,
+          2775,
+          1629
+        ]
+      },
+      "view": "view-01",
+      "view_index": 1
+    },
+    {
+      "svg_layer_files": [
+        "92511684-img-0382-view-02-linework.svg",
+        "92511684-img-0382-view-02-dimensions.svg",
+        "92511684-img-0382-view-02-accents.svg"
+      ],
+      "svg_master": "92511684-img-0382-view-02-clean.svg",
+      "svg_vectorization": {
+        "intrinsic_size_px": [
+          972,
+          516
+        ],
+        "layer_colors": {
+          "accents": "#e22020",
+          "dimensions": "#3a4fd6",
+          "linework": "#1a1a1a"
+        },
+        "layer_element_counts": {
+          "accents": 2,
+          "dimensions": 77,
+          "linework": 3
+        },
+        "total_elements": 82,
+        "upscale": 3,
+        "view_box": [
+          0,
+          0,
+          2916,
+          1548
+        ]
+      },
+      "view": "view-02",
+      "view_index": 2
+    },
+    {
+      "svg_layer_files": [
+        "92511684-img-0382-view-03-linework.svg",
+        "92511684-img-0382-view-03-dimensions.svg",
+        "92511684-img-0382-view-03-accents.svg"
+      ],
+      "svg_master": "92511684-img-0382-view-03-clean.svg",
+      "svg_vectorization": {
+        "intrinsic_size_px": [
+          944,
+          403
+        ],
+        "layer_colors": {
+          "accents": "#e22020",
+          "dimensions": "#3a4fd6",
+          "linework": "#1a1a1a"
+        },
+        "layer_element_counts": {
+          "accents": 5,
+          "dimensions": 2,
+          "linework": 5
+        },
+        "total_elements": 12,
+        "upscale": 3,
+        "view_box": [
+          0,
+          0,
+          2832,
+          1209
+        ]
+      },
+      "view": "view-03",
+      "view_index": 3
+    }
+  ],
+  "package": "split-the-views-1.6.1.zip",
+  "prefix": "92511684-img-0382",
+  "tool": "split-the-views",
+  "version": "1.6.1",
+  "view_count": 3
+}

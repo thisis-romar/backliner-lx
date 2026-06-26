@@ -1,0 +1,37 @@
+{
+  "artifact_type": "legends",
+  "items": [
+    {
+      "legend_detection": {
+        "box_px": [
+          531,
+          640,
+          979,
+          779
+        ],
+        "detected": true,
+        "fill_fraction": 0.8293,
+        "gray_range": [
+          208,
+          248
+        ],
+        "legend_size_px": [
+          448,
+          139
+        ],
+        "method": "solid-gray-fill"
+      },
+      "legend_files": [
+        "92511684-img-0382-view-01-legend.pdf",
+        "92511684-img-0382-view-01-legend.png"
+      ],
+      "view": "view-01",
+      "view_index": 1
+    }
+  ],
+  "package": "split-the-views-1.6.1.zip",
+  "prefix": "92511684-img-0382",
+  "tool": "split-the-views",
+  "version": "1.6.1",
+  "view_count": 3
+}

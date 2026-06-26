@@ -1,0 +1,16 @@
+{
+  "artifact_type": "full-views",
+  "files": [
+    "92511684-img-0382-view-01.pdf",
+    "92511684-img-0382-view-02.pdf",
+    "92511684-img-0382-view-03.pdf",
+    "92511684-img-0382-view-01.png",
+    "92511684-img-0382-view-02.png",
+    "92511684-img-0382-view-03.png"
+  ],
+  "package": "split-the-views-1.6.1.zip",
+  "prefix": "92511684-img-0382",
+  "tool": "split-the-views",
+  "version": "1.6.1",
+  "view_count": 3
+}

@@ -1,0 +1,163 @@
+{
+  "artifact_type": "drawings",
+  "items": [
+    {
+      "debug_overlay": "92511684-img-0382-view-01-debug.png",
+      "drawing_files": [
+        "92511684-img-0382-view-01-drawing.pdf",
+        "92511684-img-0382-view-01-drawing.png"
+      ],
+      "title_block_detection": {
+        "band_hits": 24,
+        "confidence": "high",
+        "dark_fraction": 0.9988,
+        "drawing_edge_rules_stripped_px": {
+          "bottom": 2,
+          "left": 2,
+          "right": 0,
+          "top": 2
+        },
+        "drawing_size_px": [
+          987,
+          787
+        ],
+        "method": "vertical-line-detect",
+        "raw_drawing_size_px": [
+          1039,
+          810
+        ],
+        "score": 243.877,
+        "search_range": [
+          748,
+          1087
+        ],
+        "title_block_size_px": [
+          108,
+          810
+        ],
+        "view_size_px": [
+          1151,
+          810
+        ],
+        "x": 1041
+      },
+      "title_block_files": [
+        "92511684-img-0382-view-01-title-block.pdf",
+        "92511684-img-0382-view-01-title-block.png"
+      ],
+      "title_block_ocr": {
+        "engine": null,
+        "skipped": "pytesseract/tesseract not available; install tesseract and `pip install pytesseract` to populate title-block fields"
+      },
+      "view": "view-01",
+      "view_index": 1
+    },
+    {
+      "debug_overlay": "92511684-img-0382-view-02-debug.png",
+      "drawing_files": [
+        "92511684-img-0382-view-02-drawing.pdf",
+        "92511684-img-0382-view-02-drawing.png"
+      ],
+      "title_block_detection": {
+        "band_hits": 24,
+        "confidence": "high",
+        "dark_fraction": 0.9988,
+        "drawing_edge_rules_stripped_px": {
+          "bottom": 2,
+          "left": 2,
+          "right": 0,
+          "top": 1
+        },
+        "drawing_size_px": [
+          998,
+          786
+        ],
+        "method": "vertical-line-detect",
+        "raw_drawing_size_px": [
+          1039,
+          809
+        ],
+        "score": 243.877,
+        "search_range": [
+          748,
+          1087
+        ],
+        "title_block_size_px": [
+          108,
+          809
+        ],
+        "view_size_px": [
+          1151,
+          810
+        ],
+        "x": 1041
+      },
+      "title_block_files": [
+        "92511684-img-0382-view-02-title-block.pdf",
+        "92511684-img-0382-view-02-title-block.png"
+      ],
+      "title_block_ocr": {
+        "engine": null,
+        "skipped": "pytesseract/tesseract not available; install tesseract and `pip install pytesseract` to populate title-block fields"
+      },
+      "view": "view-02",
+      "view_index": 2
+    },
+    {
+      "debug_overlay": "92511684-img-0382-view-03-debug.png",
+      "drawing_files": [
+        "92511684-img-0382-view-03-drawing.pdf",
+        "92511684-img-0382-view-03-drawing.png"
+      ],
+      "title_block_detection": {
+        "band_hits": 24,
+        "confidence": "high",
+        "dark_fraction": 1.0,
+        "drawing_edge_rules_stripped_px": {
+          "bottom": 0,
+          "left": 2,
+          "right": 0,
+          "top": 2
+        },
+        "drawing_size_px": [
+          992,
+          545
+        ],
+        "method": "vertical-line-detect",
+        "raw_drawing_size_px": [
+          1039,
+          607
+        ],
+        "score": 244.0,
+        "search_range": [
+          748,
+          1087
+        ],
+        "title_block_size_px": [
+          108,
+          607
+        ],
+        "view_size_px": [
+          1151,
+          607
+        ],
+        "x": 1041
+      },
+      "title_block_files": [
+        "92511684-img-0382-view-03-title-block.pdf",
+        "92511684-img-0382-view-03-title-block.png"
+      ],
+      "title_block_ocr": {
+        "engine": null,
+        "skipped": "pytesseract/tesseract not available; install tesseract and `pip install pytesseract` to populate title-block fields"
+      },
+      "view": "view-03",
+      "view_index": 3
+    }
+  ],
+  "package": "split-the-views-1.6.1.zip",
+  "prefix": "92511684-img-0382",
+  "tool": "split-the-views",
+  "version": "1.6.1",
+  "view_count": 3
+}

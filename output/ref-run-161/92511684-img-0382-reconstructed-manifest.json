@@ -1,0 +1,18 @@
+{
+  "artifact_type": "reconstructed-sheets",
+  "items": [
+    {
+      "artifact_type": "reconstructed-sheet",
+      "files": [
+        "92511684-img-0382-view-03-reconstructed.pdf",
+        "92511684-img-0382-view-03-reconstructed.png"
+      ],
+      "view": "view-03"
+    }
+  ],
+  "package": "split-the-views-1.6.1.zip",
+  "prefix": "92511684-img-0382",
+  "tool": "split-the-views",
+  "version": "1.6.1",
+  "view_count": 3
+}

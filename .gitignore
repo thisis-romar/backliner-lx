@@ -1,3 +1,4 @@
 node_modules/
-output/
+output/*
+!output/ref-run-161/
 __pycache__/

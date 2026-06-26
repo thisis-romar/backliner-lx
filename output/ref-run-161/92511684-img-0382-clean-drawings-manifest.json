@@ -1,0 +1,61 @@
+{
+  "artifact_type": "clean-drawings",
+  "items": [
+    {
+      "clean_files": [
+        "92511684-img-0382-view-01-clean.pdf",
+        "92511684-img-0382-view-01-clean.png"
+      ],
+      "header_footer_removed": {
+        "clean_size_px": [
+          925,
+          543
+        ],
+        "footer_px": 32,
+        "header_px": 22
+      },
+      "legend_masked": true,
+      "view": "view-01",
+      "view_index": 1
+    },
+    {
+      "clean_files": [
+        "92511684-img-0382-view-02-clean.pdf",
+        "92511684-img-0382-view-02-clean.png"
+      ],
+      "header_footer_removed": {
+        "clean_size_px": [
+          972,
+          516
+        ],
+        "footer_px": 32,
+        "header_px": 22
+      },
+      "legend_masked": false,
+      "view": "view-02",
+      "view_index": 2
+    },
+    {
+      "clean_files": [
+        "92511684-img-0382-view-03-clean.pdf",
+        "92511684-img-0382-view-03-clean.png"
+      ],
+      "header_footer_removed": {
+        "clean_size_px": [
+          944,
+          403
+        ],
+        "footer_px": 0,
+        "header_px": 22
+      },
+      "legend_masked": false,
+      "view": "view-03",
+      "view_index": 3
+    }
+  ],
+  "package": "split-the-views-1.6.1.zip",
+  "prefix": "92511684-img-0382",
+  "tool": "split-the-views",
+  "version": "1.6.1",
+  "view_count": 3
+}

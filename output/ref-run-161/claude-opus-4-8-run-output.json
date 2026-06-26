@@ -1,0 +1,1410 @@
+{
+  "artifact_counts": {
+    "json": 11,
+    "pdf": 14,
+    "png": 17,
+    "svg": 12,
+    "zip": 11
+  },
+  "artifacts": {
+    "json": [
+      {
+        "bytes": 1319,
+        "filename": "92511684-img-0382-clean-drawings-manifest.json"
+      },
+      {
+        "bytes": 2633,
+        "filename": "92511684-img-0382-clean-svg-manifest.json"
+      },
+      {
+        "bytes": 4094,
+        "filename": "92511684-img-0382-debug-overlays-manifest.json"
+      },
+      {
+        "bytes": 4088,
+        "filename": "92511684-img-0382-drawings-manifest.json"
+      },
+      {
+        "bytes": 737,
+        "filename": "92511684-img-0382-legends-manifest.json"
+      },
+      {
+        "bytes": 426,
+        "filename": "92511684-img-0382-reconstructed-manifest.json"
+      },
+      {
+        "bytes": 4092,
+        "filename": "92511684-img-0382-title-blocks-manifest.json"
+      },
+      {
+        "bytes": 1466,
+        "filename": "92511684-img-0382-view-01-regions-manifest.json"
+      },
+      {
+        "bytes": 1466,
+        "filename": "92511684-img-0382-view-02-regions-manifest.json"
+      },
+      {
+        "bytes": 1461,
+        "filename": "92511684-img-0382-view-03-regions-manifest.json"
+      },
+      {
+        "bytes": 420,
+        "filename": "92511684-img-0382-views-manifest.json"
+      }
+    ],
+    "pdf": [
+      {
+        "bytes": 72458,
+        "filename": "92511684-img-0382-view-01-clean.pdf"
+      },
+      {
+        "bytes": 99860,
+        "filename": "92511684-img-0382-view-01-drawing.pdf"
+      },
+      {
+        "bytes": 16100,
+        "filename": "92511684-img-0382-view-01-legend.pdf"
+      },
+      {
+        "bytes": 33736,
+        "filename": "92511684-img-0382-view-01-title-block.pdf"
+      },
+      {
+        "bytes": 145518,
+        "filename": "92511684-img-0382-view-01.pdf"
+      },
+      {
+        "bytes": 33211,
+        "filename": "92511684-img-0382-view-02-clean.pdf"
+      },
+      {
+        "bytes": 42013,
+        "filename": "92511684-img-0382-view-02-drawing.pdf"
+      },
+      {
+        "bytes": 33061,
+        "filename": "92511684-img-0382-view-02-title-block.pdf"
+      },
+      {
+        "bytes": 87671,
+        "filename": "92511684-img-0382-view-02.pdf"
+      },
+      {
+        "bytes": 52083,
+        "filename": "92511684-img-0382-view-03-clean.pdf"
+      },
+      {
+        "bytes": 58169,
+        "filename": "92511684-img-0382-view-03-drawing.pdf"
+      },
+      {
+        "bytes": 107296,
+        "filename": "92511684-img-0382-view-03-reconstructed.pdf"
+      },
+      {
+        "bytes": 23822,
+        "filename": "92511684-img-0382-view-03-title-block.pdf"
+      },
+      {
+        "bytes": 92218,
+        "filename": "92511684-img-0382-view-03.pdf"
+      }
+    ],
+    "png": [
+      {
+        "bytes": 57845,
+        "filename": "92511684-img-0382-view-01-clean.png"
+      },
+      {
+        "bytes": 119596,
+        "filename": "92511684-img-0382-view-01-debug.png"
+      },
+      {
+        "bytes": 81388,
+        "filename": "92511684-img-0382-view-01-drawing.png"
+      },
+      {
+        "bytes": 12827,
+        "filename": "92511684-img-0382-view-01-legend.png"
+      },
+      {
+        "bytes": 31336,
+        "filename": "92511684-img-0382-view-01-title-block.png"
+      },
+      {
+        "bytes": 121261,
+        "filename": "92511684-img-0382-view-01.png"
+      },
+      {
+        "bytes": 25583,
+        "filename": "92511684-img-0382-view-02-clean.png"
+      },
+      {
+        "bytes": 72621,
+        "filename": "92511684-img-0382-view-02-debug.png"
+      },
+      {
+        "bytes": 34996,
+        "filename": "92511684-img-0382-view-02-drawing.png"
+      },
+      {
+        "bytes": 30793,
+        "filename": "92511684-img-0382-view-02-title-block.png"
+      },
+      {
+        "bytes": 74252,
+        "filename": "92511684-img-0382-view-02.png"
+      },
+      {
+        "bytes": 43317,
+        "filename": "92511684-img-0382-view-03-clean.png"
+      },
+      {
+        "bytes": 77551,
+        "filename": "92511684-img-0382-view-03-debug.png"
+      },
+      {
+        "bytes": 50048,
+        "filename": "92511684-img-0382-view-03-drawing.png"
+      },
+      {
+        "bytes": 92349,
+        "filename": "92511684-img-0382-view-03-reconstructed.png"
+      },
+      {
+        "bytes": 22220,
+        "filename": "92511684-img-0382-view-03-title-block.png"
+      },
+      {
+        "bytes": 79683,
+        "filename": "92511684-img-0382-view-03.png"
+      }
+    ],
+    "svg": [
+      {
+        "bytes": 1305,
+        "filename": "92511684-img-0382-view-01-accents.svg"
+      },
+      {
+        "bytes": 37806,
+        "filename": "92511684-img-0382-view-01-clean.svg"
+      },
+      {
+        "bytes": 3117,
+        "filename": "92511684-img-0382-view-01-dimensions.svg"
+      },
+      {
+        "bytes": 33603,
+        "filename": "92511684-img-0382-view-01-linework.svg"
+      },
+      {
+        "bytes": 619,
+        "filename": "92511684-img-0382-view-02-accents.svg"
+      },
+      {
+        "bytes": 22413,
+        "filename": "92511684-img-0382-view-02-clean.svg"
+      },
+      {
+        "bytes": 13877,
+        "filename": "92511684-img-0382-view-02-dimensions.svg"
+      },
+      {
+        "bytes": 8136,
+        "filename": "92511684-img-0382-view-02-linework.svg"
+      },
+      {
+        "bytes": 889,
+        "filename": "92511684-img-0382-view-03-accents.svg"
+      },
+      {
+        "bytes": 26500,
+        "filename": "92511684-img-0382-view-03-clean.svg"
+      },
+      {
+        "bytes": 712,
+        "filename": "92511684-img-0382-view-03-dimensions.svg"
+      },
+      {
+        "bytes": 25118,
+        "filename": "92511684-img-0382-view-03-linework.svg"
+      }
+    ],
+    "zip": [
+      {
+        "bytes": 242712,
+        "filename": "92511684-img-0382-clean-drawings.zip"
+      },
+      {
+        "bytes": 57610,
+        "filename": "92511684-img-0382-clean-svg.zip"
+      },
+      {
+        "bytes": 254670,
+        "filename": "92511684-img-0382-debug-overlays.zip"
+      },
+      {
+        "bytes": 311691,
+        "filename": "92511684-img-0382-drawings.zip"
+      },
+      {
+        "bytes": 25587,
+        "filename": "92511684-img-0382-legends.zip"
+      },
+      {
+        "bytes": 171241,
+        "filename": "92511684-img-0382-reconstructed.zip"
+      },
+      {
+        "bytes": 153221,
+        "filename": "92511684-img-0382-title-blocks.zip"
+      },
+      {
+        "bytes": 327864,
+        "filename": "92511684-img-0382-view-01-regions.zip"
+      },
+      {
+        "bytes": 185974,
+        "filename": "92511684-img-0382-view-02-regions.zip"
+      },
+      {
+        "bytes": 205280,
+        "filename": "92511684-img-0382-view-03-regions.zip"
+      },
+      {
+        "bytes": 514445,
+        "filename": "92511684-img-0382-views.zip"
+      }
+    ]
+  },
+  "command": "python3 scripts/split_the_views.py --input 92511684-IMG_0382.PNG --outdir output/ref-run-161 --png --expected 3 --extract-title-blocks --ocr-title-blocks --strip-header-footer --extract-legend --svg --svg-layers --debug-overlays --per-view-zips --reconstruct-titleblock",
+  "input_image": "92511684-IMG_0382.PNG",
+  "input_path": "/root/.claude/uploads/7ce03f79-a826-5cc6-8ea8-69ce49abb96b/92511684-IMG_0382.PNG",
+  "manifests": {
+    "clean-drawings-manifest": {
+      "artifact_type": "clean-drawings",
+      "items": [
+        {
+          "clean_files": [
+            "92511684-img-0382-view-01-clean.pdf",
+            "92511684-img-0382-view-01-clean.png"
+          ],
+          "header_footer_removed": {
+            "clean_size_px": [
+              925,
+              543
+            ],
+            "footer_px": 32,
+            "header_px": 22
+          },
+          "legend_masked": true,
+          "view": "view-01",
+          "view_index": 1
+        },
+        {
+          "clean_files": [
+            "92511684-img-0382-view-02-clean.pdf",
+            "92511684-img-0382-view-02-clean.png"
+          ],
+          "header_footer_removed": {
+            "clean_size_px": [
+              972,
+              516
+            ],
+            "footer_px": 32,
+            "header_px": 22
+          },
+          "legend_masked": false,
+          "view": "view-02",
+          "view_index": 2
+        },
+        {
+          "clean_files": [
+            "92511684-img-0382-view-03-clean.pdf",
+            "92511684-img-0382-view-03-clean.png"
+          ],
+          "header_footer_removed": {
+            "clean_size_px": [
+              944,
+              403
+            ],
+            "footer_px": 0,
+            "header_px": 22
+          },
+          "legend_masked": false,
+          "view": "view-03",
+          "view_index": 3
+        }
+      ],
+      "package": "split-the-views-1.6.1.zip",
+      "prefix": "92511684-img-0382",
+      "tool": "split-the-views",
+      "version": "1.6.1",
+      "view_count": 3
+    },
+    "clean-svg-manifest": {
+      "artifact_type": "clean-svg",
+      "items": [
+        {
+          "svg_layer_files": [
+            "92511684-img-0382-view-01-linework.svg",
+            "92511684-img-0382-view-01-dimensions.svg",
+            "92511684-img-0382-view-01-accents.svg"
+          ],
+          "svg_master": "92511684-img-0382-view-01-clean.svg",
+          "svg_vectorization": {
+            "intrinsic_size_px": [
+              925,
+              543
+            ],
+            "layer_colors": {
+              "accents": "#e22020",
+              "dimensions": "#3a4fd6",
+              "linework": "#1a1a1a"
+            },
+            "layer_element_counts": {
+              "accents": 6,
+              "dimensions": 8,
+              "linework": 91
+            },
+            "total_elements": 105,
+            "upscale": 3,
+            "view_box": [
+              0,
+              0,
+              2775,
+              1629
+            ]
+          },
+          "view": "view-01",
+          "view_index": 1
+        },
+        {
+          "svg_layer_files": [
+            "92511684-img-0382-view-02-linework.svg",
+            "92511684-img-0382-view-02-dimensions.svg",
+            "92511684-img-0382-view-02-accents.svg"
+          ],
+          "svg_master": "92511684-img-0382-view-02-clean.svg",
+          "svg_vectorization": {
+            "intrinsic_size_px": [
+              972,
+              516
+            ],
+            "layer_colors": {
+              "accents": "#e22020",
+              "dimensions": "#3a4fd6",
+              "linework": "#1a1a1a"
+            },
+            "layer_element_counts": {
+              "accents": 2,
+              "dimensions": 77,
+              "linework": 3
+            },
+            "total_elements": 82,
+            "upscale": 3,
+            "view_box": [
+              0,
+              0,
+              2916,
+              1548
+            ]
+          },
+          "view": "view-02",
+          "view_index": 2
+        },
+        {
+          "svg_layer_files": [
+            "92511684-img-0382-view-03-linework.svg",
+            "92511684-img-0382-view-03-dimensions.svg",
+            "92511684-img-0382-view-03-accents.svg"
+          ],
+          "svg_master": "92511684-img-0382-view-03-clean.svg",
+          "svg_vectorization": {
+            "intrinsic_size_px": [
+              944,
+              403
+            ],
+            "layer_colors": {
+              "accents": "#e22020",
+              "dimensions": "#3a4fd6",
+              "linework": "#1a1a1a"
+            },
+            "layer_element_counts": {
+              "accents": 5,
+              "dimensions": 2,
+              "linework": 5
+            },
+            "total_elements": 12,
+            "upscale": 3,
+            "view_box": [
+              0,
+              0,
+              2832,
+              1209
+            ]
+          },
+          "view": "view-03",
+          "view_index": 3
+        }
+      ],
+      "package": "split-the-views-1.6.1.zip",
+      "prefix": "92511684-img-0382",
+      "tool": "split-the-views",
+      "version": "1.6.1",
+      "view_count": 3
+    },
+    "debug-overlays-manifest": {
+      "artifact_type": "debug-overlays",
+      "items": [
+        {
+          "debug_overlay": "92511684-img-0382-view-01-debug.png",
+          "drawing_files": [
+            "92511684-img-0382-view-01-drawing.pdf",
+            "92511684-img-0382-view-01-drawing.png"
+          ],
+          "title_block_detection": {
+            "band_hits": 24,
+            "confidence": "high",
+            "dark_fraction": 0.9988,
+            "drawing_edge_rules_stripped_px": {
+              "bottom": 2,
+              "left": 2,
+              "right": 0,
+              "top": 2
+            },
+            "drawing_size_px": [
+              987,
+              787
+            ],
+            "method": "vertical-line-detect",
+            "raw_drawing_size_px": [
+              1039,
+              810
+            ],
+            "score": 243.877,
+            "search_range": [
+              748,
+              1087
+            ],
+            "title_block_size_px": [
+              108,
+              810
+            ],
+            "view_size_px": [
+              1151,
+              810
+            ],
+            "x": 1041
+          },
+          "title_block_files": [
+            "92511684-img-0382-view-01-title-block.pdf",
+            "92511684-img-0382-view-01-title-block.png"
+          ],
+          "title_block_ocr": {
+            "engine": null,
+            "skipped": "pytesseract/tesseract not available; install tesseract and `pip install pytesseract` to populate title-block fields"
+          },
+          "view": "view-01",
+          "view_index": 1
+        },
+        {
+          "debug_overlay": "92511684-img-0382-view-02-debug.png",
+          "drawing_files": [
+            "92511684-img-0382-view-02-drawing.pdf",
+            "92511684-img-0382-view-02-drawing.png"
+          ],
+          "title_block_detection": {
+            "band_hits": 24,
+            "confidence": "high",
+            "dark_fraction": 0.9988,
+            "drawing_edge_rules_stripped_px": {
+              "bottom": 2,
+              "left": 2,
+              "right": 0,
+              "top": 1
+            },
+            "drawing_size_px": [
+              998,
+              786
+            ],
+            "method": "vertical-line-detect",
+            "raw_drawing_size_px": [
+              1039,
+              809
+            ],
+            "score": 243.877,
+            "search_range": [
+              748,
+              1087
+            ],
+            "title_block_size_px": [
+              108,
+              809
+            ],
+            "view_size_px": [
+              1151,
+              810
+            ],
+            "x": 1041
+          },
+          "title_block_files": [
+            "92511684-img-0382-view-02-title-block.pdf",
+            "92511684-img-0382-view-02-title-block.png"
+          ],
+          "title_block_ocr": {
+            "engine": null,
+            "skipped": "pytesseract/tesseract not available; install tesseract and `pip install pytesseract` to populate title-block fields"
+          },
+          "view": "view-02",
+          "view_index": 2
+        },
+        {
+          "debug_overlay": "92511684-img-0382-view-03-debug.png",
+          "drawing_files": [
+            "92511684-img-0382-view-03-drawing.pdf",
+            "92511684-img-0382-view-03-drawing.png"
+          ],
+          "title_block_detection": {
+            "band_hits": 24,
+            "confidence": "high",
+            "dark_fraction": 1.0,
+            "drawing_edge_rules_stripped_px": {
+              "bottom": 0,
+              "left": 2,
+              "right": 0,
+              "top": 2
+            },
+            "drawing_size_px": [
+              992,
+              545
+            ],
+            "method": "vertical-line-detect",
+            "raw_drawing_size_px": [
+              1039,
+              607
+            ],
+            "score": 244.0,
+            "search_range": [
+              748,
+              1087
+            ],
+            "title_block_size_px": [
+              108,
+              607
+            ],
+            "view_size_px": [
+              1151,
+              607
+            ],
+            "x": 1041
+          },
+          "title_block_files": [
+            "92511684-img-0382-view-03-title-block.pdf",
+            "92511684-img-0382-view-03-title-block.png"
+          ],
+          "title_block_ocr": {
+            "engine": null,
+            "skipped": "pytesseract/tesseract not available; install tesseract and `pip install pytesseract` to populate title-block fields"
+          },
+          "view": "view-03",
+          "view_index": 3
+        }
+      ],
+      "package": "split-the-views-1.6.1.zip",
+      "prefix": "92511684-img-0382",
+      "tool": "split-the-views",
+      "version": "1.6.1",
+      "view_count": 3
+    },
+    "drawings-manifest": {
+      "artifact_type": "drawings",
+      "items": [
+        {
+          "debug_overlay": "92511684-img-0382-view-01-debug.png",
+          "drawing_files": [
+            "92511684-img-0382-view-01-drawing.pdf",
+            "92511684-img-0382-view-01-drawing.png"
+          ],
+          "title_block_detection": {
+            "band_hits": 24,
+            "confidence": "high",
+            "dark_fraction": 0.9988,
+            "drawing_edge_rules_stripped_px": {
+              "bottom": 2,
+              "left": 2,
+              "right": 0,
+              "top": 2
+            },
+            "drawing_size_px": [
+              987,
+              787
+            ],
+            "method": "vertical-line-detect",
+            "raw_drawing_size_px": [
+              1039,
+              810
+            ],
+            "score": 243.877,
+            "search_range": [
+              748,
+              1087
+            ],
+            "title_block_size_px": [
+              108,
+              810
+            ],
+            "view_size_px": [
+              1151,
+              810
+            ],
+            "x": 1041
+          },
+          "title_block_files": [
+            "92511684-img-0382-view-01-title-block.pdf",
+            "92511684-img-0382-view-01-title-block.png"
+          ],
+          "title_block_ocr": {
+            "engine": null,
+            "skipped": "pytesseract/tesseract not available; install tesseract and `pip install pytesseract` to populate title-block fields"
+          },
+          "view": "view-01",
+          "view_index": 1
+        },
+        {
+          "debug_overlay": "92511684-img-0382-view-02-debug.png",
+          "drawing_files": [
+            "92511684-img-0382-view-02-drawing.pdf",
+            "92511684-img-0382-view-02-drawing.png"
+          ],
+          "title_block_detection": {
+            "band_hits": 24,
+            "confidence": "high",
+            "dark_fraction": 0.9988,
+            "drawing_edge_rules_stripped_px": {
+              "bottom": 2,
+              "left": 2,
+              "right": 0,
+              "top": 1
+            },
+            "drawing_size_px": [
+              998,
+              786
+            ],
+            "method": "vertical-line-detect",
+            "raw_drawing_size_px": [
+              1039,
+              809
+            ],
+            "score": 243.877,
+            "search_range": [
+              748,
+              1087
+            ],
+            "title_block_size_px": [
+              108,
+              809
+            ],
+            "view_size_px": [
+              1151,
+              810
+            ],
+            "x": 1041
+          },
+          "title_block_files": [
+            "92511684-img-0382-view-02-title-block.pdf",
+            "92511684-img-0382-view-02-title-block.png"
+          ],
+          "title_block_ocr": {
+            "engine": null,
+            "skipped": "pytesseract/tesseract not available; install tesseract and `pip install pytesseract` to populate title-block fields"
+          },
+          "view": "view-02",
+          "view_index": 2
+        },
+        {
+          "debug_overlay": "92511684-img-0382-view-03-debug.png",
+          "drawing_files": [
+            "92511684-img-0382-view-03-drawing.pdf",
+            "92511684-img-0382-view-03-drawing.png"
+          ],
+          "title_block_detection": {
+            "band_hits": 24,
+            "confidence": "high",
+            "dark_fraction": 1.0,
+            "drawing_edge_rules_stripped_px": {
+              "bottom": 0,
+              "left": 2,
+              "right": 0,
+              "top": 2
+            },
+            "drawing_size_px": [
+              992,
+              545
+            ],
+            "method": "vertical-line-detect",
+            "raw_drawing_size_px": [
+              1039,
+              607
+            ],
+            "score": 244.0,
+            "search_range": [
+              748,
+              1087
+            ],
+            "title_block_size_px": [
+              108,
+              607
+            ],
+            "view_size_px": [
+              1151,
+              607
+            ],
+            "x": 1041
+          },
+          "title_block_files": [
+            "92511684-img-0382-view-03-title-block.pdf",
+            "92511684-img-0382-view-03-title-block.png"
+          ],
+          "title_block_ocr": {
+            "engine": null,
+            "skipped": "pytesseract/tesseract not available; install tesseract and `pip install pytesseract` to populate title-block fields"
+          },
+          "view": "view-03",
+          "view_index": 3
+        }
+      ],
+      "package": "split-the-views-1.6.1.zip",
+      "prefix": "92511684-img-0382",
+      "tool": "split-the-views",
+      "version": "1.6.1",
+      "view_count": 3
+    },
+    "legends-manifest": {
+      "artifact_type": "legends",
+      "items": [
+        {
+          "legend_detection": {
+            "box_px": [
+              531,
+              640,
+              979,
+              779
+            ],
+            "detected": true,
+            "fill_fraction": 0.8293,
+            "gray_range": [
+              208,
+              248
+            ],
+            "legend_size_px": [
+              448,
+              139
+            ],
+            "method": "solid-gray-fill"
+          },
+          "legend_files": [
+            "92511684-img-0382-view-01-legend.pdf",
+            "92511684-img-0382-view-01-legend.png"
+          ],
+          "view": "view-01",
+          "view_index": 1
+        }
+      ],
+      "package": "split-the-views-1.6.1.zip",
+      "prefix": "92511684-img-0382",
+      "tool": "split-the-views",
+      "version": "1.6.1",
+      "view_count": 3
+    },
+    "reconstructed-manifest": {
+      "artifact_type": "reconstructed-sheets",
+      "items": [
+        {
+          "artifact_type": "reconstructed-sheet",
+          "files": [
+            "92511684-img-0382-view-03-reconstructed.pdf",
+            "92511684-img-0382-view-03-reconstructed.png"
+          ],
+          "view": "view-03"
+        }
+      ],
+      "package": "split-the-views-1.6.1.zip",
+      "prefix": "92511684-img-0382",
+      "tool": "split-the-views",
+      "version": "1.6.1",
+      "view_count": 3
+    },
+    "title-blocks-manifest": {
+      "artifact_type": "title-blocks",
+      "items": [
+        {
+          "debug_overlay": "92511684-img-0382-view-01-debug.png",
+          "drawing_files": [
+            "92511684-img-0382-view-01-drawing.pdf",
+            "92511684-img-0382-view-01-drawing.png"
+          ],
+          "title_block_detection": {
+            "band_hits": 24,
+            "confidence": "high",
+            "dark_fraction": 0.9988,
+            "drawing_edge_rules_stripped_px": {
+              "bottom": 2,
+              "left": 2,
+              "right": 0,
+              "top": 2
+            },
+            "drawing_size_px": [
+              987,
+              787
+            ],
+            "method": "vertical-line-detect",
+            "raw_drawing_size_px": [
+              1039,
+              810
+            ],
+            "score": 243.877,
+            "search_range": [
+              748,
+              1087
+            ],
+            "title_block_size_px": [
+              108,
+              810
+            ],
+            "view_size_px": [
+              1151,
+              810
+            ],
+            "x": 1041
+          },
+          "title_block_files": [
+            "92511684-img-0382-view-01-title-block.pdf",
+            "92511684-img-0382-view-01-title-block.png"
+          ],
+          "title_block_ocr": {
+            "engine": null,
+            "skipped": "pytesseract/tesseract not available; install tesseract and `pip install pytesseract` to populate title-block fields"
+          },
+          "view": "view-01",
+          "view_index": 1
+        },
+        {
+          "debug_overlay": "92511684-img-0382-view-02-debug.png",
+          "drawing_files": [
+            "92511684-img-0382-view-02-drawing.pdf",
+            "92511684-img-0382-view-02-drawing.png"
+          ],
+          "title_block_detection": {
+            "band_hits": 24,
+            "confidence": "high",
+            "dark_fraction": 0.9988,
+            "drawing_edge_rules_stripped_px": {
+              "bottom": 2,
+              "left": 2,
+              "right": 0,
+              "top": 1
+            },
+            "drawing_size_px": [
+              998,
+              786
+            ],
+            "method": "vertical-line-detect",
+            "raw_drawing_size_px": [
+              1039,
+              809
+            ],
+            "score": 243.877,
+            "search_range": [
+              748,
+              1087
+            ],
+            "title_block_size_px": [
+              108,
+              809
+            ],
+            "view_size_px": [
+              1151,
+              810
+            ],
+            "x": 1041
+          },
+          "title_block_files": [
+            "92511684-img-0382-view-02-title-block.pdf",
+            "92511684-img-0382-view-02-title-block.png"
+          ],
+          "title_block_ocr": {
+            "engine": null,
+            "skipped": "pytesseract/tesseract not available; install tesseract and `pip install pytesseract` to populate title-block fields"
+          },
+          "view": "view-02",
+          "view_index": 2
+        },
+        {
+          "debug_overlay": "92511684-img-0382-view-03-debug.png",
+          "drawing_files": [
+            "92511684-img-0382-view-03-drawing.pdf",
+            "92511684-img-0382-view-03-drawing.png"
+          ],
+          "title_block_detection": {
+            "band_hits": 24,
+            "confidence": "high",
+            "dark_fraction": 1.0,
+            "drawing_edge_rules_stripped_px": {
+              "bottom": 0,
+              "left": 2,
+              "right": 0,
+              "top": 2
+            },
+            "drawing_size_px": [
+              992,
+              545
+            ],
+            "method": "vertical-line-detect",
+            "raw_drawing_size_px": [
+              1039,
+              607
+            ],
+            "score": 244.0,
+            "search_range": [
+              748,
+              1087
+            ],
+            "title_block_size_px": [
+              108,
+              607
+            ],
+            "view_size_px": [
+              1151,
+              607
+            ],
+            "x": 1041
+          },
+          "title_block_files": [
+            "92511684-img-0382-view-03-title-block.pdf",
+            "92511684-img-0382-view-03-title-block.png"
+          ],
+          "title_block_ocr": {
+            "engine": null,
+            "skipped": "pytesseract/tesseract not available; install tesseract and `pip install pytesseract` to populate title-block fields"
+          },
+          "view": "view-03",
+          "view_index": 3
+        }
+      ],
+      "package": "split-the-views-1.6.1.zip",
+      "prefix": "92511684-img-0382",
+      "tool": "split-the-views",
+      "version": "1.6.1",
+      "view_count": 3
+    },
+    "view-01-regions-manifest": {
+      "items": [
+        {
+          "debug_overlay": "92511684-img-0382-view-01-debug.png",
+          "drawing_files": [
+            "92511684-img-0382-view-01-drawing.pdf",
+            "92511684-img-0382-view-01-drawing.png"
+          ],
+          "title_block_detection": {
+            "band_hits": 24,
+            "confidence": "high",
+            "dark_fraction": 0.9988,
+            "drawing_edge_rules_stripped_px": {
+              "bottom": 2,
+              "left": 2,
+              "right": 0,
+              "top": 2
+            },
+            "drawing_size_px": [
+              987,
+              787
+            ],
+            "method": "vertical-line-detect",
+            "raw_drawing_size_px": [
+              1039,
+              810
+            ],
+            "score": 243.877,
+            "search_range": [
+              748,
+              1087
+            ],
+            "title_block_size_px": [
+              108,
+              810
+            ],
+            "view_size_px": [
+              1151,
+              810
+            ],
+            "x": 1041
+          },
+          "title_block_files": [
+            "92511684-img-0382-view-01-title-block.pdf",
+            "92511684-img-0382-view-01-title-block.png"
+          ],
+          "title_block_ocr": {
+            "engine": null,
+            "skipped": "pytesseract/tesseract not available; install tesseract and `pip install pytesseract` to populate title-block fields"
+          },
+          "view": "view-01",
+          "view_index": 1
+        }
+      ],
+      "package": "split-the-views-1.6.1.zip",
+      "prefix": "92511684-img-0382",
+      "tool": "split-the-views",
+      "version": "1.6.1",
+      "view": "view-01"
+    },
+    "view-02-regions-manifest": {
+      "items": [
+        {
+          "debug_overlay": "92511684-img-0382-view-02-debug.png",
+          "drawing_files": [
+            "92511684-img-0382-view-02-drawing.pdf",
+            "92511684-img-0382-view-02-drawing.png"
+          ],
+          "title_block_detection": {
+            "band_hits": 24,
+            "confidence": "high",
+            "dark_fraction": 0.9988,
+            "drawing_edge_rules_stripped_px": {
+              "bottom": 2,
+              "left": 2,
+              "right": 0,
+              "top": 1
+            },
+            "drawing_size_px": [
+              998,
+              786
+            ],
+            "method": "vertical-line-detect",
+            "raw_drawing_size_px": [
+              1039,
+              809
+            ],
+            "score": 243.877,
+            "search_range": [
+              748,
+              1087
+            ],
+            "title_block_size_px": [
+              108,
+              809
+            ],
+            "view_size_px": [
+              1151,
+              810
+            ],
+            "x": 1041
+          },
+          "title_block_files": [
+            "92511684-img-0382-view-02-title-block.pdf",
+            "92511684-img-0382-view-02-title-block.png"
+          ],
+          "title_block_ocr": {
+            "engine": null,
+            "skipped": "pytesseract/tesseract not available; install tesseract and `pip install pytesseract` to populate title-block fields"
+          },
+          "view": "view-02",
+          "view_index": 2
+        }
+      ],
+      "package": "split-the-views-1.6.1.zip",
+      "prefix": "92511684-img-0382",
+      "tool": "split-the-views",
+      "version": "1.6.1",
+      "view": "view-02"
+    },
+    "view-03-regions-manifest": {
+      "items": [
+        {
+          "debug_overlay": "92511684-img-0382-view-03-debug.png",
+          "drawing_files": [
+            "92511684-img-0382-view-03-drawing.pdf",
+            "92511684-img-0382-view-03-drawing.png"
+          ],
+          "title_block_detection": {
+            "band_hits": 24,
+            "confidence": "high",
+            "dark_fraction": 1.0,
+            "drawing_edge_rules_stripped_px": {
+              "bottom": 0,
+              "left": 2,
+              "right": 0,
+              "top": 2
+            },
+            "drawing_size_px": [
+              992,
+              545
+            ],
+            "method": "vertical-line-detect",
+            "raw_drawing_size_px": [
+              1039,
+              607
+            ],
+            "score": 244.0,
+            "search_range": [
+              748,
+              1087
+            ],
+            "title_block_size_px": [
+              108,
+              607
+            ],
+            "view_size_px": [
+              1151,
+              607
+            ],
+            "x": 1041
+          },
+          "title_block_files": [
+            "92511684-img-0382-view-03-title-block.pdf",
+            "92511684-img-0382-view-03-title-block.png"
+          ],
+          "title_block_ocr": {
+            "engine": null,
+            "skipped": "pytesseract/tesseract not available; install tesseract and `pip install pytesseract` to populate title-block fields"
+          },
+          "view": "view-03",
+          "view_index": 3
+        }
+      ],
+      "package": "split-the-views-1.6.1.zip",
+      "prefix": "92511684-img-0382",
+      "tool": "split-the-views",
+      "version": "1.6.1",
+      "view": "view-03"
+    },
+    "views-manifest": {
+      "artifact_type": "full-views",
+      "files": [
+        "92511684-img-0382-view-01.pdf",
+        "92511684-img-0382-view-02.pdf",
+        "92511684-img-0382-view-03.pdf",
+        "92511684-img-0382-view-01.png",
+        "92511684-img-0382-view-02.png",
+        "92511684-img-0382-view-03.png"
+      ],
+      "package": "split-the-views-1.6.1.zip",
+      "prefix": "92511684-img-0382",
+      "tool": "split-the-views",
+      "version": "1.6.1",
+      "view_count": 3
+    }
+  },
+  "model_attribution": "claude-opus-4-8",
+  "ocr_note": "OCR unavailable: tesseract not installed. pytesseract present. Resolution gate would also apply: title-block columns are ~108px wide (below OCR_MIN_WIDTH_PX=320). Visual reading of title-block crops is required.",
+  "output_directory": "/home/user/backliner-lx/output/ref-run-161",
+  "run_date": "2026-06-25",
+  "stdout_verbatim": "split-the-views 1.6.1 (2026-06-25)\nFilename rules: ascii lowercase, hyphen separators, no spaces/parentheses/underscores\nDetected 3 view(s): [(290, 1100), (1119, 1929), (1949, 2556)]\nPrefix: 92511684-img-0382\nOutdir: /home/user/backliner-lx/output/ref-run-161\nViews : 3\n  [OK] 92511684-img-0382-view-01.pdf + 92511684-img-0382-view-01.png  {'size': '1151x810', 'ink_%': 2.03, 'aspect': 1.42}\n    [ocr] view-01: unavailable sheet_title=None sheet_number=None scale=None\n    [extract] view-01: split-x=1041 method=vertical-line-detect confidence=high drawing=[987, 787] title-block=[108, 810]\n    [zip] /home/user/backliner-lx/output/ref-run-161/92511684-img-0382-view-01-regions.zip  (5 files, integrity OK)\n    [legend] view-01: detected box=[531, 640, 979, 779] size=[448, 139]\n    [clean] view-01: header-22px footer-32px size=[925, 543]\n    [svg] view-01: scalable viewBox=[0, 0, 2775, 1629] elements=105 (linework=91 dimensions=8 accents=6)\n  [OK] 92511684-img-0382-view-02.pdf + 92511684-img-0382-view-02.png  {'size': '1151x810', 'ink_%': 1.54, 'aspect': 1.42}\n    [ocr] view-02: unavailable sheet_title=None sheet_number=None scale=None\n    [extract] view-02: split-x=1041 method=vertical-line-detect confidence=high drawing=[998, 786] title-block=[108, 809]\n    [zip] /home/user/backliner-lx/output/ref-run-161/92511684-img-0382-view-02-regions.zip  (5 files, integrity OK)\n    [legend] view-02: no legend detected\n    [clean] view-02: header-22px footer-32px size=[972, 516]\n    [svg] view-02: scalable viewBox=[0, 0, 2916, 1548] elements=82 (linework=3 dimensions=77 accents=2)\n  [OK] 92511684-img-0382-view-03.pdf + 92511684-img-0382-view-03.png  {'size': '1151x607', 'ink_%': 2.56, 'aspect': 1.9}\n    [ocr] view-03: unavailable sheet_title=None sheet_number=None scale=None\n    [extract] view-03: split-x=1041 method=vertical-line-detect confidence=high drawing=[992, 545] title-block=[108, 607]\n    [zip] /home/user/backliner-lx/output/ref-run-161/92511684-img-0382-view-03-regions.zip  (5 files, integrity OK)\n    [legend] view-03: no legend detected\n    [clean] view-03: header-22px footer-0px size=[944, 403]\n    [svg] view-03: scalable viewBox=[0, 0, 2832, 1209] elements=12 (linework=5 dimensions=2 accents=5)\nZIP: /home/user/backliner-lx/output/ref-run-161/92511684-img-0382-views.zip  (6 files, integrity OK)\nZIP: /home/user/backliner-lx/output/ref-run-161/92511684-img-0382-drawings.zip  (6 files, integrity OK)\nZIP: /home/user/backliner-lx/output/ref-run-161/92511684-img-0382-title-blocks.zip  (6 files, integrity OK)\nZIP: /home/user/backliner-lx/output/ref-run-161/92511684-img-0382-debug-overlays.zip  (3 files, integrity OK)\nZIP: /home/user/backliner-lx/output/ref-run-161/92511684-img-0382-clean-drawings.zip  (6 files, integrity OK)\nZIP: /home/user/backliner-lx/output/ref-run-161/92511684-img-0382-legends.zip  (2 files, integrity OK)\nZIP: /home/user/backliner-lx/output/ref-run-161/92511684-img-0382-clean-svg.zip  (12 files, integrity OK)\n    [reconstruct] view-03: cut=607px template=810px missing=203px scale=1:15 (matched-spans) sheet_title=\"FRONT ELEVATION\"\nZIP: /home/user/backliner-lx/output/ref-run-161/92511684-img-0382-reconstructed.zip  (2 files, integrity OK)\nDone.",
+  "tool": "split-the-views",
+  "tool_version": "1.6.1",
+  "view_separator_rows_px": [
+    [
+      290,
+      1100
+    ],
+    [
+      1119,
+      1929
+    ],
+    [
+      1949,
+      2556
+    ]
+  ],
+  "views": {
+    "view-01": {
+      "aspect": 1.42,
+      "clean_footer_stripped_px": 32,
+      "clean_header_stripped_px": 22,
+      "clean_size_px": [
+        925,
+        543
+      ],
+      "drawing_size_px": [
+        987,
+        787
+      ],
+      "ink_pct": 2.03,
+      "legend_box_px": [
+        531,
+        640,
+        979,
+        779
+      ],
+      "legend_detected": true,
+      "legend_size_px": [
+        448,
+        139
+      ],
+      "ocr_available": false,
+      "ocr_scale": null,
+      "ocr_sheet_number": null,
+      "ocr_sheet_title": null,
+      "reconstructed": false,
+      "size_px": "1151x810",
+      "split_confidence": "high",
+      "split_method": "vertical-line-detect",
+      "svg_elements_accents": 6,
+      "svg_elements_dimensions": 8,
+      "svg_elements_linework": 91,
+      "svg_elements_total": 105,
+      "svg_viewbox": [
+        0,
+        0,
+        2775,
+        1629
+      ],
+      "title_block_size_px": [
+        108,
+        810
+      ],
+      "title_block_split_x": 1041
+    },
+    "view-02": {
+      "aspect": 1.42,
+      "clean_footer_stripped_px": 32,
+      "clean_header_stripped_px": 22,
+      "clean_size_px": [
+        972,
+        516
+      ],
+      "drawing_size_px": [
+        998,
+        786
+      ],
+      "ink_pct": 1.54,
+      "legend_detected": false,
+      "ocr_available": false,
+      "ocr_scale": null,
+      "ocr_sheet_number": null,
+      "ocr_sheet_title": null,
+      "reconstructed": false,
+      "size_px": "1151x810",
+      "split_confidence": "high",
+      "split_method": "vertical-line-detect",
+      "svg_elements_accents": 2,
+      "svg_elements_dimensions": 77,
+      "svg_elements_linework": 3,
+      "svg_elements_total": 82,
+      "svg_viewbox": [
+        0,
+        0,
+        2916,
+        1548
+      ],
+      "title_block_size_px": [
+        108,
+        809
+      ],
+      "title_block_split_x": 1041
+    },
+    "view-03": {
+      "aspect": 1.9,
+      "clean_footer_stripped_px": 0,
+      "clean_header_stripped_px": 22,
+      "clean_size_px": [
+        944,
+        403
+      ],
+      "drawing_size_px": [
+        992,
+        545
+      ],
+      "ink_pct": 2.56,
+      "legend_detected": false,
+      "ocr_available": false,
+      "ocr_scale": null,
+      "ocr_sheet_number": null,
+      "ocr_sheet_title": null,
+      "reconstruct_cut_px": 607,
+      "reconstruct_inferred_sheet_title": "FRONT ELEVATION",
+      "reconstruct_missing_px": 203,
+      "reconstruct_scale": "1:15",
+      "reconstruct_scale_method": "matched-spans",
+      "reconstruct_template_px": 810,
+      "reconstructed": true,
+      "size_px": "1151x607",
+      "split_confidence": "high",
+      "split_method": "vertical-line-detect",
+      "svg_elements_accents": 5,
+      "svg_elements_dimensions": 2,
+      "svg_elements_linework": 5,
+      "svg_elements_total": 12,
+      "svg_viewbox": [
+        0,
+        0,
+        2832,
+        1209
+      ],
+      "title_block_size_px": [
+        108,
+        607
+      ],
+      "title_block_split_x": 1041
+    }
+  },
+  "views_detected": 3,
+  "zip_bundles": [
+    {
+      "filename": "92511684-img-0382-views.zip",
+      "files": 6,
+      "integrity": "OK"
+    },
+    {
+      "filename": "92511684-img-0382-drawings.zip",
+      "files": 6,
+      "integrity": "OK"
+    },
+    {
+      "filename": "92511684-img-0382-title-blocks.zip",
+      "files": 6,
+      "integrity": "OK"
+    },
+    {
+      "filename": "92511684-img-0382-debug-overlays.zip",
+      "files": 3,
+      "integrity": "OK"
+    },
+    {
+      "filename": "92511684-img-0382-clean-drawings.zip",
+      "files": 6,
+      "integrity": "OK"
+    },
+    {
+      "filename": "92511684-img-0382-legends.zip",
+      "files": 2,
+      "integrity": "OK"
+    },
+    {
+      "filename": "92511684-img-0382-clean-svg.zip",
+      "files": 12,
+      "integrity": "OK"
+    },
+    {
+      "filename": "92511684-img-0382-reconstructed.zip",
+      "files": 2,
+      "integrity": "OK"
+    },
+    {
+      "filename": "92511684-img-0382-view-01-regions.zip",
+      "files": 5,
+      "integrity": "OK"
+    },
+    {
+      "filename": "92511684-img-0382-view-02-regions.zip",
+      "files": 5,
+      "integrity": "OK"
+    },
+    {
+      "filename": "92511684-img-0382-view-03-regions.zip",
+      "files": 5,
+      "integrity": "OK"
+    }
+  ]
+}
