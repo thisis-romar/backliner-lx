@@ -2,10 +2,11 @@
 name: split-the-views
 description: >-
   Convert one image of a multi-view drawing sheet into per-view artifacts.
-  Version 1.5.1 can extract drawing fields and right-side title blocks, emit
+  Version 1.6.1 can extract drawing fields and right-side title blocks, emit
   clean drawings with the sheet-title band and view-label band stripped,
-  auto-extract the gray legend/key box, and vectorize clean drawings into
-  scalable, layer-grouped SVGs. Use for drawing views,
+  auto-extract the gray legend/key box, vectorize clean drawings into
+  scalable, layer-grouped SVGs, and reconstruct complete sheets when a
+  screenshot has cropped a title block. Use for drawing views,
   plates, sheets, separated views, plan/elevation exports, downloadable per-view
   files, removing the title/header/footer, or extracting the legend from
   CAD/stage-layout sheets.
@@ -26,7 +27,7 @@ description: >-
 
 # split-the-views - Drawing Sheet Artifact Skill
 
-**Version 1.5.1** | 2026-06-25 | package: `split-the-views-1.5.1.zip`
+**Version 1.6.1** | 2026-06-25 | package: `split-the-views-1.6.1.zip`
 
 ---
 
@@ -41,7 +42,7 @@ split-the-views-x.x.x.zip
 Current release:
 
 ```text
-split-the-views-1.5.1.zip
+split-the-views-1.6.1.zip
 ```
 
 The plugin manifest name is:
@@ -92,7 +93,23 @@ svg-layer     = linework (black geometry), dimensions (blue), or accents (red) t
 8. Use `--extract-legend` when the user asks for the legend, key, or symbol box, or to pull the gray key panel out of a drawing.
 9. Use `--svg` (optionally `--svg-layers`) when the user asks to convert/vectorize views or drawings to SVG, wants scalable vector output, or wants drawing elements as selectable paths. Requires the `vtracer` package.
 10. Use `--debug-overlays` on the first run of a new drawing style so the title-block boundary can be visually audited.
-11. Present every path printed in the `=== SUMMARY ===` block.
+11. Use `--reconstruct-titleblock` when the source is a phone screenshot and any view may be bottom-cropped: the tool auto-detects cut title blocks, computes the missing scale from blue dimension chains, infers the sheet title from slug/position, derives the sheet number, and emits a complete reconstructed sheet (`<prefix>-<slug>-reconstructed.pdf/png`). Safe to pass on every screenshot run — skips cleanly when all TBs are complete.
+12. Use `--ocr-title-blocks` to populate the manifest with each title block's own text (`sheet_title`, `sheet_number`, `scale`, ...) for downstream reporting. Optional; self-skips on low-resolution title blocks (phone screenshots), where you must read the crop visually instead — see Reporting results below.
+13. Present every path printed in the `=== SUMMARY ===` block.
+
+---
+
+## Reporting results
+
+When you describe the split sheet to the user, derive every fact from the sheet's own text and geometry — never from the drawing's visual silhouette. The most common failure on this tool is shape-based genre guessing (e.g. calling a stage-lighting plot an "RV floor plan" because the fixtures sit in rows). Follow these rules so the description is consistent regardless of which model is running:
+
+1. **Read labels from the title block, not the picture.** Each view's discipline label (PLAN VIEW, SIDE ELEVATION, FRONT ELEVATION, SECTION, etc.) is printed in its title block's "Sheet Title" row. Read it from the extracted title-block crop (or from `title_block_ocr.fields.sheet_title` in the manifest when `--ocr-title-blocks` populated it). Do not infer the label from how the drawing looks.
+2. **OCR is a convenience, not the source of truth.** `--ocr-title-blocks` populates fields only on high-resolution sheets; on low-resolution crops it returns `skipped_low_res`. When OCR is skipped or absent, read the title-block crop image directly — your own reading of the crop is more reliable than OCR on small rendered text.
+3. **Identify the actual subject from the legend/key.** The legend lists what the fixtures/symbols are (e.g. "Ayrton Rivale Profile", "Chauvet Color Strike M"). Use it to name the domain correctly instead of guessing from shapes.
+4. **Treat each panel independently.** Do not assume all views on one sheet share a subject — check each view's own header/title block. A single sheet can mix variants (e.g. a US rig and a UK/EU rig).
+5. **Flag truncation; never paper over it.** If a title block is shorter than the others (a screenshot crop), its lower fields are missing. Say so, and note that `--reconstruct-titleblock` can rebuild them — but that reconstructed Sheet Title/Scale are inferred, not read.
+6. **Report optional-region absence as neutral inventory.** "Legend present on 1 of 3 views" — not a success/failure rate. A legend that does not exist in the source is not a detection failure.
+7. **State derivation vs. measurement.** Distinguish values read from the sheet (measured) from values the tool inferred (reconstructed/positional). Keep accuracy over polish.
 
 ---
 
@@ -244,7 +261,7 @@ Clean/legend ZIPs:
 <input-stem>-legends.zip
 ```
 
-`--strip-header-footer` removes the top sheet-title band and the bottom view-label/scale band while preserving connected drawing geometry, and automatically masks any detected legend so the clean drawing is legend-free. `--extract-legend` additionally saves that legend as its own cropped artifact and reports `no legend detected` for views without one; without it, a detected legend is masked from the clean drawing and reported as `(masked from clean drawing, not exported)`. The two can be combined with `--extract-title-blocks` in a single run.
+`--strip-header-footer` removes the top sheet-title band and the bottom view-label/scale band while preserving connected drawing geometry. `--extract-legend` crops the gray key box and reports `no legend detected` for views without one. The two can be combined with `--extract-title-blocks` in a single run.
 
 ---
 

@@ -2,15 +2,91 @@
 
 All notable changes to `split-the-views` are documented here.
 
-## [1.5.1] - 2026-06-25
+## [1.6.1] - 2026-06-25
 
-Behavior fix: `--strip-header-footer` now always produces a legend-free clean drawing.
+Optional title-block OCR and cross-model reporting guidance. Additive and opt-in;
+all pre-1.6.1 artifacts are content-identical when the new flag is not passed.
 
-- Decoupled legend *detection* from legend *export*. Previously the legend was masked out of the clean drawing only when `--extract-legend` was also passed, so `--strip-header-footer` alone left the legend embedded in the "clean" output — surprising, since the legend is sheet chrome, not drawing geometry.
-- Now legend detection runs whenever `--strip-header-footer` is set, and the detected box is masked out of the clean drawing regardless of `--extract-legend`.
-- `--extract-legend` now controls only whether the legend is saved as its own `<prefix>-view-XX-legend.pdf/png` artifact (and `<prefix>-legends.zip`). When `--strip-header-footer` runs without it, a detected legend is reported as `(masked from clean drawing, not exported)` and no legend file is written.
-- Clarified the `--strip-header-footer` and `--extract-legend` help text to document the interaction.
-- Behavior change is limited to the clean-drawing output of `--strip-header-footer` used without `--extract-legend`; that clean drawing is now smaller (legend removed). All other outputs — full views, drawings, title blocks, exported legends, and SVGs — are unchanged. `--svg` already implied both flags, so SVG output is byte-for-byte identical.
+- Added `--ocr-title-blocks`: OCRs each extracted title block into structured manifest
+  fields (`sheet_title`, `sheet_number`, `scale`, `project_name`, `client`, `venue`,
+  `job_number`, `drawn_by`, `project_date`) plus `raw_text_lines`, written under the
+  `title_block_ocr` key of each drawings-manifest item. Implies `--extract-title-blocks`.
+- Added `stv/ocr.py` (`ocr_available`, `ocr_title_block`) and config constants
+  `OCR_UPSCALE`, `OCR_PSM`, `OCR_MIN_WIDTH_PX`.
+- OCR is OPTIONAL and degrades gracefully, mirroring the SVG/vtracer pattern: with no
+  tesseract/pytesseract it returns an `engine: null` skip; on any failure it returns an
+  `error` record; it never raises into the pipeline.
+- OCR is RESOLUTION-GATED. Title-block crops narrower than `OCR_MIN_WIDTH_PX` (default
+  320px) — typical of phone screenshots, where the title-block column is ~108px wide and
+  below tesseract's usable text density — return `skipped_low_res` instead of garbled
+  fields, and the SKILL.md reporting rules direct the model to read the crop visually.
+  (Empirically, tesseract recovers ~0 useful tokens from the 108px column across upscale
+  4–12x, psm 4/6, and binarization; OCR's value is on high-resolution source sheets.)
+- Added a SKILL.md **Reporting results** section: derive view labels from the title-block
+  text/legend rather than the drawing's visual shape; treat each panel independently
+  (one sheet may mix variants); flag truncated title blocks; report optional-region
+  absence as neutral inventory ("present on N of M"), not a success rate; distinguish
+  measured vs. inferred values. This is the primary, model-tier-independent fix for the
+  shape-based mislabeling failure mode.
+
+## [1.6.0] - 2026-06-25
+
+Feature release: automatic title-block cut detection and full-sheet reconstruction.
+
+- Added `--reconstruct-titleblock`: detects views whose title block is shorter than
+  the run maximum (a screenshot crop) and reconstructs the complete sheet in five steps:
+  1. **detect** — compare TB crop heights; flag any crop < 85 % of the tallest as cut.
+  2. **identify** — record which field rows are absent (below the cut y-coordinate).
+  3. **compute scale** — find the dominant horizontal blue dimension chain in the target
+     and reference views; measure tick-to-tick pixel spans; apply the orthographic
+     projection principle (same real-world width → matched spans → same scale). When
+     spans differ, the ratio gives a proportional estimate.
+  4. **reconstruct TB** — splice the real cut-crop pixels (upper portion) with an edited
+     copy of the reference TB (lower portion): Sheet Title inferred from slug/position,
+     Sheet Number from slug index, Scale from step 3. Unchanged fields (Date, Drawn By)
+     are taken verbatim from the reference template.
+  5. **composite sheet** — paste the full-height reconstructed TB into the correct column,
+     extend the left sheet border, and close the bottom border.
+- Emits `<prefix>-<slug>-reconstructed.pdf/png` for each cut view, and bundles them in
+  `<prefix>-reconstructed.zip`.
+- Added `--reference-scale N` to set the scale denominator of the reference view (default 15).
+- `--reconstruct-titleblock` automatically implies `--extract-title-blocks` (title blocks
+  must be extracted for height comparison and template access).
+- Reconstruction is additive: all existing artifacts (full views, drawings, title blocks,
+  clean drawings, legends, SVGs, per-view ZIPs) are byte-for-byte unchanged.
+- Added `stv/reconstruct.py` with `CutInfo` dataclass, `detect_cut_blocks`,
+  `_find_blue_chain`, `compute_scale`, `identify_missing_rows`, `_derive_field_overrides`,
+  `reconstruct_title_block`, `composite_full_sheet`, and `run_reconstruction`.
+- Verified: binary artifacts (PDF by rendered pixels, PNG/SVG by SHA-256) are unchanged
+  when `--reconstruct-titleblock` is not passed. Only manifests change (version field).
+- This is a minor version bump from 1.5.0 (internal refactor, held) to 1.6.0.
+
+## [Unreleased] - internal refactor (no behavior change)
+
+Structural refactor of the implementation with **zero output change**. The public
+runtime version is intentionally held at `1.5.0` so the version string embedded in
+every manifest stays stable and output parity is exact and verifiable.
+
+- Split the 1,421-line `scripts/split_the_views.py` monolith into a module-per-concern
+  library package, `scripts/stv/` (`config`, `naming`, `imaging`, `sources`, `detect`,
+  `regions`, `cleaning`, `legend`, `vectorize`, `review`, `render`, `pipeline`, `cli`).
+- `scripts/split_the_views.py` is now a thin launcher that calls `stv.cli.main()`.
+- Compatibility entrypoints (`split_views.py`, `sheetwright.py`, `extract_regions.py`)
+  now import and call `stv.cli.main()` instead of re-executing the module via
+  `runpy.run_path`; `extract_regions.py` still injects `--extract-title-blocks`.
+- Collapsed the four duplicated edge-scan closures in `strip_edge_rule_lines` into one
+  vectorized kernel over precomputed row/column means.
+- Added `manifest_base()` and `names()` helpers to remove ~7x duplicated manifest
+  headers and ~8x duplicated file-list constructions; manifests still serialize with
+  `sort_keys=True`, so byte output is unchanged.
+- Extracted the ~145-line per-view loop body into `pipeline.process_view`, with all
+  accumulators moved into a `Collectors` dataclass; `main()`/`run()` is now flat.
+- `render_pdf` now stages its image embed through a system temp file with a `finally`
+  cleanup, so a render failure can no longer leave a stray `*.tmp.png` in the output
+  directory. The temp path never affects PDF bytes.
+- Verified: with the full flag set on the reference 3-view sheet, all 61 outputs are
+  content-identical to pre-refactor 1.5.0 (PDFs compared by rasterized pixels, ZIPs by
+  per-member content, PNG/SVG/JSON by SHA-256), and stdout is byte-identical.
 
 ## [1.5.0] - 2026-06-25
 

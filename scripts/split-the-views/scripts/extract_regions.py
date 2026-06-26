@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
-"""Compatibility entrypoint for drawing/title-block extraction."""
+"""Compatibility entrypoint for drawing/title-block extraction.
 
-from pathlib import Path
-import runpy
+Injects --extract-title-blocks (unless already present), then runs the pipeline.
+"""
+
 import sys
+from pathlib import Path
 
-script = Path(__file__).with_name("split_the_views.py")
-if "--extract-title-blocks" not in sys.argv:
-    sys.argv.append("--extract-title-blocks")
-runpy.run_path(str(script), run_name="__main__")
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+
+from stv.cli import main
+
+if __name__ == "__main__":
+    if "--extract-title-blocks" not in sys.argv:
+        sys.argv.append("--extract-title-blocks")
+    main()

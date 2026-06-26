@@ -79,9 +79,10 @@ Three views stacked vertically with 60 px white separator gaps between them:
 - **Node.js** ≥ 18
 - **Python** 3.8+
 - `npm install` (installs `sharp`)
-- `pip install pillow reportlab numpy pymupdf vtracer --break-system-packages`
+- `pip install pillow reportlab numpy pymupdf vtracer pytesseract --break-system-packages`
+- `apt-get install -y tesseract-ocr` (system package — required for `--ocr-title-blocks`)
 
-`vtracer` is required for `--svg` vectorization. Without it the SVG step is skipped with an install hint; all other outputs are unaffected.
+`vtracer` is required for `--svg` vectorization; without it the SVG step is skipped with an install hint. `tesseract-ocr` + `pytesseract` are required for `--ocr-title-blocks`; without them OCR is skipped gracefully and all other outputs are unaffected.
 
 ---
 
@@ -89,7 +90,8 @@ Three views stacked vertically with 60 px white separator gaps between them:
 
 ```bash
 npm install
-pip install pillow reportlab numpy pymupdf vtracer --break-system-packages -q
+apt-get install -y tesseract-ocr
+pip install pillow reportlab numpy pymupdf vtracer pytesseract --break-system-packages -q
 npm run extract
 ```
 
@@ -106,16 +108,19 @@ Outputs the full artifact set to `output/split/` — see [Output Files](#output-
 | `npm run extract` | Full pipeline: render then split |
 | `npm run extract:hd` | Same pipeline at 300 DPI |
 
-`npm run split` runs the full split-the-views v1.5.1 feature set in one pass:
+`npm run split` runs the full split-the-views v1.6.1 feature set in one pass:
 
 | Flag | Output produced |
 |---|---|
 | *(base)* | `*-view-0N.pdf/png` — full view crops |
 | `--extract-title-blocks` | `*-view-0N-drawing.pdf/png` + `*-view-0N-title-block.pdf/png` |
+| `--ocr-title-blocks` | structured OCR fields in manifests (`sheet_title`, `sheet_number`, `scale`, …) |
 | `--strip-header-footer` | `*-view-0N-clean.pdf/png` — no sheet-title band / view-label band / legend |
 | `--extract-legend` | `*-view-0N-legend.pdf/png` — symbol legend box (views that have one) |
 | `--svg --svg-layers` | `*-view-0N-clean.svg` + layer SVGs (`linework`, `dimensions`, `accents`) |
 | `--debug-overlays` | `*-view-0N-debug.png` — title-block boundary audit image |
+| `--per-view-zips` | `*-view-0N-regions.zip` — per-view artifact bundle |
+| `--reconstruct-titleblock` | `*-view-0N-reconstructed.pdf/png` — full sheet with cut title block rebuilt |
 
 > **SVG note:** `--svg` raster-traces the split PNGs into resolution-independent SVGs grouped by color layer (`layer-linework`, `layer-dimensions`, `layer-accents`). Because the source is already a native SVG, these traced outputs are a secondary format for layer-separated downstream use — they are not a lossless round-trip. For editable geometry, work directly from `src/lx-floor-package.svg`.
 

@@ -11,7 +11,7 @@ split-the-views-x.x.x.zip
 Current release:
 
 ```text
-split-the-views-1.5.1.zip
+split-the-views-1.6.1.zip
 ```
 
 ## What it does
@@ -48,15 +48,22 @@ Version `1.5.0` adds scalable, layer-grouped SVG vectorization:
 - optional per-layer standalone SVGs for linework/dimensions/accents (`--svg-layers`);
 - master `<prefix>-clean-svg.zip` bundle.
 
+Version `1.6.0` adds automatic title-block cut detection and full-sheet reconstruction (`--reconstruct-titleblock`):
+
+- detects any view whose title block is shorter than the run maximum (a screenshot crop);
+- computes the missing scale from the dominant blue dimension chain (`--reference-scale N`, default 15);
+- infers the sheet title from slug/position and derives the sheet number from the slug index;
+- splices the real cropped pixels with the reference template and composites a complete sheet;
+- emits `<prefix>-<slug>-reconstructed.pdf/png` and bundles them in `<prefix>-reconstructed.zip`.
+- Note: reconstructed Sheet Title / Scale are inferred, not read from the cropped source — treat them as annotated-inferred rather than recovered ground truth.
+
+Version `1.6.1` adds optional title-block OCR and cross-model reporting rules:
+
+- `--ocr-title-blocks` reads each title block's own text into manifest fields (`sheet_title`, `sheet_number`, `scale`, ...) plus raw lines, so downstream consumers get the sheet's labels as data instead of inferring them from the drawing's shape.
+- OCR is optional (needs `tesseract` + `pip install pytesseract`) and resolution-gated: title blocks narrower than `OCR_MIN_WIDTH_PX` (e.g. a 108px phone-screenshot column) return `skipped_low_res` rather than garbled text, deferring to visual reading.
+- The SKILL.md "Reporting results" section instructs every model to derive view labels from the title-block text/legend (not the visual silhouette), treat each panel independently, flag truncation, and report optional-region absence as neutral inventory. This is the load-bearing fix for description consistency across model tiers; OCR is a convenience that helps mainly on high-resolution sheets.
+
 SVGs carry a `viewBox` plus `width="100%"` sizing so they scale to any container, and every traced contour is an individually addressable `<path>`. Requires the optional `vtracer` package.
-
-
-Version `1.5.1` makes `--strip-header-footer` always produce a legend-free clean drawing:
-
-- legend *detection* is now decoupled from legend *export*. The legend is masked out of the clean drawing whenever `--strip-header-footer` is set, regardless of `--extract-legend`;
-- `--extract-legend` now controls only whether the legend is saved as its own file. Without it, a detected legend is masked from the clean drawing and reported as `(masked from clean drawing, not exported)`.
-
-Previously `--strip-header-footer` alone left the legend embedded in the "clean" output. This is the only behavior change; all other outputs are unchanged.
 
 
 ## Terms
@@ -189,7 +196,7 @@ python scripts/split_the_views.py \
   --strip-header-footer
 ```
 
-This emits one `<input-stem>-view-XX-clean.pdf/png` per view plus `<input-stem>-clean-drawings.zip`. The top sheet-title band and the bottom view-label/scale band are removed; connected drawing geometry (such as a stage deck touching the bottom edge) is preserved. Any detected legend/key box is automatically masked out so the clean drawing is legend-free — add `--extract-legend` to also save that legend as its own file.
+This emits one `<input-stem>-view-XX-clean.pdf/png` per view plus `<input-stem>-clean-drawings.zip`. The top sheet-title band and the bottom view-label/scale band are removed; connected drawing geometry (such as a stage deck touching the bottom edge) is preserved.
 
 ## Extract the legend / key box
 
@@ -310,3 +317,44 @@ python scripts/split_views.py
 python scripts/sheetwright.py
 python scripts/extract_regions.py
 ```
+
+## Architecture
+
+As of the 1.5.0 internal refactor, the implementation is organized as a small
+library package (`scripts/stv/`) behind the same CLI. The monolithic
+`scripts/split_the_views.py` is now a thin launcher that calls `stv.cli.main()`;
+the three compatibility entrypoints do the same. No behavior, output, filename,
+manifest, or stdout changed — every generated artifact is content-identical to
+the pre-refactor 1.5.0 output (verified by rasterized-pixel PDF comparison,
+per-member ZIP comparison, and SHA-256 on PNG/SVG/JSON).
+
+```text
+scripts/
+  split_the_views.py     primary entrypoint  -> stv.cli.main()
+  split_views.py         legacy entrypoint    -> stv.cli.main()
+  sheetwright.py         legacy entrypoint    -> stv.cli.main()
+  extract_regions.py     injects --extract-title-blocks, then stv.cli.main()
+  stv/
+    __init__.py          version metadata, lazy main()
+    config.py            all tuning thresholds + format/path constants, grouped by concern
+    naming.py            filename policy (safe slugs, prefixes, zip names, unique view slugs)
+    imaging.py           shared numpy/PIL primitives (trim, edge-rule strip, runs, solid-fill)
+    sources.py           input discovery + image/PDF loading
+    detect.py            view detection, over-split consolidation, view cropping
+    regions.py           title-block boundary detection, region extraction, debug overlay
+    cleaning.py          clean-drawing header/footer band stripping
+    legend.py            gray legend/key-box detection + extraction
+    vectorize.py         clean-drawing -> scalable, layer-grouped SVG (optional vtracer)
+    review.py            per-panel QA flag (ink density, panel-count check)
+    render.py            PDF/PNG/SVG writers, ZIP bundler, manifest helpers
+    pipeline.py          input prep, per-view processing, run() orchestration
+    cli.py               argparse surface + main()
+```
+
+The dependency direction is one-way: `config` and `naming` depend on nothing in
+the package; `imaging` depends only on `config`; the per-stage modules
+(`detect`, `regions`, `cleaning`, `legend`, `vectorize`, `review`) depend on
+`config` + `imaging`; `render` adds the writers; `pipeline` composes the stages;
+`cli` is the only entry. Optional third-party backends are isolated to one
+module each (`fitz`/PyMuPDF in `sources`, `vtracer` in `vectorize`), so a missing
+optional dependency degrades exactly one capability.
