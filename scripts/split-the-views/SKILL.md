@@ -2,20 +2,25 @@
 name: split-the-views
 description: >-
   Convert one image of a multi-view drawing sheet into per-view artifacts.
-  Version 1.6.1 can extract drawing fields and right-side title blocks, emit
+  Version 1.8.0 can read each view's region banner (US vs UK/EU) via --ocr-headers,
+  extract drawing fields and right-side title blocks, emit
   clean drawings with the sheet-title band and view-label band stripped,
-  auto-extract the gray legend/key box, vectorize clean drawings into
-  scalable, layer-grouped SVGs, and reconstruct complete sheets when a
-  screenshot has cropped a title block. Use for drawing views,
+  auto-extract the gray legend/key box and itemize it into a structured
+  bill of materials, vectorize clean drawings into scalable, layer-grouped
+  SVGs, reconstruct complete sheets when a screenshot has cropped a title
+  block (tagging every reconstructed field as inferred), warn about cropped
+  title blocks on every run, and emit an authoritative per-run manifest with
+  exact artifact counts and per-field provenance. Use for drawing views,
   plates, sheets, separated views, plan/elevation exports, downloadable per-view
-  files, removing the title/header/footer, or extracting the legend from
-  CAD/stage-layout sheets.
+  files, removing the title/header/footer, extracting the legend, or listing the
+  fixtures/bill of materials from CAD/stage-layout sheets.
 
   Invoke on: "split this drawing", "separate the views", "one PDF per view",
   "give me the plan view by itself", "extract each drawing plate", "remove the
   title block", "extract the title blocks", "remove the title/header/footer",
   "strip the sheet title and the scale label", "give me a clean drawing",
-  "extract the legend", "pull out the key box", "convert the views to SVG",
+  "extract the legend", "pull out the key box", "list the fixtures", "what's in
+  the legend", "give me the bill of materials", "convert the views to SVG",
   "vectorize the drawing", "scalable SVG", "separate the drawing from the title
   block", "make the sheets downloadable", or similar drawing-sheet artifact
   requests.
@@ -27,7 +32,7 @@ description: >-
 
 # split-the-views - Drawing Sheet Artifact Skill
 
-**Version 1.6.1** | 2026-06-25 | package: `split-the-views-1.6.1.zip`
+**Version 1.8.0** | 2026-06-25 | package: `split-the-views-1.8.0.zip`
 
 ---
 
@@ -42,7 +47,7 @@ split-the-views-x.x.x.zip
 Current release:
 
 ```text
-split-the-views-1.6.1.zip
+split-the-views-1.8.0.zip
 ```
 
 The plugin manifest name is:
@@ -84,7 +89,7 @@ svg-layer     = linework (black geometry), dimensions (blue), or accents (red) t
 ## Invoke rules
 
 1. Run immediately when a user provides a drawing-sheet image and asks for views, plates, sheets, or downloadable per-view outputs.
-2. Auto-detect the input only when there is exactly one image/PDF in `/mnt/user-data/uploads/`.
+2. Auto-detect the input only when there is exactly one image/PDF in `/mnt/user-data/uploads/`. When the uploads directory holds more than one file (e.g. the source image alongside this tool's own `.zip`), do NOT rely on auto-detect — pass the target sheet explicitly with `--input /mnt/user-data/uploads/<file>`.
 3. Never invent semantic view names. Do not pass `--views plan,side,front` from visual guessing. Omit `--views` unless the user explicitly names the panels.
 4. Do not pass `--prefix` unless the user explicitly requests a naming prefix.
 5. Use `--png` when the user is on iOS, asks for Photos-compatible files, or had preview/download failures with PDF/ZIP links.
@@ -95,6 +100,8 @@ svg-layer     = linework (black geometry), dimensions (blue), or accents (red) t
 10. Use `--debug-overlays` on the first run of a new drawing style so the title-block boundary can be visually audited.
 11. Use `--reconstruct-titleblock` when the source is a phone screenshot and any view may be bottom-cropped: the tool auto-detects cut title blocks, computes the missing scale from blue dimension chains, infers the sheet title from slug/position, derives the sheet number, and emits a complete reconstructed sheet (`<prefix>-<slug>-reconstructed.pdf/png`). Safe to pass on every screenshot run — skips cleanly when all TBs are complete.
 12. Use `--ocr-title-blocks` to populate the manifest with each title block's own text (`sheet_title`, `sheet_number`, `scale`, ...) for downstream reporting. Optional; self-skips on low-resolution title blocks (phone screenshots), where you must read the crop visually instead — see Reporting results below.
+13. Use `--ocr-legend` when the user wants the parts list / fixtures / bill of materials. It itemizes the extracted key box into structured `{label, entries:[{descriptor, qty}]}` rows in the legends manifest and the run manifest. Implies `--extract-legend`. Best-effort (needs tesseract): quantities are read directly; label text can carry minor glyph noise, so the manifest carries a "verify against the legend crop" note.
+14. A `<prefix>-run-manifest.json` is written by default with authoritative artifact counts (globbed from disk), per-view provenance (measured vs inferred), legend inventory, OCR status, truncation, and reconstruction details. Read counts and provenance from it rather than hand-tallying. Suppress with `--no-run-manifest`.
 13. Present every path printed in the `=== SUMMARY ===` block.
 
 ---
@@ -105,11 +112,13 @@ When you describe the split sheet to the user, derive every fact from the sheet'
 
 1. **Read labels from the title block, not the picture.** Each view's discipline label (PLAN VIEW, SIDE ELEVATION, FRONT ELEVATION, SECTION, etc.) is printed in its title block's "Sheet Title" row. Read it from the extracted title-block crop (or from `title_block_ocr.fields.sheet_title` in the manifest when `--ocr-title-blocks` populated it). Do not infer the label from how the drawing looks.
 2. **OCR is a convenience, not the source of truth.** `--ocr-title-blocks` populates fields only on high-resolution sheets; on low-resolution crops it returns `skipped_low_res`. When OCR is skipped or absent, read the title-block crop image directly — your own reading of the crop is more reliable than OCR on small rendered text.
-3. **Identify the actual subject from the legend/key.** The legend lists what the fixtures/symbols are (e.g. "Ayrton Rivale Profile", "Chauvet Color Strike M"). Use it to name the domain correctly instead of guessing from shapes.
+3. **Identify the actual subject from the legend/key, and read quantities as data.** The legend lists what the fixtures/symbols are (e.g. "Ayrton Rivale Profile", "Chauvet Color Strike M"). Use it to name the domain correctly instead of guessing from shapes. When the user wants the parts list, pass `--ocr-legend` and report the structured quantities from `legend_bom` / the run manifest rather than eyeballing the box — the most common BOM error is a mis-counted quantity (e.g. reading "Ayrton x6" as "x8") or a dropped sub-line (e.g. one of two pole lengths). Cross-check against the legend crop, since label text can carry minor OCR noise.
 4. **Treat each panel independently.** Do not assume all views on one sheet share a subject — check each view's own header/title block. A single sheet can mix variants (e.g. a US rig and a UK/EU rig).
-5. **Flag truncation; never paper over it.** If a title block is shorter than the others (a screenshot crop), its lower fields are missing. Say so, and note that `--reconstruct-titleblock` can rebuild them — but that reconstructed Sheet Title/Scale are inferred, not read.
+5. **Flag truncation; never paper over it.** If a title block is shorter than the others (a screenshot crop), its lower fields are missing. The tool now prints a `[truncation]` warning on every run and records it in the run manifest — surface it, and note that `--reconstruct-titleblock` can rebuild the rows, but that reconstructed Sheet Title/Number/Scale are inferred, not read. Never report a cropped sheet as a complete one.
 6. **Report optional-region absence as neutral inventory.** "Legend present on 1 of 3 views" — not a success/failure rate. A legend that does not exist in the source is not a detection failure.
-7. **State derivation vs. measurement.** Distinguish values read from the sheet (measured) from values the tool inferred (reconstructed/positional). Keep accuracy over polish.
+7. **State derivation vs. measurement.** Distinguish values read from the sheet (measured) from values the tool inferred (reconstructed/positional). The run manifest tags each — `field_provenance` and per-view `scale_provenance` — so carry that distinction through. Reconstructed scale assumes the reference view's scale (default 1:15 unless you pass `--reference-scale`); say so.
+8. **Take counts from the run manifest, not a hand-tally.** `authoritative_counts` in `<prefix>-run-manifest.json` is globbed from disk. Do not re-count artifacts by eye in chat; quoting a tally that disagrees with the actual outputs is a recurring error.
+9. **Treat any model attribution as an unverified label.** If a transcript or bundle stamps a model name (`produced_by`, `model`), it is self-asserted text, not proof of authorship — validate the format and flag malformed or anachronistic IDs. The run manifest is produced by the tool, not by a model self-report.
 
 ---
 

@@ -2,6 +2,141 @@
 
 All notable changes to `split-the-views` are documented here.
 
+## [1.8.0] - 2026-06-25
+
+Third audit-driven release. A full audit of a 1.7.1 run (the prior chat's
+`tourist-rig` output) confirmed the tool's `pdf/png/svg/zip` counts and the
+view/truncation detection were correct, but found that the *reporting layer*
+left recoverable information on the table and that one optional-output gap was
+too quiet. This release implements code-side fixes for what the tool can own,
+and sharpens the data it hands the consuming model for what it cannot.
+
+Additive and mostly opt-in; the one behavior change to an existing flag
+(`--ocr-legend` produces cleaner labels) is a strict quality improvement and is
+called out below.
+
+### Added
+- **`--ocr-headers` (audit F2).** Reads each view's top-left banner
+  ("TOURIST US 2026 - SMALL RIG" vs "TOURIST UK/EU 2026 - SMALL RIG") into a
+  `regional_variant` field on the regions manifest and a new `regional_variants`
+  block in the run manifest, and emits the header crops as a
+  `<prefix>-headers.zip` bundle. The prior run collapsed a two-region sheet set
+  ("US" + "UK/EU") into one region because this banner was never captured;
+  it is now machine-readable. New: `extract_sheet_header` (regions),
+  `ocr_sheet_header` (ocr), `HEADER_*` constants (config). Best-effort OCR.
+- **`requested_but_unavailable` in the run manifest (audit F5).** Optional
+  outputs the user asked for but the environment could not produce (today:
+  `--svg` with no `vtracer`) are now a tracked, machine-readable field, and the
+  console prints `[deliverable-gap]` instead of a generic `[WARN]`. "Asked for
+  SVG, got zero SVG" can no longer pass unnoticed.
+
+### Changed
+- **Legend label OCR is cleaner (audit F3).** `_text_band` now locates the
+  icon/label boundary as the single largest run of near-empty rows in the cell
+  (the icon/label gutter) rather than a fixed lower fraction, so icon-edge
+  fragments no longer leak into the label. "Jli Doughty Tank Trap" ->
+  "Doughty Tank Trap"; all multi-line labels survive intact. Quantities are
+  unchanged (they were already correct). Residual single-character glyph noise
+  in tiny rendered names (e.g. "Por" for "Par") remains possible and is still
+  flagged by the existing "verify against the legend crop" note.
+- **Title-block OCR below the resolution floor now attempts recovery before
+  skipping (audit F1).** Instead of a blanket skip under `OCR_MIN_WIDTH_PX`, the
+  tool runs an aggressive-upscale OCR pass (`OCR_LOWRES_UPSCALE`) and keeps the
+  fields if any parse, tagging them `low_res_recovered` /
+  `fields_provenance: ocr-low-res-recovered`. It falls back to the skip record
+  only when nothing parses. NOTE: this helps borderline crops in the
+  ~150-320px band; it does NOT and cannot recover a ~108px phone-screenshot
+  column, where character strokes are ~5px and below tesseract's floor. For
+  those, the tool still emits `visual-read-required` and the consuming model
+  must read the crop. F1 was, at root, a consuming-layer reading failure, not a
+  tool defect; this change closes the part the tool can own.
+
+### Refactored
+- Introduced `_run_tesseract(img, upscale, psm)` as the single grayscale +
+  Lanczos-upscale + tesseract chokepoint; the title-block, legend-cell, and
+  header OCR paths now share it instead of repeating the upscale dance.
+- `scale_provenance` in the run manifest now reflects whether OCR actually
+  recovered fields for a view, rather than always asserting a skip.
+
+## [1.7.1] - 2026-06-25
+
+Second audit-driven patch. A multi-model audit of 1.7.0 runs confirmed the tool's
+`pdf/png/svg/zip` counts were correct everywhere, but surfaced two recurring
+reporting failures that the tool can prevent at the source:
+
+- **JSON is now an authoritative count.** `run-manifest.json` `authoritative_counts`
+  gains a `json` key (globbed from disk, `+1` for the run-manifest itself, so it
+  equals `zips + 1`). Previously JSON was the only artifact type the tool did not
+  count, so every model hand-tallied it and several got it wrong (one reported
+  `json: 1`; another claimed 9, listed 10, with 11 on disk). The number is now in
+  the manifest; do not hand-tally it.
+- **Legend-anchored subject guard.** New additive `subject_from_legend` block lists
+  the legend's fixture labels and instructs readers to name the sheet's domain from
+  them, not the drawing silhouette. This targets the most severe audit miss — a
+  model labeling a fixtures-in-rows stage-lighting plot a "floor plan / architectural
+  drawing." When no legend exists the field says so neutrally.
+
+Both changes are additive manifest fields plus the expected `version`/`package`
+bump. For the same flags, all 1.7.0 `pdf/png/svg` artifacts are byte-for-content
+identical (verified with `tools/verify_parity.py`); only the JSON manifests differ,
+and only by the two new fields and the version strings.
+
+## [1.7.0] - 2026-06-25
+
+Audit-driven hardening. An external audit of a 1.6.1 run found that the tool
+itself passed, but that reporting around it failed in three specific ways: the
+legend bill-of-materials was read by eye and mis-counted, a cropped title block
+could be reported as a complete sheet, and artifact counts were hand-tallied
+inconsistently. This release moves each of those facts into tool output as data.
+Additive and opt-in: for the same flags, all pre-1.7.0 artifacts are
+content-identical (verified — identical file set and byte-identical PNG mirrors;
+PDFs differ only by their embedded timestamp). The run manifest is an additive
+file, suppressible with `--no-run-manifest`.
+
+- Added `--ocr-legend`: itemizes the extracted legend/key box into structured
+  `{label, entries:[{descriptor, qty}]}` rows, written under `legend_bom` in the
+  legends manifest and in the run manifest, with a `[legend-bom]` stdout line.
+  Implies `--extract-legend`. Unlike the ~108px title-block column, the legend
+  crop is wide enough for per-cell OCR: the itemizer splits the box on its
+  full-height divider rules, OCRs each cell's lower text band, and parses
+  quantities directly. Best-effort (needs tesseract) and degrades to a skip
+  record; quantities read reliably, label text may carry minor glyph noise, so a
+  "verify against the legend crop" note travels with the data.
+- Added `ocr_legend()` plus helpers to `stv/ocr.py`, and config constants
+  `LEGEND_OCR_MIN_WIDTH_PX`, `LEGEND_OCR_CELL_MIN_W_PX`, `LEGEND_OCR_UPSCALE`,
+  `LEGEND_OCR_PSM`, `LEGEND_DIVIDER_DARK_FRAC`, `LEGEND_TEXT_BAND_FRAC`.
+- Always-on truncation warning: title-block heights are recorded on every run and
+  any block shorter than `TRUNCATION_CUT_FRAC` x (run max) prints a `[truncation]`
+  warning and is recorded in the run manifest — independent of
+  `--reconstruct-titleblock`. A cropped sheet can no longer be silently reported
+  as complete.
+- Added the authoritative per-run manifest `<prefix>-run-manifest.json` (default
+  on; `--no-run-manifest` to suppress): `authoritative_counts` globbed from disk,
+  per-view provenance (measured vs inferred), legend inventory, OCR status,
+  truncation, and full reconstruction details. Counts come from disk, not a
+  hand-tally.
+- Reconstruction now records provenance and states its scale assumption instead
+  of defaulting silently: `run_reconstruction` returns `(sheets, recon_infos)`;
+  each reconstructed field is tagged (`inferred-positional`,
+  `derived-from-slug-index`, `computed-matched-spans-anchored-on-reference-scale-flag`);
+  the stdout line gains `[INFERRED-not-measured; ref=<view> assumed 1:N]`; and the
+  manifest names the `reference_view`, `reference_scale_assumed`, and a
+  `scale_source` that explicitly says the scale was NOT read from the cut sheet
+  and that `--reference-scale` corrects it. (Auto-reading the reference scale was
+  evaluated and rejected: the reference title block is the same ~108px column and
+  OCRs to garbage, so an explicit, visible assumption is the honest design.)
+- Fixed a reconstruction ghost: a template value (e.g. "PLAN VIEW") whose glyph
+  tops sat in the band between the cut line and the declared value-cell top was
+  left behind under the new value. The cell is now cleared from the cut line when
+  that gap is small (`GHOST_BLEED_PX`).
+- Added a `fields_provenance: "visual-read-required"` marker and a `reporting_hint`
+  to the title-block OCR low-res-skip record, so a downstream reader is nudged to
+  fill Scale / Sheet Title from the crop rather than leaving them null.
+- Extended the SKILL.md **Reporting results** rules: read legend quantities as
+  data via `--ocr-legend`; take counts from the run manifest, not a hand-tally;
+  carry the measured-vs-inferred provenance through; and treat any model
+  attribution in a transcript as an unverified label.
+
 ## [1.6.1] - 2026-06-25
 
 Optional title-block OCR and cross-model reporting guidance. Additive and opt-in;

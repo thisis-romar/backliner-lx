@@ -273,31 +273,54 @@ def compute_scale(
 # Step 4 — derive field overrides and reconstruct the title block
 # ---------------------------------------------------------------------------
 
-def _infer_sheet_title(slug: str, index: int, n_views: int) -> str:
-    """Infer Sheet Title from slug keywords, then view-position defaults."""
+def _infer_sheet_title(slug: str, index: int, n_views: int) -> Tuple[str, str]:
+    """Infer Sheet Title from slug keywords, then view-position defaults.
+
+    Returns (title, provenance) so callers can flag the value as inferred and
+    say *how* it was inferred (audit requirement: never present a guess as read).
+    """
     s = slug.lower()
     for keyword, title in _SLUG_TITLE_MAP.items():
         if keyword in s:
-            return title
-    return _POSITION_TITLE_MAP.get((n_views, index), f"VIEW {index:02d}")
+            return title, "inferred-slug-keyword"
+    if (n_views, index) in _POSITION_TITLE_MAP:
+        return _POSITION_TITLE_MAP[(n_views, index)], "inferred-positional"
+    return f"VIEW {index:02d}", "inferred-fallback"
 
 
 def _derive_field_overrides(
     info: CutInfo,
     scale_denominator: int,
     n_views: int,
-) -> Dict[str, str]:
-    """Return {field_name: value_string} for every field that needs reconstruction."""
+    scale_method: str = "matched-spans",
+) -> Tuple[Dict[str, str], Dict[str, str]]:
+    """Return (overrides, provenance) for every field that needs reconstruction.
+
+    `overrides` maps field_name -> value_string (written onto the sheet).
+    `provenance` maps the manifest field name -> how the value was derived, so a
+    downstream consumer always knows reconstructed != measured.
+    """
     # Sheet Number from slug (view-03 → "003") or 1-based index.
     m = re.search(r"(\d+)$", info.slug)
-    sheet_num = f"{int(m.group(1)):03d}" if m else f"{info.index:03d}"
+    if m:
+        sheet_num, num_prov = f"{int(m.group(1)):03d}", "derived-from-slug-index"
+    else:
+        sheet_num, num_prov = f"{info.index:03d}", "derived-from-view-position"
 
-    return {
-        "sheet_title": _infer_sheet_title(info.slug, info.index, n_views),
+    title, title_prov = _infer_sheet_title(info.slug, info.index, n_views)
+
+    overrides = {
+        "sheet_title": title,
         "sheet_num":   sheet_num,
         "scale":       f"1:{scale_denominator}",
         # date and drawn_by are identical to the template; we do not override.
     }
+    provenance = {
+        "sheet_title":  title_prov,
+        "sheet_number": num_prov,
+        "scale":        f"computed-{scale_method}-anchored-on-reference-scale-flag",
+    }
+    return overrides, provenance
 
 
 def _fit_font(draw: ImageDraw.ImageDraw, text: str, max_w: int, max_h: int, start: int = 14) -> ImageFont.FreeTypeFont:
@@ -342,6 +365,12 @@ def reconstruct_title_block(
     missing = identify_missing_rows(info)
     d = ImageDraw.Draw(canvas)
 
+    # 1.7.0 ghost fix: a template value (e.g. "PLAN VIEW") can have glyph tops that
+    # sit in the band between the cut line and the declared value-cell top. Clearing
+    # only the cell leaves those tops behind as a ghost under the new value. When the
+    # cell sits just below the cut, clear from the cut line so the whole template
+    # value is removed; otherwise clear the cell with a small ascender pad.
+    GHOST_BLEED_PX = 22
     for field_name, (y0, y1, x0, x1) in missing.items():
         value = overrides.get(field_name)
         if value is None:
@@ -350,8 +379,8 @@ def reconstruct_title_block(
         cell_w = max(1, x1 - x0 - 4)
         cell_h = max(1, y1 - y0)
 
-        # Clear the cell and render the override value.
-        d.rectangle([x0, y0, x1, y1], fill=_BG_COLOR)
+        clear_top = info.tb_height if 0 <= (y0 - info.tb_height) <= GHOST_BLEED_PX else (y0 - 3)
+        d.rectangle([max(0, x0 - 1), max(0, clear_top), x1 + 1, y1 + 2], fill=_BG_COLOR)
         font = _fit_font(d, value, cell_w, cell_h, start=14)
         d.text((x0 + 2, y0 + 1), value, font=font, fill=_TEXT_COLOR)
 
@@ -441,7 +470,7 @@ def run_reconstruction(
     slugs: Sequence[str],
     tb_split_xs: Sequence[int],
     ref_scale_denominator: int = 15,
-) -> Dict[str, Image.Image]:
+) -> Tuple[Dict[str, Image.Image], List[dict]]:
     """Run all five reconstruction steps and return completed sheet images.
 
     Only views with cut title blocks are reconstructed. Complete views are
@@ -460,7 +489,7 @@ def run_reconstruction(
     n_views = len(view_images)
     n_cut = sum(1 for c in cut_infos if c.is_cut)
     if n_cut == 0:
-        return {}
+        return {}, []
 
     # The reference is the tallest TB / the first non-cut view.
     ref_idx = next(
@@ -469,8 +498,10 @@ def run_reconstruction(
     )
     ref_view_img = view_images[ref_idx]
     template_tb = tb_images[ref_idx]
+    ref_slug = slugs[ref_idx] if ref_idx < len(slugs) else f"view-{ref_idx + 1:02d}"
 
     results: Dict[str, Image.Image] = {}
+    recon_infos: List[dict] = []
 
     for info, view_img, tb_img, split_x in zip(
         cut_infos, view_images, tb_images, tb_split_xs
@@ -483,8 +514,10 @@ def run_reconstruction(
             view_img, ref_view_img, ref_scale_denominator
         )
 
-        # Step 4a — derive field values.
-        overrides = _derive_field_overrides(info, scale_den, n_views)
+        # Step 4a — derive field values + their provenance.
+        overrides, provenance = _derive_field_overrides(
+            info, scale_den, n_views, scale_method=str(scale_info.get("method", "unknown"))
+        )
 
         # Step 4b — build the reconstructed title block.
         recon_tb = reconstruct_title_block(tb_img, template_tb, info, overrides)
@@ -493,12 +526,33 @@ def run_reconstruction(
         sheet = composite_full_sheet(view_img, recon_tb, info, split_x)
 
         results[info.slug] = sheet
+        recon_infos.append({
+            "view": info.slug,
+            "cut_px": info.tb_height,
+            "template_px": info.template_height,
+            "missing_px": info.missing_px,
+            "reference_view": ref_slug,
+            "reference_scale_assumed": f"1:{ref_scale_denominator}",
+            "scale_source": (
+                "reference-scale-flag (NOT read from the cut sheet; "
+                "pass --reference-scale to correct)"
+            ),
+            "reconstructed_fields": {
+                "sheet_title": overrides["sheet_title"],
+                "sheet_number": overrides["sheet_num"],
+                "scale": overrides["scale"],
+            },
+            "field_provenance": provenance,
+            "scale_method": scale_info.get("method"),
+            "derivation": "reconstructed-not-measured",
+        })
 
         print(
             f"    [reconstruct] {info.slug}: cut={info.tb_height}px "
             f"template={info.template_height}px missing={info.missing_px}px "
             f"scale=1:{scale_den} ({scale_info['method']}) "
-            f"sheet_title=\"{overrides['sheet_title']}\""
+            f"sheet_title=\"{overrides['sheet_title']}\" "
+            f"[INFERRED-not-measured; ref={ref_slug} assumed 1:{ref_scale_denominator}]"
         )
 
-    return results
+    return results, recon_infos

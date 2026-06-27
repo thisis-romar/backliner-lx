@@ -11,7 +11,7 @@ split-the-views-x.x.x.zip
 Current release:
 
 ```text
-split-the-views-1.6.1.zip
+split-the-views-1.8.0.zip
 ```
 
 ## What it does
@@ -63,7 +63,21 @@ Version `1.6.1` adds optional title-block OCR and cross-model reporting rules:
 - OCR is optional (needs `tesseract` + `pip install pytesseract`) and resolution-gated: title blocks narrower than `OCR_MIN_WIDTH_PX` (e.g. a 108px phone-screenshot column) return `skipped_low_res` rather than garbled text, deferring to visual reading.
 - The SKILL.md "Reporting results" section instructs every model to derive view labels from the title-block text/legend (not the visual silhouette), treat each panel independently, flag truncation, and report optional-region absence as neutral inventory. This is the load-bearing fix for description consistency across model tiers; OCR is a convenience that helps mainly on high-resolution sheets.
 
+Version `1.7.0` is an audit-driven hardening release (additive and opt-in; same-flag artifacts are content-identical):
+
+- `--ocr-legend` itemizes the legend/key box into a structured bill of materials (`{label, entries:[{descriptor, qty}]}`) in the legends manifest and run manifest. The legend crop is wide enough for per-cell OCR, so quantities read reliably (label text may carry minor glyph noise — a "verify against the crop" note travels with the data). Implies `--extract-legend`.
+- An always-on `[truncation]` warning flags any title block shorter than the run maximum on every run, independent of `--reconstruct-titleblock`, so a cropped sheet is never silently reported as complete.
+- A per-run `<prefix>-run-manifest.json` (default on; `--no-run-manifest` to suppress) carries authoritative artifact counts globbed from disk, per-view measured-vs-inferred provenance, legend inventory, OCR status, truncation, and reconstruction details — so counts and provenance are read as data, not hand-tallied.
+- Reconstruction now tags every rebuilt field as inferred and states its scale assumption explicitly (`reference_view`, `reference_scale_assumed`, and a `scale_source` noting the scale was not read from the cut sheet and that `--reference-scale` corrects it), plus a fix for a template-value ghost behind the rebuilt Sheet Title.
+
 SVGs carry a `viewBox` plus `width="100%"` sizing so they scale to any container, and every traced contour is an individually addressable `<path>`. Requires the optional `vtracer` package.
+
+Version `1.8.0` is a third audit-driven release. A full audit of a 1.7.1 run found counts and view/truncation detection correct, but the reporting layer was leaving recoverable data unread and one optional-output gap too quiet:
+
+- `--ocr-headers` reads each view's top-left banner ("TOURIST US 2026 - SMALL RIG" vs "TOURIST UK/EU 2026 - SMALL RIG") into a per-view `regional_variant`, adds a `regional_variants` block to the run manifest, and emits a `<prefix>-headers.zip`. A two-region sheet set is no longer collapsed into one region.
+- The run manifest gains `requested_but_unavailable`: optional outputs the user asked for that the environment cannot produce (today `--svg` with no `vtracer`) are now tracked data, and the console prints `[deliverable-gap]` rather than a buried warning.
+- Legend label OCR finds the icon/label boundary by the largest blank-row gutter, so icon-edge fragments stop leaking ("Jli Doughty Tank Trap" → "Doughty Tank Trap") while multi-line labels stay intact; quantities are unchanged.
+- Title-block OCR below the resolution floor now attempts an aggressive-upscale recovery pass before deferring, recovering borderline (~150–320px) crops; a ~108px phone-screenshot column is still below tesseract's stroke-resolution floor and correctly defers to visual reading (`fields_provenance: visual-read-required`).
 
 
 ## Terms

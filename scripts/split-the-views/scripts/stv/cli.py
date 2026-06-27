@@ -49,6 +49,11 @@ def parse_args(argv=None) -> argparse.Namespace:
     )
     parser.add_argument("--no-zip", action="store_true", help="Suppress full-view ZIP bundling.")
     parser.add_argument(
+        "--no-run-manifest",
+        action="store_true",
+        help="Suppress the per-run <prefix>-run-manifest.json (authoritative counts + provenance).",
+    )
+    parser.add_argument(
         "--png",
         action="store_true",
         help="Also export PNG mirrors for iOS Photos/mobile preview compatibility.",
@@ -77,6 +82,24 @@ def parse_args(argv=None) -> argparse.Namespace:
         "--extract-legend",
         action="store_true",
         help="Also detect and extract the gray legend/key box from each drawing as a separate artifact."
+    )
+    parser.add_argument(
+        "--ocr-legend",
+        action="store_true",
+        help=(
+            "Itemize the extracted legend/key box into structured BOM rows (fixture + "
+            "quantity) in the legends manifest and run manifest. Implies --extract-legend. "
+            "Best-effort; needs tesseract+pytesseract; self-skips on tiny legends."
+        ),
+    )
+    parser.add_argument(
+        "--ocr-headers",
+        action="store_true",
+        help=(
+            "Read the top-left sheet-header banner per view into a regional_variant field "
+            "(e.g. US vs UK/EU) in the regions and run manifests, and emit the header crops "
+            "as a <prefix>-headers.zip bundle. Implies --extract-title-blocks. Best-effort OCR."
+        ),
     )
     parser.add_argument(
         "--svg",

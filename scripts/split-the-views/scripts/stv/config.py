@@ -81,8 +81,13 @@ SVG_LAYERS = (
 OCR_UPSCALE = 4             # Upscale the title-block crop before OCR; small rendered text needs it.
 OCR_PSM = 6                 # tesseract page-segmentation mode 6 = assume a single uniform block of text.
 OCR_MIN_WIDTH_PX = 320      # Heuristic reliability floor: title-block crops narrower than this (e.g. a
-                            # 108px phone-screenshot column) are below tesseract's usable resolution, so
-                            # OCR self-skips and defers to visual reading. Validate against real hi-res sheets.
+                            # 108px phone-screenshot column) are below tesseract's usable resolution.
+                            # 1.8.0: rather than blanket-skip below this floor, the tool now ATTEMPTS an
+                            # aggressive-upscale OCR pass first (OCR_LOWRES_UPSCALE) and only falls back to
+                            # the skip record when that recovers nothing (audit F1: readable fields were
+                            # being left blank because OCR skipped at 108px).
+OCR_LOWRES_UPSCALE = 9      # Upscale factor for sub-floor title-block crops before the recovery OCR pass.
+                            # Larger than OCR_UPSCALE because 108px columns need ~1000px to read reliably.
 
 # -- output rendering --------------------------------------------------------
 PDF_W, PDF_H = 792, 612  # Letter landscape in points.
@@ -97,3 +102,31 @@ INPUT_EXTS = IMAGE_EXTS + PDF_EXTS
 
 # Shared bounding-box alias: (x0, y0, x1, y1).
 Box = Tuple[int, int, int, int]
+
+# -- legend OCR (optional; itemizes the gray key box into fixture/qty rows) ---
+# Added in 1.7.0 after an audit found the BOM was being read by eye (and mis-read).
+# The legend crop is wider than the title-block column, so per-cell OCR is viable.
+LEGEND_OCR_MIN_WIDTH_PX = 220   # whole-legend crops narrower than this are skipped (too small to itemize).
+LEGEND_OCR_CELL_MIN_W_PX = 40   # ignore sliver cells produced by spurious dividers.
+LEGEND_OCR_UPSCALE = 4          # upscale a cell before OCR; key-box label text is small.
+LEGEND_OCR_PSM = 6              # uniform block of text.
+LEGEND_DIVIDER_DARK_FRAC = 0.45 # a column is a cell divider if at least this fraction is dark (full-height rule).
+LEGEND_TEXT_BAND_FRAC = 0.50    # (retained) lower-band hint for legacy callers.
+LEGEND_TEXT_GUTTER_LO_FRAC = 0.12  # 1.8.0 (audit F3): search for the icon/label gutter between these
+LEGEND_TEXT_GUTTER_HI_FRAC = 0.78  # fractions of cell height; the largest blank run in this window is the
+                                   # icon/label boundary, so the OCR crop starts just below it (excludes
+                                   # icon-edge fragments like the "Jli" noise without clipping the label).
+
+# -- sheet-header OCR (optional; reads the top-left banner -> regional variant) ---
+# 1.8.0 (audit F2): views 1-2 were "TOURIST US 2026 - SMALL RIG" and view 3 was
+# "TOURIST UK/EU 2026 - SMALL RIG"; the prior run treated the set as one region
+# because the header banner was never captured. --ocr-headers reads it as data.
+HEADER_ZONE_FRAC = 0.10         # The banner lives within this top fraction of the view, left of the title block.
+HEADER_OCR_UPSCALE = 4          # Upscale the header crop before OCR.
+HEADER_OCR_PSM = 7              # tesseract psm 7 = treat the image as a single text line (the banner is one line).
+
+# -- truncation surfacing (1.7.0) --------------------------------------------
+# A title block shorter than TB_CUT_FRAC x (run max) is a screenshot crop. This
+# is now warned about during the normal extract pass, not only under
+# --reconstruct-titleblock, so a cut sheet can never be silently reported whole.
+TRUNCATION_CUT_FRAC = 0.85

@@ -54,6 +54,14 @@ class Collectors:
     legend_manifest_items: List[dict] = field(default_factory=list)
     svg_paths: List[str] = field(default_factory=list)
     svg_manifest_items: List[dict] = field(default_factory=list)
+    # 1.7.0: title-block heights for always-on truncation detection, and legend BOM.
+    tb_heights: List[int] = field(default_factory=list)
+    tb_slugs: List[str] = field(default_factory=list)
+    legend_bom_items: List[dict] = field(default_factory=list)
+    # 1.8.0: sheet-header crops + parsed regional variant per view (audit F2).
+    header_paths: List[str] = field(default_factory=list)
+    header_items: List[dict] = field(default_factory=list)
+    run_manifest_path: str = ""
     # In-memory data for the reconstruction pass (not persisted as files).
     recon_paths: List[str] = field(default_factory=list)
     recon_manifest_items: List[dict] = field(default_factory=list)
@@ -140,6 +148,11 @@ def process_view(
         fallback_ratio=args.title_block_fallback_ratio,
     )
 
+    # 1.7.0: record every title-block height so truncation can be surfaced after the
+    # loop, independent of whether --reconstruct-titleblock was passed.
+    collectors.tb_heights.append(int(title_block.height))
+    collectors.tb_slugs.append(slug)
+
     # Store in-memory data for the post-loop reconstruction pass.
     if getattr(args, "reconstruct_titleblock", False):
         collectors._view_images.append(view_img)
@@ -183,6 +196,7 @@ def process_view(
                 "low-res-skip" if "skipped_low_res" in ocr_info
                 else "unavailable" if ocr_info.get("engine") is None
                 else "error" if "error" in ocr_info
+                else "low-res-ocr" if ocr_info.get("low_res_recovered")
                 else "ok"
             )
             print(
@@ -192,6 +206,32 @@ def process_view(
             )
         if debug_png:
             region_item["debug_overlay"] = os.path.basename(debug_png)
+
+        # 1.8.0 (audit F2): read the top-left banner -> regional variant as data.
+        if getattr(args, "ocr_headers", False):
+            from stv.ocr import ocr_sheet_header
+            from stv.regions import extract_sheet_header
+
+            header_img = extract_sheet_header(view_img, int(region_info.get("x", 0)))
+            header_ocr = ocr_sheet_header(header_img)
+            header_base = f"{args.prefix}-{slug}-header"
+            header_pdf, header_png = write_artifact_set(header_img, args.outdir, header_base, args.png)
+            collectors.header_paths.append(header_pdf)
+            if header_png:
+                collectors.header_paths.append(header_png)
+            region_item["sheet_header_ocr"] = header_ocr
+            collectors.header_items.append({
+                "view": slug,
+                "view_index": index,
+                "regional_variant": header_ocr.get("regional_variant"),
+                "header_text": header_ocr.get("text"),
+                "header_files": names(header_pdf, header_png),
+            })
+            print(
+                f"    [header] {slug}: regional_variant={header_ocr.get('regional_variant')!r} "
+                f"text={header_ocr.get('text')!r}"
+            )
+
         collectors.region_manifest_items.append(region_item)
 
         print(
@@ -224,12 +264,30 @@ def process_view(
             collectors.legend_paths.append(legend_pdf)
             if legend_png:
                 collectors.legend_paths.append(legend_png)
-            collectors.legend_manifest_items.append({
+            legend_item = {
                 "view": slug,
                 "view_index": index,
                 "legend_detection": legend_info,
                 "legend_files": names(legend_pdf, legend_png),
-            })
+            }
+            # 1.7.0: optionally itemize the key box into a structured BOM so the
+            # parts list is emitted as data (an audit found it being mis-read by eye).
+            if getattr(args, "ocr_legend", False):
+                from stv.ocr import ocr_legend
+
+                bom = ocr_legend(legend_img)
+                legend_item["legend_bom"] = bom
+                collectors.legend_bom_items.append({"view": slug, "bom": bom})
+                items = bom.get("items") or []
+                summary = "; ".join(
+                    (it.get("label") or "?") + " " + ", ".join(
+                        (f"{e.get('descriptor')} " if e.get("descriptor") else "") + f"x{e.get('qty')}"
+                        for e in (it.get("entries") or [])
+                    ).strip()
+                    for it in items
+                ) if items else bom.get("skipped_low_res") or bom.get("skipped") or "no items parsed"
+                print(f"    [legend-bom] {slug}: {summary}")
+            collectors.legend_manifest_items.append(legend_item)
             print(f"    [legend] {slug}: detected box={legend_info.get('box_px')} size={legend_info.get('legend_size_px')}")
         else:
             print(f"    [legend] {slug}: no legend detected")
@@ -304,6 +362,8 @@ def _print_summary(args: argparse.Namespace, c: Collectors, zips: dict) -> None:
         print(f"{ext_label(path)}: {path}")
     for path in c.legend_paths:
         print(f"{ext_label(path)}: {path}")
+    for path in c.header_paths:
+        print(f"{ext_label(path)}: {path}")
     for path in c.svg_paths:
         print(f"SVG: {path}")
     if zips.get("drawings"):
@@ -316,6 +376,8 @@ def _print_summary(args: argparse.Namespace, c: Collectors, zips: dict) -> None:
         print(f"ZIP: {zips['clean']}")
     if zips.get("legends"):
         print(f"ZIP: {zips['legends']}")
+    if zips.get("headers"):
+        print(f"ZIP: {zips['headers']}")
     if zips.get("svg"):
         print(f"ZIP: {zips['svg']}")
     for path in c.recon_paths:
@@ -324,6 +386,163 @@ def _print_summary(args: argparse.Namespace, c: Collectors, zips: dict) -> None:
         print(f"ZIP: {zips['recon']}")
     for path in c.per_view_zip_paths:
         print(f"ZIP: {path}")
+    if c.run_manifest_path:
+        print(f"JSON: {c.run_manifest_path}")
+
+
+def _detect_truncation(heights: List[int], slugs: List[str]) -> dict:
+    """Flag title blocks shorter than the run maximum (screenshot crops)."""
+    from stv.config import TRUNCATION_CUT_FRAC
+
+    if not heights:
+        return {"max_px": 0, "cut_views": [], "cut_frac": TRUNCATION_CUT_FRAC}
+    mx = max(heights)
+    cut = [
+        {"view": s, "tb_height": int(h), "missing_px": int(mx - h)}
+        for h, s in zip(heights, slugs)
+        if h < TRUNCATION_CUT_FRAC * mx
+    ]
+    return {"max_px": int(mx), "cut_views": cut, "cut_frac": TRUNCATION_CUT_FRAC}
+
+
+def _write_run_manifest(
+    args: argparse.Namespace,
+    c: "Collectors",
+    zips: dict,
+    truncation: dict,
+    recon_infos: List[dict],
+    views_detected: int,
+    requested_unavailable: Optional[dict] = None,
+) -> str:
+    """Write a single authoritative run manifest with exact counts + provenance.
+
+    Added in 1.7.0 so downstream consumers read counts and per-field provenance as
+    data instead of tallying artifacts by hand (an audit found hand-tallies that
+    disagreed with the actual outputs).
+    """
+    import glob
+    import json
+
+    def n(pat: str) -> int:
+        return len(glob.glob(os.path.join(args.outdir, f"{args.prefix}{pat}")))
+
+    cut_slugs = {cv["view"] for cv in truncation["cut_views"]}
+    ocr_status = {}
+    ocr_recovered = set()
+    for item in c.region_manifest_items:
+        ocr = item.get("title_block_ocr")
+        if ocr is not None:
+            ocr_status[item["view"]] = (
+                "low-res-skip" if "skipped_low_res" in ocr
+                else "unavailable" if ocr.get("engine") is None
+                else "error" if "error" in ocr
+                else "low-res-ocr" if ocr.get("low_res_recovered")
+                else "ok"
+            )
+            if ocr.get("low_res_recovered") or (ocr.get("fields") and "skipped_low_res" not in ocr):
+                ocr_recovered.add(item["view"])
+    legend_views = [it["view"] for it in c.legend_manifest_items]
+    legend_fixtures = [
+        (row.get("label") or "").strip()
+        for it in c.legend_bom_items
+        for row in it.get("bom", {}).get("items", [])
+        if (row.get("label") or "").strip()
+    ]
+
+    per_view = []
+    for slug in c.tb_slugs:
+        if slug in cut_slugs:
+            scale_prov = "inferred-reconstructed (title block truncated; see reconstruction)"
+        elif slug in ocr_recovered:
+            scale_prov = "ocr-read-from-title-block-crop (verify against the crop)"
+        else:
+            scale_prov = ("measured-from-title-block-crop "
+                          "(OCR self-skipped; read Scale/Sheet Title from the crop)")
+        per_view.append({
+            "view": slug,
+            "title_block_ocr": ocr_status.get(slug, "not-run"),
+            "scale_provenance": scale_prov,
+            "legend_present": slug in legend_views,
+        })
+
+    manifest = {
+        **manifest_base(args.prefix),
+        "artifact_type": "run-manifest",
+        "views_detected": views_detected,
+        "authoritative_counts": {
+            "pdf": n("*.pdf"), "png": n("*.png"), "svg": n("*.svg"), "zip": n("*.zip"),
+            "json": n("*.json") + 1,
+        },
+        "counts_note": (
+            "Counts are globbed from disk by prefix; do not hand-tally from chat. "
+            "As of 1.7.1 json is authoritative too: the glob runs before this "
+            "run-manifest is written, so +1 accounts for it (json == zips + 1)."
+        ),
+        "title_block_ocr": {
+            "enabled": bool(getattr(args, "ocr_title_blocks", False)),
+            "status_per_view": ocr_status,
+            "note": "OCR self-skips on <320px title-block columns; read those fields visually.",
+        },
+        "legend_inventory": {
+            "present_on": legend_views,
+            "summary": f"present on {len(legend_views)} of {views_detected} views",
+            "bom_per_view": c.legend_bom_items if c.legend_bom_items else "run with --ocr-legend to itemize",
+        },
+        "regional_variants": (
+            {
+                "per_view": [
+                    {"view": it["view"], "regional_variant": it.get("regional_variant"),
+                     "header_text": it.get("header_text")}
+                    for it in c.header_items
+                ],
+                "note": (
+                    "Parsed from each view's top-left banner via --ocr-headers. Distinct "
+                    "variants in one sheet set (e.g. US vs UK/EU) must not be collapsed to "
+                    "one region; verify against the header crop."
+                ),
+            }
+            if c.header_items else "run with --ocr-headers to read each view's regional variant"
+        ),
+        "requested_but_unavailable": (
+            requested_unavailable or {
+                "_note": "No requested optional outputs were unavailable in this run."
+            }
+        ),
+        "subject_from_legend": {
+            "note": (
+                "Identify the sheet's domain from these legend entries, not the "
+                "drawing silhouette. A recurring reporting error is labeling a "
+                "fixtures-in-rows stage plot a 'floor plan' or 'architectural drawing'."
+            ),
+            "legend_present_on": legend_views,
+            "fixtures": legend_fixtures or (
+                "legend present; run --ocr-legend to itemize or read the legend crop"
+                if legend_views else "no legend detected in any view"
+            ),
+        },
+        "truncation": {
+            **truncation,
+            "note": "A cut title block's lower rows are absent; reconstructed values are inferred, not read.",
+        },
+        "reconstruction": {
+            "enabled": bool(getattr(args, "reconstruct_titleblock", False)),
+            "views": recon_infos,
+        },
+        "per_view": per_view,
+        "provenance_key": {
+            "measured": "read from the sheet's own title-block crop or geometry",
+            "inferred": "computed/positional reconstruction; verify against the source CAD",
+        },
+        "model_attribution_caveat": (
+            "If a chat transcript stamps a model name, treat it as an unverified label. "
+            "This manifest is produced by the tool, not by any model self-report."
+        ),
+    }
+    path = os.path.join(args.outdir, f"{args.prefix}-run-manifest.json")
+    with open(path, "w", encoding="utf-8") as handle:
+        json.dump(manifest, handle, indent=2, sort_keys=True)
+        handle.write("\n")
+    return path
 
 
 def run(args: argparse.Namespace) -> None:
@@ -338,11 +557,21 @@ def run(args: argparse.Namespace) -> None:
     # SVG export vectorizes the clean drawing, so it requires header/footer stripping.
     # It also enables legend detection so the legend (sheet chrome) is masked out of the
     # clean drawing before tracing, keeping the clean PDF/PNG and the SVG consistent.
+    # requested_but_unavailable: optional outputs the user asked for that the
+    # environment cannot produce. 1.8.0 (audit F5): a missing vtracer used to be a
+    # console WARN only, so "--svg but 0 SVG" was easy to miss. It is now a tracked,
+    # machine-readable gap in the run manifest.
+    requested_but_unavailable: dict = {}
     if args.svg:
         args.strip_header_footer = True
         args.extract_legend = True
         if not svg_available():
-            print("  [WARN] --svg requested but 'vtracer' is not installed; SVG output will be skipped.")
+            requested_but_unavailable["svg"] = (
+                "--svg was requested but 'vtracer' is not installed, so 0 SVG files were "
+                "produced. Install with: pip install vtracer --break-system-packages"
+            )
+            print("  [deliverable-gap] --svg requested but 'vtracer' is not installed; "
+                  "0 SVG produced (recorded in run manifest under requested_but_unavailable).")
             print("         Install with: pip install vtracer --break-system-packages")
 
     # Reconstruction requires title blocks; enable extraction if not already set.
@@ -352,6 +581,15 @@ def run(args: argparse.Namespace) -> None:
     # OCR runs on the extracted title-block crop; enable extraction if not already set.
     if getattr(args, "ocr_title_blocks", False):
         args.extract_title_blocks = True
+
+    # Header OCR reads the banner left of the title block; it needs the split, so
+    # enable title-block extraction (where the split is computed).
+    if getattr(args, "ocr_headers", False):
+        args.extract_title_blocks = True
+
+    # Legend OCR runs on the extracted legend crop; enable legend extraction.
+    if getattr(args, "ocr_legend", False):
+        args.extract_legend = True
 
     view_images, detected_slugs, default_prefix = prepare_views(args)
 
@@ -386,6 +624,20 @@ def run(args: argparse.Namespace) -> None:
             collectors=collectors,
         )
 
+    # 1.7.0: surface cropped title blocks regardless of --reconstruct-titleblock,
+    # so a truncated sheet can never be silently reported as complete (audit finding).
+    truncation = _detect_truncation(collectors.tb_heights, collectors.tb_slugs)
+    if truncation["cut_views"]:
+        print("  [truncation] title block(s) shorter than the run maximum "
+              f"({truncation['max_px']}px) -> likely a screenshot crop:")
+        for cv in truncation["cut_views"]:
+            print(f"    {cv['view']}: title-block {cv['tb_height']}px "
+                  f"(missing {cv['missing_px']}px); lower rows (Sheet Title/Number/Scale) are cut")
+        if not getattr(args, "reconstruct_titleblock", False):
+            print("    -> pass --reconstruct-titleblock to rebuild them "
+                  "(reconstructed values are inferred, not read).")
+
+    recon_infos: List[dict] = []
     zips: dict = {}
 
     if args.zip:
@@ -445,6 +697,18 @@ def run(args: argparse.Namespace) -> None:
         zips["legends"] = legends_zip
         print(f"ZIP: {legends_zip}  ({len(collectors.legend_paths)} files, integrity {legend_status})")
 
+    if getattr(args, "ocr_headers", False) and collectors.header_paths:
+        headers_zip = os.path.join(args.outdir, f"{args.prefix}-headers.zip")
+        headers_manifest = {
+            **manifest_base(args.prefix),
+            "artifact_type": "headers",
+            "view_count": len(view_images),
+            "items": collectors.header_items,
+        }
+        headers_status = write_zip(headers_zip, collectors.header_paths, headers_manifest)
+        zips["headers"] = headers_zip
+        print(f"ZIP: {headers_zip}  ({len(collectors.header_paths)} files, integrity {headers_status})")
+
     if do_svg and collectors.svg_paths:
         svg_zip = os.path.join(args.outdir, f"{args.prefix}-clean-svg.zip")
         svg_manifest = {
@@ -461,7 +725,7 @@ def run(args: argparse.Namespace) -> None:
     # Runs after all views have been processed so every TB crop is available
     # for the height comparison and the reference-view dimension chain lookup.
     if getattr(args, "reconstruct_titleblock", False) and collectors._tb_images:
-        recon_sheets = run_reconstruction(
+        recon_sheets, recon_infos = run_reconstruction(
             collectors._view_images,
             collectors._tb_images,
             slugs,
@@ -491,6 +755,13 @@ def run(args: argparse.Namespace) -> None:
             recon_status = write_zip(recon_zip, collectors.recon_paths, recon_manifest)
             zips["recon"] = recon_zip
             print(f"ZIP: {recon_zip}  ({len(collectors.recon_paths)} files, integrity {recon_status})")
+
+    if not getattr(args, "no_run_manifest", False):
+        collectors.run_manifest_path = _write_run_manifest(
+            args, collectors, zips, truncation, recon_infos, len(view_images),
+            requested_unavailable=requested_but_unavailable,
+        )
+        print(f"JSON: {collectors.run_manifest_path}")
 
     print("Done.")
 

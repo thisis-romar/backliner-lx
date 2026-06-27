@@ -94,6 +94,23 @@ def detect_title_block_start(img: Image.Image, override_x: int = 0, fallback_rat
     }
 
 
+def extract_sheet_header(img: Image.Image, split_x: int) -> Image.Image:
+    """Crop the top-left header banner band (left of the title block).
+
+    1.8.0 (audit F2): the banner ('TOURIST US 2026 - SMALL RIG' /
+    'TOURIST UK/EU 2026 - SMALL RIG') carries the regional variant. It sits in
+    the top HEADER_ZONE_FRAC of the view, to the left of the title-block split.
+    Returns the trimmed banner crop for OCR.
+    """
+    from stv.config import HEADER_ZONE_FRAC
+
+    view = trim_empty_edges(img)
+    right = max(1, min(view.width, split_x) - TITLE_SEPARATOR_PAD)
+    band_h = max(1, int(view.height * HEADER_ZONE_FRAC))
+    band = view.crop((0, 0, right, band_h))
+    return trim_empty_edges(band, pad=2)
+
+
 def make_debug_overlay(img: Image.Image, split_x: int, info: Dict[str, object]) -> Image.Image:
     """Create a lightweight review overlay showing the detected split line."""
     out = trim_empty_edges(img).convert("RGB")

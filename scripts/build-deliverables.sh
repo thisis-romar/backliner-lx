@@ -13,7 +13,7 @@ cd "$ROOT"
 
 SPLIT="output/split"
 STAGE="output/deliverables-stage"
-PKG="tourist-mod-club-lx-floor-package"
+PKG="tourist-trance-tour-2026-small-rig"
 STAGE_PKG="$STAGE/$PKG"
 DELIV_DIR="deliverables"
 ZIP_PATH="$DELIV_DIR/$PKG.zip"
@@ -30,7 +30,7 @@ mkdir -p "$STAGE_PKG"/{01-drawings-pdf,02-drawings-png,03-master-sheet}
 mkdir -p "$STAGE_PKG"/source/{clean-drawings,svg-layers,title-blocks,legends,debug}
 
 # Map view index -> friendly name.
-names=("1-floor-plan" "2-front-elevation" "3-equipment-schedule")
+names=("1-plan-view" "2-side-elevation" "3-front-elevation")
 for i in 01 02 03; do
   case "$i" in
     01) name="${names[0]}";;
@@ -73,18 +73,19 @@ cp src/$PREFIX.svg    "$STAGE_PKG/03-master-sheet/$PREFIX.svg"
 # 4. Client cover sheet.
 BUILD_DATE="$(date -u +%Y-%m-%d)"
 cat > "$STAGE_PKG/README.txt" <<EOF
-TOURIST @ MOD CLUB — LX FLOOR PACKAGE
-Production lighting deliverables · Emblem Projects
-Show date: 26 JUN 2026 · Venue: Mod Club, Toronto ON
+TOURIST — TRANCE TOUR 2026 · SMALL RIG
+Production lighting deliverables · SYNRGY  (projects@synrgy.live)
+Client: TOURIST · Venue: VARIOUS · Job No: SN0001
+DESIGN INTENT ONLY — field-verify all dimensions before fabrication.
 Package built: $BUILD_DATE
 
 ------------------------------------------------------------------
 CONTENTS
 ------------------------------------------------------------------
 01-drawings-pdf/    Print-ready sheets (open these first):
-                      1-floor-plan.pdf
-                      2-front-elevation.pdf
-                      3-equipment-schedule.pdf
+                      1-plan-view.pdf        (TOURIST US 2026)
+                      2-side-elevation.pdf   (TOURIST US 2026)
+                      3-front-elevation.pdf  (TOURIST UK/EU 2026)
 02-drawings-png/    Screen-preview PNGs of the same three sheets.
 03-master-sheet/    Full combined sheet:
                       lx-floor-package.png  (rendered)
@@ -97,27 +98,26 @@ source/             Secondary / production assets:
   debug/              title-block boundary audit overlays
 
 ------------------------------------------------------------------
-EQUIPMENT
+EQUIPMENT  (per legend)
 ------------------------------------------------------------------
 LIGHTING
-  4  EA   Moving Head — Robe Pointe LED 330W Hybrid (clone)   MH-1..MH-4
-  3  EA   Tilt Strobe — 8x8 RGBW (JDC1 clone)                 ST-1..ST-3
-  8  EA   18x10W RGBW PAR64                                   decks + DS flanks
-  1  EA   Elation Opto Splitter (5-pin DMX)                   offstage SR
+  16 EA   LED Par
+   6 EA   Ayrton Rivale Profile            (red marker in plan)
+   3 EA   Chauvet Color Strike M Strobe
 STRUCTURAL
-  8  EA   6' Black Threaded Pipe
-  8  EA   24" Threaded Base Plate
-  2  SET  36" Deck Leg Set (4-pack)                           SR + SL risers
-SERVICE
-  2  RUN  Transport + Build [City / Truck / 1-Way]
+   8 EA   Doughty Tank Trap — 6' (2.4 m) poles on weighted bases
+   8 EA   Doughty Tank Trap — 4' (1.2 m) poles on weighted bases
+DECKS
+  10 EA   4' x 8' decks  (2 rows of 4 horizontal + 2 vertical)
 
 ------------------------------------------------------------------
 NOTES
 ------------------------------------------------------------------
-Scale: 1:16 (16 px = 1 ft). Stage 40 ft wide x 25 ft deep.
-All dimensions approximate and subject to venue confirmation.
-Operator must verify structural loads with the venue prior to install.
-(c) 2026 Emblem Projects. Prepared for production planning only.
+Deck layout: two 32'-0" rows (4 x 8' decks each) + two 4'x8' vertical
+decks. Gaps between rows and between vertical decks are FIELD VERIFY.
+All decks 4' x 8'. Verify all dimensions in field before fabrication.
+Scaffold poles (Doughty Tank Trap or similar) on weighted bases.
+(c) 2026 SYNRGY. Design intent only — not for construction.
 EOF
 
 # 5. Zip it.
