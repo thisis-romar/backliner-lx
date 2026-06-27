@@ -107,6 +107,7 @@ Outputs the full artifact set to `output/split/` — see [Output Files](#output-
 | `npm run split` | Full extraction pass on the master PNG → `output/split/` (see below) |
 | `npm run extract` | Full pipeline: render then split |
 | `npm run extract:hd` | Same pipeline at 300 DPI |
+| `npm run deliverables` | Build the curated client ZIP → `deliverables/tourist-mod-club-lx-floor-package.zip` |
 
 `npm run split` runs the full split-the-views v1.6.1 feature set in one pass:
 
@@ -123,6 +124,36 @@ Outputs the full artifact set to `output/split/` — see [Output Files](#output-
 | `--reconstruct-titleblock` | `*-view-0N-reconstructed.pdf/png` — full sheet with cut title block rebuilt |
 
 > **SVG note:** `--svg` raster-traces the split PNGs into resolution-independent SVGs grouped by color layer (`layer-linework`, `layer-dimensions`, `layer-accents`). Because the source is already a native SVG, these traced outputs are a secondary format for layer-separated downstream use — they are not a lossless round-trip. For editable geometry, work directly from `src/lx-floor-package.svg`.
+
+---
+
+## Client Deliverables
+
+`npm run deliverables` refreshes the artifacts and packages a single client-facing ZIP,
+committed at `deliverables/tourist-mod-club-lx-floor-package.zip`. Print-ready PDFs and PNG
+previews sit at the top; raw layers, title blocks, legends, and debug overlays go under
+`source/`:
+
+```
+tourist-mod-club-lx-floor-package/
+├── README.txt                       ← cover sheet (project, contents, equipment list)
+├── 01-drawings-pdf/                 ← print/review deliverables
+│   ├── 1-floor-plan.pdf
+│   ├── 2-front-elevation.pdf
+│   └── 3-equipment-schedule.pdf
+├── 02-drawings-png/                 ← screen previews (same three sheets)
+├── 03-master-sheet/                 ← lx-floor-package.png + editable .svg
+└── source/
+    ├── clean-drawings/              ← no header/footer/legend
+    ├── svg-layers/                  ← clean / linework / dimensions / accents SVGs
+    ├── title-blocks/                ← title-block column crops
+    ├── legends/                     ← symbol legend crops
+    └── debug/                       ← title-block boundary audit overlays
+```
+
+View names map the master sheet's three panels: view-01 → floor plan, view-02 → front
+elevation, view-03 → equipment schedule. The build script lives at
+`scripts/build-deliverables.sh`.
 
 ---
 

@@ -10,7 +10,8 @@
     "render": "node scripts/render.js",
     "split": "python3 scripts/split-the-views/scripts/split_the_views.py --input output/lx-floor-package.png --outdir output/split --png --expected 3 --extract-title-blocks --ocr-title-blocks --strip-header-footer --extract-legend --svg --svg-layers --debug-overlays --per-view-zips --reconstruct-titleblock",
     "extract": "npm run render && npm run split",
-    "extract:hd": "node scripts/render.js --dpi 300 && npm run split"
+    "extract:hd": "node scripts/render.js --dpi 300 && npm run split",
+    "deliverables": "bash scripts/build-deliverables.sh"
   },
   "dependencies": {
     "sharp": "^0.35.2"
